@@ -67,6 +67,14 @@ export const Page = defineDocumentType(() => ({
       type: 'string',
       required: true,
     },
+    summary: { 
+      type: 'string',
+      required: false,
+    },
+    template: {
+      type: 'string',
+      required: true,
+    }
   },
   computedFields,
 }));
