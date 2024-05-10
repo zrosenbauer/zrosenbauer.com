@@ -1,0 +1,14 @@
+dist/
+lib/
+node_modules/
+docs/
+*.md
+.github
+.husky
+.jest
+.react-email
+.vscode
+.yarn
+coverage
+dist
+docs
