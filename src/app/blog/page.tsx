@@ -1,40 +1,33 @@
 'use client';
 
-import Link from 'next/link';
 import React from 'react';
-import { Star } from 'lucide-react';
 import _ from 'lodash';
 
-import { allProjects } from '@content';
-import { useGitHubApi } from '@utils/github/client';
+import { allBlogPosts } from '@content';
 import { Navigation } from '@components/nav';
 import { Card } from '@components/card';
+
+import { BlogPostCard } from './project-card';
 
 export const revalidate = 60;
 
 export default function BlogPage() {
-  const featured = allProjects.find(
-    (project) => project.slug === 'fastify-prisma'
+  const featured = allBlogPosts.find(
+    (project) => project.slug === 'hello',
   )!;
-  const top2 = allProjects.find((project) => project.slug === "art")!;
-  const top3 = allProjects.find((project) => project.slug === "tempo")!;
-  const sorted = allProjects
+  // const top2 = allBlogPosts.find((project) => project.slug === "art")!;
+  // const top3 = allBlogPosts.find((project) => project.slug === "tempo")!;
+  const sorted = allBlogPosts
     .filter(
-      (project) => project.slug !== featured.slug &&
-      project.slug !== top2.slug &&
-      project.slug !== top3.slug,
+      (project) => project.slug !== featured.slug // &&
+      // project.slug !== top2.slug &&
+      // project.slug !== top3.slug,
     );
-
-  const [featuredOwner, featuredRepo] = featured.repository.split('/');
-  const featuredGhRepo = useGitHubApi('GET /repos/{owner}/{repo}', {
-    owner: featuredOwner,
-    repo: featuredRepo,
-  });
 
   return (
     <div className='relative pb-16'>
       <Navigation />
-      {/* <div className='px-6 pt-20 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32'>
+      <div className='px-6 pt-20 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32'>
         <div className='max-w-2xl mx-auto lg:mx-0'>
           <h2 className='text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl'>
             Projects
@@ -44,7 +37,7 @@ export default function BlogPage() {
           </p>
         </div>
         <div className='w-full h-px bg-zinc-800' />
-        <div className='grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2 '>
+        {/* <div className='grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2 '>
           <Card>
             <Link href={`/projects/${featured.slug}`}>
               <article className='relative w-full h-full p-4 md:p-8'>
@@ -92,38 +85,38 @@ export default function BlogPage() {
               </Card>
             ))}
           </div>
-        </div>
+        </div> */}
         <div className='hidden w-full h-px md:block bg-zinc-800' />
         <div className='grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3'>
           <div className='grid grid-cols-1 gap-4'>
             {sorted
               .filter((_, i) => i % 3 === 0)
-              .map((project) => (
-                <Card key={project.slug}>
-                  <ProjectCard project={project} />
+              .map((post) => (
+                <Card key={post.slug}>
+                  <BlogPostCard post={post} />
                 </Card>
               ))}
           </div>
           <div className='grid grid-cols-1 gap-4'>
             {sorted
               .filter((_, i) => i % 3 === 1)
-              .map((project) => (
+              .map((post) => (
                 <Card key={project.slug}>
-                  <ProjectCard project={project} />
+                  <BlogPostCard post={post} />
                 </Card>
               ))}
           </div>
           <div className='grid grid-cols-1 gap-4'>
             {sorted
               .filter((_, i) => i % 3 === 2)
-              .map((project) => (
-                <Card key={project.slug}>
-                  <ProjectCard project={project} />
+              .map((post) => (
+                <Card key={post.slug}>
+                  <BlogPostCard post={post} />
                 </Card>
               ))}
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }
