@@ -7,7 +7,7 @@ import { Card } from '@components/card';
 const socials = [
   {
     icon: <Linkedin size={20} />,
-    href: 'https://linkedin.com/in/zrosenbauer',
+    href: 'https://linkedin.com/in/zacrosenbauer',
     label: 'Linkedin',
     handle: 'zrosenbauer',
   },
