@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 
+import './mdx.css';
+
 function cn(...args: any) {
   return args.filter(Boolean).join(' ');
 }

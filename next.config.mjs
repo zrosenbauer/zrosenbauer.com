@@ -7,7 +7,7 @@ const nextConfig = {
    *
    * @see https://nextjs.org/docs/app/building-your-application/deploying/static-exports
    */
-  output: "export",
+  output: process.env.NODE_ENV === 'production' ? 'out' : undefined,
 
   /**
    * Disable server-based image optimization. Next.js does not support

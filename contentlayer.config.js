@@ -3,6 +3,7 @@ import remarkGfm from 'remark-gfm';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import _ from 'lodash';
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
 const computedFields = {
@@ -39,7 +40,7 @@ export const Project = defineDocumentType(() => ({
 
 export const BlogPost = defineDocumentType(() => ({
   name: 'BlogPost',
-  filePathPattern: './blog/posts/**/*.mdx',
+  filePathPattern: './blog/posts/*.mdx',
   contentType: 'mdx',
   fields: {
     title: {
@@ -54,8 +55,23 @@ export const BlogPost = defineDocumentType(() => ({
       type: 'date',
       required: true,
     },
+    image: {
+      type: 'string',
+      required: false,
+    }
   },
-  computedFields,
+  computedFields: {
+    ...computedFields,
+    slug: {
+      type: 'string',
+      resolve: (doc) => {
+        return _.chain(doc._raw.flattenedPath)
+          .split('/')
+          .last()
+          .value();
+      }
+    },
+  },
 }));
 
 export const Page = defineDocumentType(() => ({
@@ -67,7 +83,7 @@ export const Page = defineDocumentType(() => ({
       type: 'string',
       required: true,
     },
-    summary: { 
+    description: { 
       type: 'string',
       required: false,
     },

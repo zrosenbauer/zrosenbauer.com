@@ -4,11 +4,11 @@ import React from 'react';
 import { Starfield } from '@components/starfield';
 
 const navigation = [
-  { name: 'About', href: '/about' },
+  { name: 'about', href: '/about' },
   // { name: 'Consulting', href: '/consulting' },
   // { name: 'Projects', href: '/projects' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'blog', href: '/blog' },
+  { name: 'contact', href: '/contact' },
 ];
 
 export default function Home() {

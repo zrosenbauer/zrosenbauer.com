@@ -35,6 +35,12 @@
       "@utils/*": [
         "./src/utils/*"
       ],
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@types/*": [
+        "./src/types/*"
+      ],
       "@content": [
         "./.contentlayer/generated"
       ]
