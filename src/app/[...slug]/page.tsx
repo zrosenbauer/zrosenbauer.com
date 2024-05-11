@@ -31,9 +31,7 @@ export default async function Page({ params }: Props) {
   return (
     <div className='bg-zinc-50 min-h-screen'>
       <header className='relative isolate overflow-hidden bg-gradient-to-tl from-black via-zinc-900 to-black'>
-        <Navigation 
-          backLink='/blog'
-        />
+        <Navigation />
         <div className='container mx-auto relative isolate overflow-hidden py-24 sm:py-32'>
           <div className='mx-auto max-w-7xl px-6 lg:px-8 text-center flex flex-col items-center'>
             <div className='mx-auto max-w-2xl lg:mx-0'>
