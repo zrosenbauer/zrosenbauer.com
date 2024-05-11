@@ -1,8 +1,8 @@
 'use client';
 
+import { Github, Mail, Linkedin } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
-import { Github, Mail, Linkedin } from 'lucide-react';
 
 const socialLinks = [
   {
@@ -19,7 +19,7 @@ const socialLinks = [
   },
 ];
 
-export type NavigationProps = {};
+export interface NavigationProps {}
 
 export const Footer: React.FC = () => {
   return (

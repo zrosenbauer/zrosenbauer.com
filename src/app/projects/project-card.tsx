@@ -1,10 +1,9 @@
-import type { Project } from '@content';
-import Link from 'next/link';
-import { Star } from 'lucide-react';
-import _ from 'lodash';
-
-import { useGitHubApi } from '@utils/github/client';
 import { Mdx } from '@components/mdx';
+import type { Project } from '@content';
+import { useGitHubApi } from '@utils/github/client';
+import _ from 'lodash';
+import { Star } from 'lucide-react';
+import Link from 'next/link';
 
 export const ProjectCard: React.FC<{
   project: Project;

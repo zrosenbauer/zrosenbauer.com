@@ -49,7 +49,7 @@ export function Starfield(props: {
           return out;
         };
 
-        let stars = makeStars(starCount);
+        const stars = makeStars(starCount);
 
         const clear = () => {
           c.fillStyle = backgroundColor;
@@ -73,7 +73,7 @@ export function Starfield(props: {
 
         const moveStars = (distance: number) => {
           const count = stars.length;
-          for (var i = 0; i < count; i++) {
+          for (let i = 0; i < count; i++) {
             const s = stars[i];
             s.z -= distance;
             while (s.z <= 1) {
@@ -89,7 +89,7 @@ export function Starfield(props: {
         };
 
         const tick = (time: number) => {
-          let elapsed = time - prevTime;
+          const elapsed = time - prevTime;
           prevTime = time;
 
           moveStars(elapsed * speedFactor);
@@ -100,7 +100,7 @@ export function Starfield(props: {
           const cy = h / 2;
 
           const count = stars.length;
-          for (var i = 0; i < count; i++) {
+          for (let i = 0; i < count; i++) {
             const star = stars[i];
 
             const x = cx + star.x / (star.z * 0.001);

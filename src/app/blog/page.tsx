@@ -1,13 +1,12 @@
 'use client';
 
-import React from 'react';
-import _ from 'lodash';
-
-import { allBlogPosts } from '@content';
-import { Navigation } from '@components/nav';
-import { Card } from '@components/card';
-
 import { BlogPostCard } from '@components/blog/blog-post-card';
+import { Card } from '@components/card';
+import { Navigation } from '@components/nav';
+import { allBlogPosts } from '@content';
+import _ from 'lodash';
+import React from 'react';
+
 
 export const revalidate = 60;
 

@@ -1,18 +1,18 @@
-import { notFound } from 'next/navigation';
-import { allPages } from '@content';
-import { Navigation } from '@components/nav';
 import { Footer } from '@components/footer';
 import { Mdx } from '@components/mdx';
+import { Navigation } from '@components/nav';
+import { allPages } from '@content';
+import { notFound } from 'next/navigation';
 
 export const revalidate = 60;
 
-type Props = {
+interface Props {
   params: {
     slug: string[];
   };
-};
+}
 
-export async function generateStaticParams(): Promise<Props['params'][]> {
+export async function generateStaticParams(): Promise<Array<Props['params']>> {
   return allPages.map((p) => ({
     slug: p.slug.split('/'),
   }));

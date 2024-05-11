@@ -1,8 +1,8 @@
 'use client';
 
+import { useGitHubApi } from '@utils/github/client';
 import React from 'react';
 
-import { useGitHubApi } from '@utils/github/client';
 
 import { GitHubMarkdown } from './markdown';
 

@@ -1,21 +1,21 @@
-import { notFound } from 'next/navigation';
-import { allBlogPosts } from '@content';
+import { BlogPostAuthor } from '@components/blog/blog-author';
+import { Footer } from '@components/footer';
 import { Mdx } from '@components/mdx';
 import { Navigation } from '@components/nav';
-import { Footer } from '@components/footer';
-import { BlogPostAuthor } from '@components/blog/blog-author';
+import { allBlogPosts } from '@content';
+import { notFound } from 'next/navigation';
 
 import './page.css';
 
 export const revalidate = 60;
 
-type Props = {
+interface Props {
   params: {
     slug: string;
   };
-};
+}
 
-export async function generateStaticParams(): Promise<Props['params'][]> {
+export async function generateStaticParams(): Promise<Array<Props['params']>> {
   return allBlogPosts.map((p) => ({
     slug: p.slug,
   }));

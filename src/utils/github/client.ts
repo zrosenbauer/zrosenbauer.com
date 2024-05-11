@@ -1,6 +1,6 @@
-import { Endpoints } from '@octokit/types';
+import { type Endpoints } from '@octokit/types';
 import _ from 'lodash';
-import useSWR, { SWRResponse } from 'swr';
+import useSWR, { type SWRResponse } from 'swr';
 
 import type { Route, RouteResponseData } from './types';
 

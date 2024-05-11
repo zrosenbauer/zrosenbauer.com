@@ -1,8 +1,8 @@
 // @ts-nocheck
-import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMDXComponent } from 'next-contentlayer/hooks';
+import * as React from 'react';
 
 import './mdx.css';
 

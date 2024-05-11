@@ -1,7 +1,7 @@
+import { Starfield } from '@components/starfield';
 import Link from 'next/link';
 import React from 'react';
 
-import { Starfield } from '@components/starfield';
 
 const navigation = [
   { name: 'about', href: '/about' },

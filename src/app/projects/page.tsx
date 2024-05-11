@@ -1,19 +1,18 @@
 'use client';
 
-import Link from 'next/link';
-import React from 'react';
-import { Star } from 'lucide-react';
-import _ from 'lodash';
-
+import { Card } from '@components/card';
+import { Mdx } from '@components/mdx';
+import { Navigation } from '@components/nav';
 import { allProjects } from '@content';
 import { useGitHubApi } from '@utils/github/client';
-import { Navigation } from '@components/nav';
-import { Card } from '@components/card';
+import _ from 'lodash';
+import { Star } from 'lucide-react';
+import Link from 'next/link';
+import React from 'react';
 
 import { ProjectCard } from './project-card';
 
 import './page.css';
-import { Mdx } from '@components/mdx';
 
 export const revalidate = 60;
 
