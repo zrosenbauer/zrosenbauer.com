@@ -1,11 +1,10 @@
 'use client';
 
-import {  Mail, X } from 'lucide-react';
+import { Mail, X } from 'lucide-react';
 import Link from 'next/link';
 import { Navigation } from '@components/nav';
 import { Card } from '@components/card';
 import Image from 'next/image';
-
 
 const logos = [
   'fedex.png',
@@ -22,19 +21,22 @@ const logos = [
 const services = [
   {
     title: 'Fractional CTO',
-    description: 'Need a seasoned startup CTO to help you build your MVP, scale your team, and make sure you are on the right track? I can help.',
+    description:
+      'Need a seasoned startup CTO to help you build your MVP, scale your team, and make sure you are on the right track? I can help.',
     price: '$3,000/mo - $5,000/mo',
   },
   {
     title: 'DevOps for Startups',
-    description: 'Full end-to-end Dev(Sec)Ops setup for your startup. Includes CI/CD using GitHub Actions, automated release notes, ChatOps, security scans & more.',
+    description:
+      'Full end-to-end Dev(Sec)Ops setup for your startup. Includes CI/CD using GitHub Actions, automated release notes, ChatOps, security scans & more.',
     price: '$2,500 - $5,000 (one-time)',
   },
   {
     title: 'Custom Consulting',
-    description: 'Sometimes you just need some extra help with your node.js project, or you need a second opinion on your architecture. I can help with that.',
+    description:
+      'Sometimes you just need some extra help with your node.js project, or you need a second opinion on your architecture. I can help with that.',
     price: 'TBD, we can discuss',
-  }
+  },
 ];
 
 export default function ConsultingPage() {
@@ -57,15 +59,17 @@ export default function ConsultingPage() {
               Who I've Worked With
             </h3>
             <p className='mt-4 text-lg text-center text-zinc-400'>
-              I've worked for and worked with some of the largest companies in the world, including top financial institutions, luxury retailers, and more. 
+              I've worked for and worked with some of the largest companies in
+              the world, including top financial institutions, luxury retailers,
+              and more.
             </p>
             <div className='grid w-full grid-cols-2 sm:grid-cols-6 gap-1 mx-auto mt-32 sm:mt-0  lg:gap-2'>
               {logos.map((logo, index) => (
-                <Image 
-                  src={`/img/logos/${logo}`} 
-                  alt={`${logo.split('.')[0]} logo`} 
-                  width={200} 
-                  height={200} 
+                <Image
+                  src={`/img/logos/${logo}`}
+                  alt={`${logo.split('.')[0]} logo`}
+                  width={200}
+                  height={200}
                   key={logo}
                   className='rounded-lg'
                 />
@@ -94,8 +98,7 @@ export default function ConsultingPage() {
             ))}
           </div>
           <Link href='/contact'>
-            <Mail className='w-6 h-6 mr-2' />{' '}
-            Contact Me
+            <Mail className='w-6 h-6 mr-2' /> Contact Me
           </Link>
         </div>
       </div>

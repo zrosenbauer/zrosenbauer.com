@@ -13,7 +13,8 @@ export const metadata: Metadata = {
   description: 'Co-founder of Joggr, coffee-fueled Node.js developer.',
   openGraph: {
     title: 'zrosenbauer.com',
-    description: 'Co-founder of Joggr, coffee-fueled Node.js developer, and DevOps know-it-all',
+    description:
+      'Co-founder of Joggr, coffee-fueled Node.js developer, and DevOps know-it-all',
     url: 'https://zrosenbauer.com',
     siteName: 'zrosenbauer.com',
     images: [

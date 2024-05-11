@@ -2,7 +2,9 @@ import _ from 'lodash';
 
 import type { Route, RouteParams, RouteResponseData } from './types';
 
-export async function request<R extends Route>(args: [R, RouteParams<R>]): Promise<RouteResponseData<R>> {
+export async function request<R extends Route>(
+  args: [R, RouteParams<R>]
+): Promise<RouteResponseData<R>> {
   const [route, params] = args;
   const [method, path] = route.split(' ');
   let url = `https://api.github.com${path}`;
@@ -20,5 +22,5 @@ export async function request<R extends Route>(args: [R, RouteParams<R>]): Promi
     method,
     body: _.isEmpty(body) ? undefined : JSON.stringify(params),
   });
-  return await response.json() as Awaited<RouteResponseData<R>>;
+  return (await response.json()) as Awaited<RouteResponseData<R>>;
 }

@@ -17,12 +17,12 @@ export default function BlogPage() {
   // )!;
   // const top2 = allBlogPosts.find((project) => project.slug === "art")!;
   // const top3 = allBlogPosts.find((project) => project.slug === "tempo")!;
-  const sorted = allBlogPosts
-    // .filter(
-    //   (project) => project.slug !== featured.slug &&
-    //   project.slug !== top2.slug &&
-    //   project.slug !== top3.slug,
-    // );
+  const sorted = allBlogPosts;
+  // .filter(
+  //   (project) => project.slug !== featured.slug &&
+  //   project.slug !== top2.slug &&
+  //   project.slug !== top3.slug,
+  // );
 
   return (
     <div className='relative pb-16'>
@@ -30,10 +30,11 @@ export default function BlogPage() {
       <div className='px-6 pt-20 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32'>
         <div className='max-w-2xl mx-auto text-center'>
           <h1 className='text-4xl font-bold tracking-tight text-zinc-100 sm:text-6xl'>
-            blog 
+            blog
           </h1>
           <p className='mt-6 text-lg leading-8 text-zinc-300'>
-            Tutorials, gotchas, and other topics in the DevOps, Node.js, and React world.
+            Tutorials, gotchas, and other topics in the DevOps, Node.js, and
+            React world.
           </p>
         </div>
         {/* <div className='w-full h-px bg-zinc-800' /> */}

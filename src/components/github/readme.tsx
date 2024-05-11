@@ -19,7 +19,5 @@ export const GitHubReadme: React.FC<{
     return null;
   }
 
-  return (
-    <GitHubMarkdown content={atob(data.content)} /> 
-  );
-}
+  return <GitHubMarkdown content={atob(data.content)} />;
+};

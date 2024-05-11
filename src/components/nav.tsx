@@ -26,10 +26,7 @@ const links = [
 export const Navigation: React.FC<{
   backLink?: string;
   className?: string;
-}> = ({
-  className = '',
-  backLink = '/'
-}) => {
+}> = ({ className = '', backLink = '/' }) => {
   return (
     <nav
       className={`${className} absolute inset-x-0 top-0 z-50`}

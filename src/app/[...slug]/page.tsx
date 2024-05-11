@@ -13,16 +13,13 @@ type Props = {
 };
 
 export async function generateStaticParams(): Promise<Props['params'][]> {
-  return allPages
-    .map((p) => ({
-      slug: p.slug.split('/'),
-    }));
+  return allPages.map((p) => ({
+    slug: p.slug.split('/'),
+  }));
 }
 
 export default async function Page({ params }: Props) {
-  const page = allPages.find(
-    (page) => page.slug === params.slug.join('/')
-  );
+  const page = allPages.find((page) => page.slug === params.slug.join('/'));
 
   if (!page) {
     notFound();
@@ -48,7 +45,7 @@ export default async function Page({ params }: Props) {
         </div>
       </header>
       <article className='px-4 py-12 mx-auto prose prose-zinc prose-quoteless'>
-        <Mdx code={page.body.code} />     
+        <Mdx code={page.body.code} />
       </article>
       <Footer />
     </div>

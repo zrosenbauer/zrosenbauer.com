@@ -21,14 +21,14 @@ export default function ProjectsPage() {
   const featured = allProjects.find(
     (project) => project.slug === 'fastify-prisma'
   )!;
-  const top2 = allProjects.find((project) => project.slug === "unicorn")!;
-  const top3 = allProjects.find((project) => project.slug === "tempo")!;
-  const sorted = allProjects
-    .filter(
-      (project) => project.slug !== featured.slug &&
+  const top2 = allProjects.find((project) => project.slug === 'unicorn')!;
+  const top3 = allProjects.find((project) => project.slug === 'tempo')!;
+  const sorted = allProjects.filter(
+    (project) =>
+      project.slug !== featured.slug &&
       project.slug !== top2.slug &&
-      project.slug !== top3.slug,
-    );
+      project.slug !== top3.slug
+  );
 
   const [featuredOwner, featuredRepo] = featured.repository.split('/');
   const featuredGhRepo = useGitHubApi('GET /repos/{owner}/{repo}', {
@@ -42,16 +42,21 @@ export default function ProjectsPage() {
       <div className='px-6 pt-20 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32'>
         <div className='max-w-2xl mx-auto text-center'>
           <h1 className='text-4xl font-bold tracking-tight text-zinc-100 sm:text-6xl'>
-            projects 
+            projects
           </h1>
           <p className='mt-6 text-lg leading-8 text-zinc-300'>
-            My work ranging from open-source, work-related, to personal projects.
+            My work ranging from open-source, work-related, to personal
+            projects.
           </p>
         </div>
         <div className='w-full h-px bg-zinc-800' />
         <div className='grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2 '>
           <Card>
-            <Link href={`https://github.com/${featured.repository}`}>
+            <Link
+              href={`https://github.com/${featured.repository}`}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
               <article className='relative w-full h-full p-4 md:p-8'>
                 <div className='flex items-center justify-between gap-2'>
                   {!_.isNil(featuredGhRepo.data) && (
@@ -80,10 +85,10 @@ export default function ProjectsPage() {
               </article>
             </Link>
           </Card>
-          <div className="flex flex-col w-full gap-8 mx-auto border-t border-gray-900/10 lg:mx-0 lg:border-t-0 ">
+          <div className='flex flex-col w-full gap-8 mx-auto border-t border-gray-900/10 lg:mx-0 lg:border-t-0 '>
             {[top2, top3].map((project) => (
               <Card key={project.slug}>
-                <ProjectCard project={project}  />
+                <ProjectCard project={project} />
               </Card>
             ))}
           </div>

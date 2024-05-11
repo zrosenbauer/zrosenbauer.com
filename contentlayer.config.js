@@ -32,7 +32,7 @@ export const Project = defineDocumentType(() => ({
     },
     deprecated: {
       type: 'boolean',
-      required: true
+      required: true,
     },
   },
   computedFields,
@@ -66,18 +66,15 @@ export const BlogPost = defineDocumentType(() => ({
     image: {
       type: 'string',
       required: false,
-    }
+    },
   },
   computedFields: {
     ...computedFields,
     slug: {
       type: 'string',
       resolve: (doc) => {
-        return _.chain(doc._raw.flattenedPath)
-          .split('/')
-          .last()
-          .value();
-      }
+        return _.chain(doc._raw.flattenedPath).split('/').last().value();
+      },
     },
   },
 }));
@@ -91,14 +88,14 @@ export const Page = defineDocumentType(() => ({
       type: 'string',
       required: true,
     },
-    description: { 
+    description: {
       type: 'string',
       required: false,
     },
     template: {
       type: 'string',
       required: true,
-    }
+    },
   },
   computedFields,
 }));

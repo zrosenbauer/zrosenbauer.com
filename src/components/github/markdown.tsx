@@ -8,13 +8,13 @@ export const GitHubMarkdown: React.FC<{
   content: string;
 }> = ({ content }) => {
   return (
-    <ReactMarkdown 
+    <ReactMarkdown
       className='markdown-body'
       // @ts-expect-error = we are locked into to v3
-      remarkPlugins={[remarkGfm]} 
+      remarkPlugins={[remarkGfm]}
       skipHtml
     >
       {content}
-    </ReactMarkdown> 
+    </ReactMarkdown>
   );
-}
+};

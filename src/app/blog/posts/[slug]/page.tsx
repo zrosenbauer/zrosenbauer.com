@@ -16,16 +16,15 @@ type Props = {
 };
 
 export async function generateStaticParams(): Promise<Props['params'][]> {
-  return allBlogPosts
-    .map((p) => ({
-      slug: p.slug,
-    }));
+  return allBlogPosts.map((p) => ({
+    slug: p.slug,
+  }));
 }
 
 export default async function PostPage({ params }: Props) {
   const slug = params?.slug;
   const post = allBlogPosts.find((blogPost) => blogPost.slug === slug);
-  
+
   if (!post) {
     notFound();
   }
@@ -42,14 +41,12 @@ export default async function PostPage({ params }: Props) {
             <h1 className='text-4xl mb-2 font-bold tracking-tight sm:text-6xl font-display'>
               {post.title}
             </h1>
-            <p className='mb-4 text-lg leading-8'>
-              {post.description}
-            </p>
-            <img 
+            <p className='mb-4 text-lg leading-8'>{post.description}</p>
+            <img
               src={post.image}
               className='w-full mb-7'
             />
-            <BlogPostAuthor 
+            <BlogPostAuthor
               post={post}
               className='mb-2'
             />
