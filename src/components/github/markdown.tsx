@@ -10,6 +10,7 @@ export const GitHubMarkdown: React.FC<{
   return (
     <ReactMarkdown 
       className='markdown-body'
+      // @ts-expect-error = we are locked into to v3
       remarkPlugins={[remarkGfm]} 
       skipHtml
     >
