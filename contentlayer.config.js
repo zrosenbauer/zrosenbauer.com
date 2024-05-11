@@ -51,6 +51,14 @@ export const BlogPost = defineDocumentType(() => ({
       type: 'string',
       required: true,
     },
+    authorGithubUsername: {
+      type: 'string',
+      required: true,
+    },
+    readTime: {
+      type: 'number',
+      required: true,
+    },
     publishedAt: {
       type: 'date',
       required: true,
