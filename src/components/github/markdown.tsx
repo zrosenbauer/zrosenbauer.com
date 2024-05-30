@@ -11,6 +11,7 @@ export const GitHubMarkdown: React.FC<{
   return (
     <ReactMarkdown
       className='markdown-body'
+        // @ts-expect-error - `remarkPlugins` is not in the types properly
       remarkPlugins={[remarkAlert, remarkGfm]}
       skipHtml
     >
