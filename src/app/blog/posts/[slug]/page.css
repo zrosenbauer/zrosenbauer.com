@@ -1,3 +1,7 @@
 .blog-post-page {
-  max-width: 65ch;
+  max-width: 75ch;
+}
+
+.prose {
+  max-width: 75ch !important;
 }

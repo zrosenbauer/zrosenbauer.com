@@ -19,6 +19,12 @@ const nextConfig = {
     unoptimized: true,
   },
 
+  /**
+   * Transpile the `lucide-react` package to support static exports.
+   * 
+   * @see https://lucide.dev/guide/packages/lucide-react#nextjs-example
+   */
+  transpilePackages: ['lucide-react'],
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   experimental: {
     mdxRs: true,

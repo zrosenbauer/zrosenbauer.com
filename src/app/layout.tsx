@@ -4,6 +4,7 @@ import { type Metadata } from 'next';
 
 import { Analytics } from '../components/analytics';
 
+import 'remark-github-blockquote-alert/alert.css';
 import '../global.css';
 
 export const metadata: Metadata = {

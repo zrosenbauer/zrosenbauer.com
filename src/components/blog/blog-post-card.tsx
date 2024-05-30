@@ -1,12 +1,22 @@
+import { Chip } from '@components/ui/chip';
+import { Icon } from '@components/ui/icon';
 import type { BlogPost } from '@content';
+import { getBlogTagBySlug } from '@utils/blog/tags';
 import Link from 'next/link';
+import React from 'react';
 
 export const BlogPostCard: React.FC<{
   post: BlogPost;
 }> = ({ post }) => {
+  const tags = Array.isArray(post.tags) ? post.tags.map((tagSlug) => {
+    return getBlogTagBySlug(tagSlug);
+  }) : [];
+
   return (
     <Link href={`/blog/posts/${post.slug}`}>
-      <article className='p-4 md:p-8'>
+      <article 
+        className='px-4 pt-4 pb-24'
+      >
         <img
           src={post.image}
           alt={post.title}
@@ -20,6 +30,22 @@ export const BlogPostCard: React.FC<{
         <p className='z-20 mt-4 text-sm  duration-1000 text-zinc-400 group-hover:text-zinc-200'>
           {post.description}
         </p>
+        {tags.length > 0 && (
+          <div className='absolute bottom-4 right-4 left-4'>
+            <hr className='my-4' />
+            <div
+              className='flex gap-2'
+            >
+              {tags.map((tag) => (
+                <Chip
+                  key={tag.slug} 
+                  label={tag.name}
+                  icon={<Icon name={tag.icon} />}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </article>
     </Link>
   );

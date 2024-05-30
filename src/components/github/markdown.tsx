@@ -3,6 +3,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { remarkAlert } from 'remark-github-blockquote-alert';
 
 export const GitHubMarkdown: React.FC<{
   content: string;
@@ -10,8 +11,7 @@ export const GitHubMarkdown: React.FC<{
   return (
     <ReactMarkdown
       className='markdown-body'
-      // @ts-expect-error = we are locked into to v3
-      remarkPlugins={[remarkGfm]}
+      remarkPlugins={[remarkAlert, remarkGfm]}
       skipHtml
     >
       {content}

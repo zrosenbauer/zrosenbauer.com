@@ -1139,6 +1139,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tabler/icons-react@npm:^3.5.0":
+  version: 3.5.0
+  resolution: "@tabler/icons-react@npm:3.5.0"
+  dependencies:
+    "@tabler/icons": "npm:3.5.0"
+  peerDependencies:
+    react: ">= 16"
+  checksum: 10/46e483f6dc9c0f872f83caf8ee3a8d76f70961360fd720bea2e376491c2c10eb2a65d22f929c060d93b8b9bf121ee564bba5d45bea726a41ab4cb01c26a97b77
+  languageName: node
+  linkType: hard
+
+"@tabler/icons@npm:3.5.0":
+  version: 3.5.0
+  resolution: "@tabler/icons@npm:3.5.0"
+  checksum: 10/8afbe35ba48133381dbdf4ec5b039d649acad288643dac5c4831d1a7d228082ab9632dbb2566d244e9f1e38d39bd159ff02726b88a0860b9a21d1feda7d4cac5
+  languageName: node
+  linkType: hard
+
 "@tailwindcss/line-clamp@npm:^0.4.4":
   version: 0.4.4
   resolution: "@tailwindcss/line-clamp@npm:0.4.4"
@@ -2127,6 +2145,13 @@ __metadata:
   version: 2.0.0
   resolution: "chownr@npm:2.0.0"
   checksum: 10/c57cf9dd0791e2f18a5ee9c1a299ae6e801ff58fee96dc8bfd0dcb4738a6ce58dd252a3605b1c93c6418fe4f9d5093b28ffbf4d66648cb2a9c67eaef9679be2f
+  languageName: node
+  linkType: hard
+
+"classnames@npm:^2.5.1":
+  version: 2.5.1
+  resolution: "classnames@npm:2.5.1"
+  checksum: 10/58eb394e8817021b153bb6e7d782cfb667e4ab390cb2e9dac2fc7c6b979d1cc2b2a733093955fc5c94aa79ef5c8c89f11ab77780894509be6afbb91dddd79d15
   languageName: node
   linkType: hard
 
@@ -6735,9 +6760,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rehype-pretty-code@npm:^0.13.1":
-  version: 0.13.1
-  resolution: "rehype-pretty-code@npm:0.13.1"
+"rehype-pretty-code@npm:^0.13.2":
+  version: 0.13.2
+  resolution: "rehype-pretty-code@npm:0.13.2"
   dependencies:
     "@types/hast": "npm:^3.0.4"
     hast-util-to-string: "npm:^3.0.0"
@@ -6746,8 +6771,8 @@ __metadata:
     unified: "npm:^11.0.4"
     unist-util-visit: "npm:^5.0.0"
   peerDependencies:
-    shiki: ^1.0.0
-  checksum: 10/9a07006066c3848ddce85f523ece3f3f40169159a7542f2f1830aec95424003cef85939060f8a287d25b07c02c7b14623e1123221e4b7a3a32d5c323e7a55ba5
+    shiki: ^1.3.0
+  checksum: 10/46526ca83d7ecce20bda55d316ffa59c2e686f67e2202cafaff7a7b3f7ee6ff7c5ff097c26e34051693f6cdddcfd3f487d309dd2dece3d644651057dcbc11a3d
   languageName: node
   linkType: hard
 
@@ -6787,7 +6812,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-gfm@npm:3.0.1":
+"remark-gfm@npm:^3.0.1":
   version: 3.0.1
   resolution: "remark-gfm@npm:3.0.1"
   dependencies:
@@ -6796,6 +6821,15 @@ __metadata:
     micromark-extension-gfm: "npm:^2.0.0"
     unified: "npm:^10.0.0"
   checksum: 10/8ec301f5fb1f52c548b5a6d7ca6a3422d55db73cd703f147c979d16dca003f065181f55404d6f3f49d33f1faca3fe56ae731ed7fe0acc00cd945a8e605f155f2
+  languageName: node
+  linkType: hard
+
+"remark-github-blockquote-alert@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "remark-github-blockquote-alert@npm:1.2.1"
+  dependencies:
+    unist-util-visit: "npm:^5.0.0"
+  checksum: 10/0163f7faa3d78e9452eb3733e6c35571c5de1dd1587f3d64fae43dc809775bdb816e660ad6d3dc8e58ff0a50eb08296f889bc3da8f51dba9abf7bcfd6ebec73b
   languageName: node
   linkType: hard
 
@@ -8269,6 +8303,7 @@ __metadata:
     "@octokit/types": "npm:^13.5.0"
     "@opentelemetry/api": "npm:1.8.0"
     "@react-hookz/web": "npm:^24.0.4"
+    "@tabler/icons-react": "npm:^3.5.0"
     "@tailwindcss/line-clamp": "npm:^0.4.4"
     "@tailwindcss/typography": "npm:^0.5.13"
     "@types/eslint": "npm:^8.56.10"
@@ -8279,6 +8314,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.8.0"
     "@typescript-eslint/parser": "npm:^7.8.0"
     autoprefixer: "npm:^10.4.19"
+    classnames: "npm:^2.5.1"
     contentlayer: "npm:^0.3.4"
     eslint: "npm:^9.2.0"
     eslint-config-prettier: "npm:^9.1.0"
@@ -8308,9 +8344,10 @@ __metadata:
     react-markdown: "npm:^9.0.1"
     react-wrap-balancer: "npm:^1.1.0"
     rehype-autolink-headings: "npm:^7.1.0"
-    rehype-pretty-code: "npm:^0.13.1"
+    rehype-pretty-code: "npm:^0.13.2"
     rehype-slug: "npm:^6.0.0"
-    remark-gfm: "npm:3.0.1"
+    remark-gfm: "npm:^3.0.1"
+    remark-github-blockquote-alert: "npm:^1.2.1"
     shiki: "npm:^1.5.1"
     swr: "npm:^2.2.5"
     tailwindcss: "npm:^3.4.3"
