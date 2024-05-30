@@ -1,0 +1,137 @@
+---
+title: 'Scoping react-dnd'
+description: 'We added react-dnd to our application and it broke drag-n-drop everywhere else (except for the implementation of react-dnd)... this is how you fix it.'
+image: '/img/blog/posts/react-dnd-scoping/main.png'
+authorGithubUsername: 'zrosenbauer'
+readTime: 3
+publishedAt: '2024-06-03'
+tags:
+  - react
+  - gotchas
+---
+
+At [Joggr](https://joggr.io) we use [react-dnd](https://react-dnd.github.io/react-dnd/) for drag-n-drop functionality. It's a great library, but it has one major downside... it breaks drag-n-drop everywhere else on the page.
+
+TL:DR? If you want to skip the story and just see the fix, [click here](#-the-fix).
+
+## 📝 the background
+
+If you haven't heard of Joggr (I'm the CTO & Co-Founder), we are a documentation platform built for developers, that is directly in your IDE & automatically keeps documentation up-to-date every time your code changes.
+
+We use [TipTap](https://tiptap.dev/) which is built on top of [ProseMirror](https://prosemirror.net/) for our custom-built editor. TipTap/ProseMirror has a great drag-n-drop API that we use to drag blocks around in our editor 
+and it was one the first features we added when we launched to our design partners last year.
+
+We recently added the ability to create folders and organize your JoggrDocs, including the ability to drag and drop JoggrDocs and folders around in the sidebar (see below).
+
+![JoggrDocs Sidebar](/img/blog/posts/react-dnd-scoping/joggr-dnd.gif)
+
+We didn't know it at the time but releasing this new feature was the beginning of our drag-n-drop problems.
+
+## 🐛 the bug
+
+A user logged a bug:
+
+> I can't drag-n-drop code in the editor anymore. Is this a bug or is this a feature I need to request?
+
+We already had drag-n-drop functionality in our editor so we were confused as we had made 0 changes to the editor in the last week or two.
+
+I figured it was due to the fact I had handwritten the drag-n-drop functionality in our editor and it was a bug in my code. I personally spent hours trying to re-implement the drag-n-drop functionality using 
+the great [templates provided by TipTap](https://templates.tiptap.dev/) to no avail.
+
+I was stumped, I couldn't figure out why the drag-n-drop functionality in our editor was broken.
+
+I abandoned the fix and moved on to higher priority tasks, as this was _only 1 user_ reporting the issue (for now...).
+
+## 🔎 the hunt
+
+After another 2-3 users reported the same issue, I knew it was time to dig in and figure out what was going on. I assigned the task to our new engineer, [Borisa](https://github.com/borisa99), to figure out what was going on.
+
+He banged his head against the wall trying to implement the drag-n-drop functionality in our editor using the TipTap templates, just like I did. He was also stumped.
+
+He started digging in and searching things like:
+
+> ProseMirror drag-n-drop not working
+
+or 
+
+> TipTap drag-n-drop not working
+
+or 
+
+> drag-n-drop broken
+
+or the winner
+
+> react dnd not working
+
+## 🤯 the discovery
+
+Luckily Borisa, figured out that `react-dnd` was the culprit through some clever search queries (using `dnd` was the key).
+
+Borisa found an [GitHub issue](https://github.com/ueberdosis/tiptap/issues/4844) on the TipTap repository that was similar to our issue and 
+pointed to a [source issue on the `react-dnd` repository](https://github.com/react-dnd/react-dnd-html5-backend/issues/7#issuecomment-262267786).
+
+> [!TIP]  
+> Search the GitHub repository issues in your OSS if Google is coming up short.
+
+`react-dnd` was overriding the drag-n-drop APIs in the browser and in turn breaking drag-n-drop everywhere else on the page. 
+We realized that this is not only impacting dragging blocks in our editor, but also dragging files into our image uploader.
+
+## 🔧 the fix
+
+After digging into the issues we found that the fix was simple, we just needed to scope `react-dnd` to a specific area of the page. This is how we did it.
+
+We already had our `DndProvider` in a scoped section of our app but we didn't properly scope the `DndProvider`:
+
+```tsx
+export const DirectoryTreeView: React.FC<DirectoryTreeViewProps> = (props) => {
+  return (
+    <DndProvider
+      backend={HTML5Backend}
+    >
+      <DirectoryTreeViewInner {...props} />
+    </DndProvider>
+  );
+};
+```
+
+The fix was super simple, we just needed to wrap our `DndProvider` in a simple HTMLElement that we could scope to using refs:
+
+```tsx
+/**
+ * Provider with custom options (scoped root element) for the DndProvider.
+ */
+export const DirectoryTreeView: React.FC<DirectoryTreeViewProps> = (props) => {
+  const [dndArea, setDndArea] = React.useState<HTMLSpanElement | null>(null);
+
+  const handleSidebarRef: React.RefCallback<HTMLSpanElement> =
+    React.useCallback((node) => {
+      setDndArea(node);
+    }, []);
+  
+  const html5Options = React.useMemo(
+    () => ({ rootElement: dndArea }),
+    [dndArea]
+  );
+  
+  return (
+    <span ref={handleSidebarRef}>
+      {!_.isNil(dndArea) && (
+        <DndProvider
+          debugMode
+          backend={HTML5Backend}
+          options={html5Options}
+        >
+          <DirectoryTreeViewInner {...props} />
+        </DndProvider>
+      )}
+    </span>
+  );
+};
+```
+
+This fixed our issue and we were able to drag-n-drop blocks in our editor and files into our image uploader again.
+
+## 🎉 the conclusion
+
+I (& Borisa) hope this helps you if you are running into the same issue. If you have any questions feel free to reach out to me on [X](https://twitter.com/zrosenbauer) or [me@zrosenbauer.com](mailto:me@zrosenbauer.com).

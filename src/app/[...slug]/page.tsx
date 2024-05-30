@@ -44,7 +44,7 @@ export default async function Page({ params }: Props) {
           </div>
         </div>
       </header>
-      <article className='px-4 py-12 mx-auto prose prose-zinc prose-quoteless'>
+      <article className='px-4 pb-12 mx-auto prose prose-zinc prose-quoteless'>
         <Mdx code={page.body.code} />
       </article>
       <Footer />
