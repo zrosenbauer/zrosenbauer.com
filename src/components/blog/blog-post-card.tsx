@@ -8,15 +8,16 @@ import React from 'react';
 export const BlogPostCard: React.FC<{
   post: BlogPost;
 }> = ({ post }) => {
-  const tags = Array.isArray(post.tags) ? post.tags.map((tagSlug) => {
-    return getBlogTagBySlug(tagSlug);
-  }) : [];
+  const tags =
+    Array.isArray(post.tags) ?
+      post.tags.map((tagSlug) => {
+        return getBlogTagBySlug(tagSlug);
+      })
+    : [];
 
   return (
     <Link href={`/blog/posts/${post.slug}`}>
-      <article 
-        className='px-4 pt-4 pb-24'
-      >
+      <article className='px-4 pt-4 pb-24'>
         <img
           src={post.image}
           alt={post.title}
@@ -33,12 +34,10 @@ export const BlogPostCard: React.FC<{
         {tags.length > 0 && (
           <div className='absolute bottom-4 right-4 left-4'>
             <hr className='my-4' />
-            <div
-              className='flex gap-2'
-            >
+            <div className='flex gap-2'>
               {tags.map((tag) => (
                 <Chip
-                  key={tag.slug} 
+                  key={tag.slug}
                   label={tag.name}
                   icon={<Icon name={tag.icon} />}
                 />

@@ -18,7 +18,7 @@ TL:DR? If you want to skip the story and just see the fix, [click here](#-the-fi
 
 If you haven't heard of Joggr (I'm the CTO & Co-Founder), we are a documentation platform built for developers, that is directly in your IDE & automatically keeps documentation up-to-date every time your code changes.
 
-We use [TipTap](https://tiptap.dev/) which is built on top of [ProseMirror](https://prosemirror.net/) for our custom-built editor. TipTap/ProseMirror has a great drag-n-drop API that we use to drag blocks around in our editor 
+We use [TipTap](https://tiptap.dev/) which is built on top of [ProseMirror](https://prosemirror.net/) for our custom-built editor. TipTap/ProseMirror has a great drag-n-drop API that we use to drag blocks around in our editor
 and it was one the first features we added when we launched to our design partners last year.
 
 We recently added the ability to create folders and organize your JoggrDocs, including the ability to drag and drop JoggrDocs and folders around in the sidebar (see below).
@@ -35,7 +35,7 @@ A user logged a bug:
 
 We already had drag-n-drop functionality in our editor so we were confused as we had made 0 changes to the editor in the last week or two.
 
-I figured it was due to the fact I had handwritten the drag-n-drop functionality in our editor and it was a bug in my code. I personally spent hours trying to re-implement the drag-n-drop functionality using 
+I figured it was due to the fact I had handwritten the drag-n-drop functionality in our editor and it was a bug in my code. I personally spent hours trying to re-implement the drag-n-drop functionality using
 the great [templates provided by TipTap](https://templates.tiptap.dev/) to no avail.
 
 I was stumped, I couldn't figure out why the drag-n-drop functionality in our editor was broken.
@@ -52,11 +52,11 @@ He started digging in and searching things like:
 
 > ProseMirror drag-n-drop not working
 
-or 
+or
 
 > TipTap drag-n-drop not working
 
-or 
+or
 
 > drag-n-drop broken
 
@@ -68,13 +68,13 @@ or the winner
 
 Luckily Borisa, figured out that `react-dnd` was the culprit through some clever search queries (using `dnd` was the key).
 
-Borisa found an [GitHub issue](https://github.com/ueberdosis/tiptap/issues/4844) on the TipTap repository that was similar to our issue and 
+Borisa found an [GitHub issue](https://github.com/ueberdosis/tiptap/issues/4844) on the TipTap repository that was similar to our issue and
 pointed to a [source issue on the `react-dnd` repository](https://github.com/react-dnd/react-dnd-html5-backend/issues/7#issuecomment-262267786).
 
 > [!TIP]  
 > Search the GitHub repository issues in your OSS if Google is coming up short.
 
-`react-dnd` was overriding the drag-n-drop APIs in the browser and in turn breaking drag-n-drop everywhere else on the page. 
+`react-dnd` was overriding the drag-n-drop APIs in the browser and in turn breaking drag-n-drop everywhere else on the page.
 We realized that this is not only impacting dragging blocks in our editor, but also dragging files into our image uploader.
 
 ## 🔧 the fix
@@ -86,9 +86,7 @@ We already had our `DndProvider` in a scoped section of our app but we didn't pr
 ```tsx
 export const DirectoryTreeView: React.FC<DirectoryTreeViewProps> = (props) => {
   return (
-    <DndProvider
-      backend={HTML5Backend}
-    >
+    <DndProvider backend={HTML5Backend}>
       <DirectoryTreeViewInner {...props} />
     </DndProvider>
   );
@@ -108,12 +106,12 @@ export const DirectoryTreeView: React.FC<DirectoryTreeViewProps> = (props) => {
     React.useCallback((node) => {
       setDndArea(node);
     }, []);
-  
+
   const html5Options = React.useMemo(
     () => ({ rootElement: dndArea }),
     [dndArea]
   );
-  
+
   return (
     <span ref={handleSidebarRef}>
       {!_.isNil(dndArea) && (

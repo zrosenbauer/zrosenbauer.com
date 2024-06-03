@@ -21,7 +21,16 @@ const config = {
     '@typescript-eslint/no-unnecessary-type-assertion': 'warn',
     '@typescript-eslint/return-await': 'warn',
   },
-  ignorePatterns: ['node_modules', 'dist', 'public','next.config.mjs', 'contentlayer.config.ts', 'eslint.config.js', 'tailwind.config.js', 'postcss.config.js'],
+  ignorePatterns: [
+    'node_modules',
+    'dist',
+    'public',
+    'next.config.mjs',
+    'contentlayer.config.ts',
+    'eslint.config.js',
+    'tailwind.config.js',
+    'postcss.config.js',
+  ],
 };
 
 const compat = new FlatCompat({
