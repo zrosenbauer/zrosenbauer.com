@@ -1,4 +1,4 @@
-import { Mdx } from '@components/mdx';
+import { Mdx } from '@components/md/mdx';
 import type { Project } from '@content';
 import { useGitHubApi } from '@utils/github/client';
 import _ from 'lodash';

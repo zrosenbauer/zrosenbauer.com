@@ -1,6 +1,6 @@
 import { BlogPostAuthor } from '@components/blog/blog-author';
 import { Footer } from '@components/footer';
-import { Mdx } from '@components/mdx';
+import { Mdx } from '@components/md/mdx';
 import { Navigation } from '@components/nav';
 import { allBlogPosts } from '@content';
 import { notFound } from 'next/navigation';

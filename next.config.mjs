@@ -25,7 +25,15 @@ const nextConfig = {
    * @see https://lucide.dev/guide/packages/lucide-react#nextjs-example
    */
   transpilePackages: ['lucide-react'],
+
+  /**
+   * @see https://nextjs.org/docs/pages/api-reference/next-config-js/pageExtensions
+   */
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  
+  /**
+   * @see https://nextjs.org/docs/app/api-reference/next-config-js/mdxRs
+   */
   experimental: {
     mdxRs: true,
   },
