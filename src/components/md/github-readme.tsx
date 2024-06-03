@@ -3,7 +3,6 @@
 import { useGitHubApi } from '@utils/github/client';
 import React from 'react';
 
-
 import { GitHubMarkdown } from './github-markdown';
 
 export const GitHubReadme: React.FC<{

@@ -1,6 +1,10 @@
 'use client';
 
-import { IconBrandGithub, IconMail, IconBrandLinkedin } from '@tabler/icons-react';
+import {
+  IconBrandGithub,
+  IconMail,
+  IconBrandLinkedin,
+} from '@tabler/icons-react';
 import Link from 'next/link';
 import React from 'react';
 

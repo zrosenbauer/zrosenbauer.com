@@ -2,7 +2,6 @@ import { Starfield } from '@components/starfield';
 import Link from 'next/link';
 import React from 'react';
 
-
 const navigation = [
   { name: 'about', href: '/about' },
   // { name: 'Consulting', href: '/consulting' },

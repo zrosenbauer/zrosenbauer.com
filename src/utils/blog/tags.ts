@@ -1,4 +1,4 @@
-import { IconProps } from "@components/ui/icon";
+import { IconProps } from '@components/ui/icon';
 
 export interface BlogTagConfig {
   slug: string;
@@ -19,11 +19,11 @@ export const blogTags = [
   { slug: 'fun', name: 'Fun', icon: 'building-carousel' },
 ] as const satisfies BlogTagConfig[];
 
-export type BlogTagSlug = typeof blogTags[number]['slug'];
+export type BlogTagSlug = (typeof blogTags)[number]['slug'];
 
 /**
  * Get a blog tag by its slug.
- * 
+ *
  * @param slug The slug of the tag.
  */
 export const getBlogTagBySlug = (slug: BlogTagSlug): BlogTagConfig => {

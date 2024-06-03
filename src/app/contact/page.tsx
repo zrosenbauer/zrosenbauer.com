@@ -2,7 +2,11 @@
 
 import { Card } from '@components/card';
 import { Navigation } from '@components/nav';
-import { IconBrandGithub, IconMail, IconBrandLinkedin } from '@tabler/icons-react';
+import {
+  IconBrandGithub,
+  IconMail,
+  IconBrandLinkedin,
+} from '@tabler/icons-react';
 
 import Link from 'next/link';
 

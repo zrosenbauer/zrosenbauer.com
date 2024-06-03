@@ -2,7 +2,6 @@ import { Starfield } from '@components/starfield';
 import Link from 'next/link';
 import React from 'react';
 
-
 export default function NotFoundPage() {
   return (
     <div className='flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black'>

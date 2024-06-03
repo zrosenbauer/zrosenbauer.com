@@ -34,9 +34,12 @@ export default async function PostPage({ params }: Props) {
     notFound();
   }
 
-  const tags = Array.isArray(post.tags) ? post.tags.map((tagSlug) => {
-    return getBlogTagBySlug(tagSlug);
-  }) : [];
+  const tags =
+    Array.isArray(post.tags) ?
+      post.tags.map((tagSlug) => {
+        return getBlogTagBySlug(tagSlug);
+      })
+    : [];
 
   return (
     <div className='bg-zinc-50 min-h-screen'>
@@ -67,12 +70,10 @@ export default async function PostPage({ params }: Props) {
         {tags.length > 0 && (
           <React.Fragment>
             <hr className='my-4' />
-            <div
-              className='flex gap-2'
-            >
+            <div className='flex gap-2'>
               {tags.map((tag) => (
                 <Chip
-                  key={tag.slug} 
+                  key={tag.slug}
                   label={tag.name}
                   icon={<Icon name={tag.icon} />}
                   dark

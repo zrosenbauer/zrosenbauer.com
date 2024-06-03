@@ -23,7 +23,7 @@ const nextConfig = {
    * @see https://nextjs.org/docs/pages/api-reference/next-config-js/pageExtensions
    */
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-  
+
   /**
    * @see https://nextjs.org/docs/app/api-reference/next-config-js/mdxRs
    */
