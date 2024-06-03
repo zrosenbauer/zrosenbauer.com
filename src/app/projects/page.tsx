@@ -1,7 +1,7 @@
 'use client';
 
 import { Card } from '@components/card';
-import { Mdx } from '@components/mdx';
+import { Mdx } from '@components/md/mdx';
 import { Navigation } from '@components/nav';
 import { allProjects } from '@content';
 import { useGitHubApi } from '@utils/github/client';
