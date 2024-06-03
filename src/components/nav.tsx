@@ -1,8 +1,8 @@
 'use client';
 
-import { ArrowLeft } from 'lucide-react';
+import { IconArrowLeft } from '@tabler/icons-react';
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 
 const links = [
   {
@@ -53,7 +53,7 @@ export const Navigation: React.FC<{
           href={backLink}
           className='duration-200 text-zinc-300 hover:text-zinc-100'
         >
-          <ArrowLeft className='w-6 h-6 ' />
+          <IconArrowLeft className='w-6 h-6 ' />
         </Link>
       </div>
     </nav>

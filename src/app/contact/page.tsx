@@ -1,24 +1,26 @@
 'use client';
+
 import { Card } from '@components/card';
 import { Navigation } from '@components/nav';
-import { Github, Mail, Linkedin } from 'lucide-react';
+import { IconBrandGithub, IconMail, IconBrandLinkedin } from '@tabler/icons-react';
+
 import Link from 'next/link';
 
 const socials = [
   {
-    icon: <Linkedin size={20} />,
+    icon: <IconBrandLinkedin size={20} />,
     href: 'https://linkedin.com/in/zacrosenbauer',
     label: 'Linkedin',
     handle: 'zrosenbauer',
   },
   {
-    icon: <Mail size={20} />,
+    icon: <IconMail size={20} />,
     href: 'mailto:me@zrosenbauer.com',
     label: 'Email',
     handle: 'me@zrosenbauer.com',
   },
   {
-    icon: <Github size={20} />,
+    icon: <IconBrandGithub size={20} />,
     href: 'https://github.com/zrosenbauer',
     label: 'Github',
     handle: 'zrosenbauer',

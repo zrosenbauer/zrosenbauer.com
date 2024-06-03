@@ -6,7 +6,7 @@ import { Navigation } from '@components/nav';
 import { allProjects } from '@content';
 import { useGitHubApi } from '@utils/github/client';
 import _ from 'lodash';
-import { Star } from 'lucide-react';
+import { IconStar } from '@tabler/icons-react';
 import Link from 'next/link';
 import React from 'react';
 
@@ -60,7 +60,7 @@ export default function ProjectsPage() {
                 <div className='flex items-center justify-between gap-2'>
                   {!_.isNil(featuredGhRepo.data) && (
                     <span className='flex items-center gap-1 text-xs text-zinc-500'>
-                      <Star className='w-4 h-4' />{' '}
+                      <IconStar className='w-4 h-4' />{' '}
                       {Intl.NumberFormat('en-US', {
                         notation: 'compact',
                       }).format(featuredGhRepo.data.stargazers_count)}

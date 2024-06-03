@@ -4724,15 +4724,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.383.0":
-  version: 0.383.0
-  resolution: "lucide-react@npm:0.383.0"
-  peerDependencies:
-    react: ^16.5.1 || ^17.0.0 || ^18.0.0
-  checksum: 10/134c625e6aaba401b4787727a2e560f38d889af6e222b27c57628f4b403749425e86f4ffa9bd2cab6e4ba5f88c4981d1f81244463deb9b44d8050197b68413ff
-  languageName: node
-  linkType: hard
-
 "make-fetch-happen@npm:^13.0.0":
   version: 13.0.0
   resolution: "make-fetch-happen@npm:13.0.0"
@@ -8400,7 +8391,6 @@ __metadata:
     framer-motion: "npm:^11.2.10"
     globals: "npm:^15.3.0"
     lodash: "npm:^4.17.21"
-    lucide-react: "npm:^0.383.0"
     markdown-wasm: "npm:^1.2.0"
     next: "npm:^13.5.6"
     next-contentlayer: "npm:^0.3.4"
