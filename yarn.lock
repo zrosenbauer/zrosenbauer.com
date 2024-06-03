@@ -625,15 +625,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/font@npm:^14.2.3":
-  version: 14.2.3
-  resolution: "@next/font@npm:14.2.3"
-  peerDependencies:
-    next: "*"
-  checksum: 10/a1ba836d4adbbe682cddd755b2be0466c5cd8bbcd275256ca27bc17fd469779bc829be0971728811ce89effd34477c4aecf619d15b519d0fa18130d1ffae5ec5
-  languageName: node
-  linkType: hard
-
 "@next/mdx@npm:^14.2.3":
   version: 14.2.3
   resolution: "@next/mdx@npm:14.2.3"
@@ -8357,7 +8348,6 @@ __metadata:
     "@eslint/eslintrc": "npm:^3.1.0"
     "@eslint/js": "npm:^9.4.0"
     "@joggr/eslint-config": "npm:^1.1.2"
-    "@next/font": "npm:^14.2.3"
     "@next/mdx": "npm:^14.2.3"
     "@octokit/types": "npm:^13.5.0"
     "@opentelemetry/api": "npm:1.8.0"
