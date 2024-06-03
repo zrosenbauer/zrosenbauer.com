@@ -4,7 +4,7 @@ export function Analytics() {
   return (
     <script
       src='https://beamanalytics.b-cdn.net/beam.min.js'
-      data-token='49d28031-ecdf-4437-9a70-42d298f3e906'
+      data-token='cde18160-1664-470b-9d25-0af7d4c7d011'
       async
     />
   );
