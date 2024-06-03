@@ -11,7 +11,7 @@ export function Chip(props: {
   dark?: boolean;
 }) {
   return (
-    <span 
+    <span
       onClick={props.onClick}
       className={cn('px-2.5 py-0.5 rounded-full text-xs font-medium', {
         'inline-flex items-center space-x-1': !!props.icon,
@@ -24,14 +24,8 @@ export function Chip(props: {
         'hover:bg-zinc-700 hover:text-zinc-200': !!props.onClick && props.dark,
       })}
     >
-      {props.icon && (
-        <span className='text-xs'>
-          {props.icon}
-        </span>
-      )}
-      <span className='text-base'>
-        {props.label}
-      </span>
+      {props.icon && <span className='text-xs'>{props.icon}</span>}
+      <span className='text-base'>{props.label}</span>
     </span>
   );
 }

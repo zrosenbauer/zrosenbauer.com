@@ -11,6 +11,7 @@ import React from 'react';
 
 import { blogTags } from '@utils/blog/tags';
 import { Popout } from '@components/ui/popout';
+import { IconX } from '@tabler/icons-react';
 
 export const revalidate = 60;
 
@@ -61,12 +62,10 @@ export default function BlogPage() {
         <Popout>
           <div className='inline-flex items-center space-x-1.5'>
             <div className='text-zinc-200'>Filter by tag:</div>
-            <div
-              className='flex gap-2'
-            >
+            <div className='flex gap-2'>
               {blogTags.map((tag) => (
                 <Chip
-                  key={tag.slug} 
+                  key={tag.slug}
                   label={tag.name}
                   icon={<Icon name={tag.icon} />}
                   onClick={createFilterHandler(tag.slug)}
@@ -79,7 +78,7 @@ export default function BlogPage() {
                 className='text-zinc-200 hover:text-zinc-50'
                 onClick={handleClearFilters}
               >
-                <Icon name='x' />
+                <IconX />
               </button>
             )}
           </div>
@@ -135,35 +134,43 @@ export default function BlogPage() {
           </div>
         </div> */}
         <div className='hidden w-full h-px md:block bg-zinc-800 my-8' />
-        <div className='grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3 my-8'>
-          <div className='grid grid-cols-1 gap-4'>
-            {sorted
-              .filter((_, i) => i % 3 === 0)
-              .map((post) => (
-                <Card key={post.slug}>
-                  <BlogPostCard post={post} />
-                </Card>
-              ))}
+        {sorted.length > 0 ?
+          <div className='grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3 my-8'>
+            <div className='grid grid-cols-1 gap-4'>
+              {sorted
+                .filter((_, i) => i % 3 === 0)
+                .map((post) => (
+                  <Card key={post.slug}>
+                    <BlogPostCard post={post} />
+                  </Card>
+                ))}
+            </div>
+            <div className='grid grid-cols-1 gap-4'>
+              {sorted
+                .filter((_, i) => i % 3 === 1)
+                .map((post) => (
+                  <Card key={post.slug}>
+                    <BlogPostCard post={post} />
+                  </Card>
+                ))}
+            </div>
+            <div className='grid grid-cols-1 gap-4'>
+              {sorted
+                .filter((_, i) => i % 3 === 2)
+                .map((post) => (
+                  <Card key={post.slug}>
+                    <BlogPostCard post={post} />
+                  </Card>
+                ))}
+            </div>
           </div>
-          <div className='grid grid-cols-1 gap-4'>
-            {sorted
-              .filter((_, i) => i % 3 === 1)
-              .map((post) => (
-                <Card key={post.slug}>
-                  <BlogPostCard post={post} />
-                </Card>
-              ))}
+        : <div className='text-center'>
+            <h2 className='text-2xl font-bold text-zinc-100'>No posts found</h2>
+            <p className='mt-4 text-lg leading-8 text-zinc-300'>
+              Try clearing the filters or checking back later.
+            </p>
           </div>
-          <div className='grid grid-cols-1 gap-4'>
-            {sorted
-              .filter((_, i) => i % 3 === 2)
-              .map((post) => (
-                <Card key={post.slug}>
-                  <BlogPostCard post={post} />
-                </Card>
-              ))}
-          </div>
-        </div>
+        }
       </div>
     </div>
   );

@@ -1,4 +1,8 @@
-import { defineDocumentType, makeSource, defineNestedType } from 'contentlayer/source-files';
+import {
+  defineDocumentType,
+  makeSource,
+  defineNestedType,
+} from 'contentlayer/source-files';
 import remarkGfm from 'remark-gfm';
 import { remarkAlert } from 'remark-github-blockquote-alert';
 import rehypePrettyCode from 'rehype-pretty-code';
@@ -77,7 +81,7 @@ export const BlogPost = defineDocumentType(() => ({
         options: blogTags.map((tag) => tag.slug),
       },
       required: false,
-    }
+    },
   },
   computedFields: {
     ...computedFields,

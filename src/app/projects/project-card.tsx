@@ -2,7 +2,7 @@ import { Mdx } from '@components/md/mdx';
 import type { Project } from '@content';
 import { useGitHubApi } from '@utils/github/client';
 import _ from 'lodash';
-import { Star } from 'lucide-react';
+import { IconStar } from '@tabler/icons-react';
 import Link from 'next/link';
 
 export const ProjectCard: React.FC<{
@@ -27,7 +27,7 @@ export const ProjectCard: React.FC<{
       <article className='p-4 md:p-8'>
         <div className='flex justify-between gap-2 items-center'>
           <span className='text-zinc-500 text-xs flex items-center gap-1'>
-            <Star className='w-4 h-4' />{' '}
+            <IconStar className='w-4 h-4' />{' '}
             {Intl.NumberFormat('en-US', { notation: 'compact' }).format(
               data.stargazers_count
             )}

@@ -1,21 +1,25 @@
 'use client';
 
-import { Github, Mail, Linkedin } from 'lucide-react';
+import {
+  IconBrandGithub,
+  IconMail,
+  IconBrandLinkedin,
+} from '@tabler/icons-react';
 import Link from 'next/link';
 import React from 'react';
 
 const socialLinks = [
   {
     href: 'https://linkedin.com/in/zacrosenbauer',
-    icon: Linkedin,
+    icon: IconBrandLinkedin,
   },
   {
-    icon: Mail,
+    icon: IconMail,
     href: 'mailto:me@zrosenbauer.com',
   },
   {
     href: 'https://github.com/zrosenbauer',
-    icon: Github,
+    icon: IconBrandGithub,
   },
 ];
 
