@@ -1,4 +1,4 @@
-import { IconProps } from '@components/ui/icon';
+import type { IconProps } from '@components/ui/icon';
 
 export interface BlogTagConfig {
   slug: string;

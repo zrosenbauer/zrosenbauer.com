@@ -8,9 +8,8 @@ import React from 'react';
 export const BlogPostCard: React.FC<{
   post: BlogPost;
 }> = ({ post }) => {
-  const tags =
-    Array.isArray(post.tags) ?
-      post.tags.map((tagSlug) => {
+  const tags = Array.isArray(post.tags)
+    ? post.tags.map((tagSlug) => {
         return getBlogTagBySlug(tagSlug);
       })
     : [];

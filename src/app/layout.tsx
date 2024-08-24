@@ -1,6 +1,6 @@
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import LocalFont from 'next/font/local';
-import { type Metadata } from 'next';
 
 import { Analytics } from '../components/analytics';
 
@@ -64,10 +64,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang='en'
-      className={[inter.variable, calSans.variable].join(' ')}
-    >
+    <html lang='en' className={[inter.variable, calSans.variable].join(' ')}>
       <head>
         <Analytics />
       </head>

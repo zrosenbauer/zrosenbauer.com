@@ -6,9 +6,9 @@ import { allBlogPosts } from '@content';
 import { notFound } from 'next/navigation';
 import React from 'react';
 
-import { getBlogTagBySlug } from '@utils/blog/tags';
 import { Chip } from '@components/ui/chip';
 import { Icon } from '@components/ui/icon';
+import { getBlogTagBySlug } from '@utils/blog/tags';
 
 import './page.css';
 
@@ -34,19 +34,15 @@ export default async function PostPage({ params }: Props) {
     notFound();
   }
 
-  const tags =
-    Array.isArray(post.tags) ?
-      post.tags.map((tagSlug) => {
+  const tags = Array.isArray(post.tags)
+    ? post.tags.map((tagSlug) => {
         return getBlogTagBySlug(tagSlug);
       })
     : [];
 
   return (
     <div className='bg-zinc-50 min-h-screen'>
-      <Navigation
-        className='bg-black fixed'
-        backLink='/blog'
-      />
+      <Navigation className='bg-black fixed' backLink='/blog' />
       <div className='container px-4 blog-post-page mx-auto relative isolate overflow-hidden pt-24 sm:pt-32'>
         <div className='flex flex-col items-center'>
           <div className='mx-auto lg:mx-0'>
@@ -57,11 +53,9 @@ export default async function PostPage({ params }: Props) {
             <img
               src={post.image}
               className='w-full mb-7'
+              alt={`Blog post banner for ${post.title}`}
             />
-            <BlogPostAuthor
-              post={post}
-              className='mb-2'
-            />
+            <BlogPostAuthor post={post} className='mb-2' />
           </div>
         </div>
       </div>

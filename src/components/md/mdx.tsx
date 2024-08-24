@@ -1,12 +1,12 @@
+import { useMDXComponent } from 'next-contentlayer/hooks';
 // @ts-nocheck
 import Image from 'next/image';
 import Link from 'next/link';
-import { useMDXComponent } from 'next-contentlayer/hooks';
 import * as React from 'react';
 
 import './mdx.css';
 
-function cn(...args: any) {
+function cn(...args: (string | undefined)[]) {
   return args.filter(Boolean).join(' ');
 }
 
@@ -81,22 +81,13 @@ const components = {
     />
   ),
   ul: ({ className, ...props }) => (
-    <ul
-      className={cn('my-6 ml-6 list-disc', className)}
-      {...props}
-    />
+    <ul className={cn('my-6 ml-6 list-disc', className)} {...props} />
   ),
   ol: ({ className, ...props }) => (
-    <ol
-      className={cn('my-6 ml-6 list-decimal', className)}
-      {...props}
-    />
+    <ol className={cn('my-6 ml-6 list-decimal', className)} {...props} />
   ),
   li: ({ className, ...props }) => (
-    <li
-      className={cn('mt-2', className)}
-      {...props}
-    />
+    <li className={cn('mt-2', className)} {...props} />
   ),
   blockquote: ({ className, ...props }) => (
     <blockquote
@@ -112,25 +103,19 @@ const components = {
     alt,
     ...props
   }: React.ImgHTMLAttributes<HTMLImageElement>) => (
-    // eslint-disable-next-line @next/next/no-img-element
+    // biome-ignore lint/a11y/useAltText: alt is provided just not picked up by the linter
     <img
       className={cn('rounded-md border border-zinc-200', className)}
-      alt={alt}
+      alt={alt as string}
       {...props}
     />
   ),
   hr: ({ ...props }) => (
-    <hr
-      className='my-4 border-zinc-200 md:my-8'
-      {...props}
-    />
+    <hr className='my-4 border-zinc-200 md:my-8' {...props} />
   ),
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
     <div className='w-full my-6 overflow-y-auto'>
-      <table
-        className={cn('w-full', className)}
-        {...props}
-      />
+      <table className={cn('w-full', className)} {...props} />
     </div>
   ),
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
@@ -179,6 +164,9 @@ const components = {
     />
   ),
   Image,
+} satisfies {
+  // biome-ignore lint/suspicious/noExplicitAny: low impact issue
+  [x: string]: React.ComponentType<any>;
 };
 
 interface MdxProps {

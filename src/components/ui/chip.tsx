@@ -11,6 +11,7 @@ export function Chip(props: {
   dark?: boolean;
 }) {
   return (
+    // biome-ignore lint/a11y/useKeyWithClickEvents: Not a button
     <span
       onClick={props.onClick}
       className={cn('px-2.5 py-0.5 rounded-full text-xs font-medium', {

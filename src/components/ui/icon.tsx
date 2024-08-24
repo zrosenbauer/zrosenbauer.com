@@ -1,12 +1,12 @@
 import {
   IconBrandDocker,
   IconBrandGithub,
-  IconBuildingCarousel,
   IconBrandNextjs,
-  IconTools,
   IconBrandReact,
   IconBrandX,
+  IconBuildingCarousel,
   IconExclamationCircle,
+  IconTools,
 } from '@tabler/icons-react';
 
 const tablerIcons = [

@@ -4,8 +4,8 @@ import { Card } from '@components/card';
 import { Navigation } from '@components/nav';
 import {
   IconBrandGithub,
-  IconMail,
   IconBrandLinkedin,
+  IconMail,
 } from '@tabler/icons-react';
 
 import Link from 'next/link';
@@ -31,7 +31,7 @@ const socials = [
   },
 ];
 
-export default function Example() {
+export default function ContactPage() {
   return (
     <div className='bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0'>
       <Navigation />

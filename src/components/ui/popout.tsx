@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
 import cn from 'classnames';
+import React from 'react';
 
 export const Popout: React.FC<{
   className?: string;

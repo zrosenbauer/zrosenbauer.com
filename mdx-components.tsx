@@ -1,4 +1,4 @@
-import { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 // This file is required to use MDX in `app` directory.
 export function useMDXComponents(components: any): any {

@@ -2,8 +2,8 @@
 
 import {
   IconBrandGithub,
-  IconMail,
   IconBrandLinkedin,
+  IconMail,
 } from '@tabler/icons-react';
 import Link from 'next/link';
 import React from 'react';
@@ -23,7 +23,8 @@ const socialLinks = [
   },
 ];
 
-export interface NavigationProps {}
+// biome-ignore lint/complexity/noBannedTypes: needed for future
+export type NavigationProps = {};
 
 export const Footer: React.FC = () => {
   return (
