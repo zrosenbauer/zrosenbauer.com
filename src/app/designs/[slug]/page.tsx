@@ -33,14 +33,14 @@ export default async function DesignPage({ params }: Props) {
   return (
     <div className={`${modeClasses} min-h-screen`}>
       <Navigation className=' fixed' backLink='/designs' />
-      <div className='container px-4 mx-auto relative isolate overflow-hidden pt-24 sm:pt-32'>
+      <div className='container px-4 page-container mx-auto relative isolate overflow-hidden pt-24 sm:pt-32'>
         <div className='flex flex-col items-center'>
           <div className='mx-auto text-center lg:mx-0'>
             <h1 className='text-4xl mb-2 font-bold tracking-tight sm:text-6xl font-display'>
               {design.title}
             </h1>
             <p className='mb-4 text-lg leading-8'>{design.description}</p>
-            <div className='design-content px-4'>
+            <div className='design-content'>
               <Image
                 src={`/img/designs/${design.slug}/banner.png`}
                 alt={design.title}
@@ -52,10 +52,10 @@ export default async function DesignPage({ params }: Props) {
           </div>
         </div>
       </div>
-      <div className='mx-auto design-content px-4 py-4'>
+      <div className='mx-auto page-container px-4 py-4'>
         <hr />
       </div>
-      <article className='px-4 pb-12 mx-auto design-content'>
+      <article className='px-4 pb-12 mx-auto page-container'>
         <Mdx code={design.body.code} />
       </article>
       <Footer />

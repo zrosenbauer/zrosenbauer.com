@@ -7,3 +7,9 @@
     -webkit-text-stroke: 1px rgb(255 255 255 / 30%);
   }
 }
+
+.page-container {
+  @apply mx-auto;
+
+  max-width: 100ch;
+}
