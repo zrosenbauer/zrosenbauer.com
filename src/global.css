@@ -10,5 +10,6 @@
 
 .page-container {
   @apply mx-auto;
+
   max-width: 100ch;
 }

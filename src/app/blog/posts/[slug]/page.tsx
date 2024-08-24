@@ -10,8 +10,6 @@ import { Chip } from '@components/ui/chip';
 import { Icon } from '@components/ui/icon';
 import { getBlogTagBySlug } from '@utils/blog/tags';
 
-import './page.css';
-
 export const revalidate = 60;
 
 interface Props {
