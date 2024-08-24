@@ -1,8 +1,8 @@
 import { Mdx } from '@components/md/mdx';
 import type { Project } from '@content';
+import { IconStar } from '@tabler/icons-react';
 import { useGitHubApi } from '@utils/github/client';
 import _ from 'lodash';
-import { IconStar } from '@tabler/icons-react';
 import Link from 'next/link';
 
 export const ProjectCard: React.FC<{

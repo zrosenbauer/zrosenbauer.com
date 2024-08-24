@@ -1,4 +1,4 @@
-import { type Endpoints } from '@octokit/types';
+import type { Endpoints } from '@octokit/types';
 import _ from 'lodash';
 import useSWR, { type SWRResponse } from 'swr';
 

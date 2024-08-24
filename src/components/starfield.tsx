@@ -57,16 +57,7 @@ export function Starfield(props: {
         };
 
         const putPixel = (x: number, y: number, brightness: number) => {
-          const rgb =
-            'rgba(' +
-            starColor[0] +
-            ',' +
-            starColor[1] +
-            ',' +
-            starColor[2] +
-            ',' +
-            brightness +
-            ')';
+          const rgb = `rgba(${[starColor[0], starColor[1], starColor[2], brightness].join(',')})`;
           c.fillStyle = rgb;
           c.fillRect(x, y, 1, 1);
         };
@@ -122,7 +113,7 @@ export function Starfield(props: {
         requestAnimationFrame(init);
 
         // add window resize listener:
-        window.addEventListener('resize', function () {
+        window.addEventListener('resize', () => {
           w = window.innerWidth;
           h = window.innerHeight;
           setCanvasExtents();
@@ -155,6 +146,6 @@ export function Starfield(props: {
         pointerEvents: 'none',
         mixBlendMode: 'screen',
       }}
-    ></canvas>
+    />
   );
 }

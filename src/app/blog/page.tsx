@@ -9,9 +9,9 @@ import { allBlogPosts } from '@content';
 import _ from 'lodash';
 import React from 'react';
 
-import { blogTags } from '@utils/blog/tags';
 import { Popout } from '@components/ui/popout';
 import { IconX } from '@tabler/icons-react';
+import { blogTags } from '@utils/blog/tags';
 
 export const revalidate = 60;
 
@@ -75,6 +75,7 @@ export default function BlogPage() {
             </div>
             {tagFilters.length > 0 && (
               <button
+                type='button'
                 className='text-zinc-200 hover:text-zinc-50'
                 onClick={handleClearFilters}
               >
@@ -134,7 +135,7 @@ export default function BlogPage() {
           </div>
         </div> */}
         <div className='hidden w-full h-px md:block bg-zinc-800 my-8' />
-        {sorted.length > 0 ?
+        {sorted.length > 0 ? (
           <div className='grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3 my-8'>
             <div className='grid grid-cols-1 gap-4'>
               {sorted
@@ -164,13 +165,14 @@ export default function BlogPage() {
                 ))}
             </div>
           </div>
-        : <div className='text-center'>
+        ) : (
+          <div className='text-center'>
             <h2 className='text-2xl font-bold text-zinc-100'>No posts found</h2>
             <p className='mt-4 text-lg leading-8 text-zinc-300'>
               Try clearing the filters or checking back later.
             </p>
           </div>
-        }
+        )}
       </div>
     </div>
   );

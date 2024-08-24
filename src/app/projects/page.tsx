@@ -4,10 +4,11 @@ import { Card } from '@components/card';
 import { Mdx } from '@components/md/mdx';
 import { Navigation } from '@components/nav';
 import { allProjects } from '@content';
+import { IconStar } from '@tabler/icons-react';
 import { useGitHubApi } from '@utils/github/client';
 import _ from 'lodash';
-import { IconStar } from '@tabler/icons-react';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import React from 'react';
 
 import { ProjectCard } from './project-card';
@@ -17,19 +18,17 @@ import './page.css';
 export const revalidate = 60;
 
 export default function ProjectsPage() {
-  const featured = allProjects.find(
-    (project) => project.slug === 'fastify-prisma'
-  )!;
-  const top2 = allProjects.find((project) => project.slug === 'unicorn')!;
-  const top3 = allProjects.find((project) => project.slug === 'tempo')!;
-  const sorted = allProjects.filter(
+  const top1Project = findProjectBySlug('fastify-prisma');
+  const top2Project = findProjectBySlug('unicorn');
+  const top3Project = findProjectBySlug('tempo');
+  const nonFeaturedProjects = allProjects.filter(
     (project) =>
-      project.slug !== featured.slug &&
-      project.slug !== top2.slug &&
-      project.slug !== top3.slug
+      project.slug !== top1Project.slug &&
+      project.slug !== top2Project.slug &&
+      project.slug !== top3Project.slug
   );
 
-  const [featuredOwner, featuredRepo] = featured.repository.split('/');
+  const [featuredOwner, featuredRepo] = top1Project.repository.split('/');
   const featuredGhRepo = useGitHubApi('GET /repos/{owner}/{repo}', {
     owner: featuredOwner,
     repo: featuredRepo,
@@ -52,7 +51,7 @@ export default function ProjectsPage() {
         <div className='grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2 '>
           <Card>
             <Link
-              href={`https://github.com/${featured.repository}`}
+              href={`https://github.com/${top1Project.repository}`}
               target='_blank'
               rel='noopener noreferrer'
             >
@@ -71,10 +70,10 @@ export default function ProjectsPage() {
                   id='featured-post'
                   className='mt-4 text-3xl font-bold text-zinc-100 group-hover:text-white sm:text-4xl font-display'
                 >
-                  {featured.title}
+                  {top1Project.title}
                 </h2>
                 <div className='mt-4 leading-8 duration-150 text-zinc-400 group-hover:text-zinc-300'>
-                  <Mdx code={featured.body.code} />
+                  <Mdx code={top1Project.body.code} />
                 </div>
                 <div className='absolute bottom-4 md:bottom-8'>
                   <p className='hidden text-zinc-200 hover:text-zinc-50 lg:block'>
@@ -85,7 +84,7 @@ export default function ProjectsPage() {
             </Link>
           </Card>
           <div className='flex flex-col w-full gap-8 mx-auto border-t border-gray-900/10 lg:mx-0 lg:border-t-0 '>
-            {[top2, top3].map((project) => (
+            {[top2Project, top3Project].map((project) => (
               <Card key={project.slug}>
                 <ProjectCard project={project} />
               </Card>
@@ -95,7 +94,7 @@ export default function ProjectsPage() {
         <div className='hidden w-full h-px md:block bg-zinc-800' />
         <div className='grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3'>
           <div className='grid grid-cols-1 gap-4'>
-            {sorted
+            {nonFeaturedProjects
               .filter((_, i) => i % 3 === 0)
               .map((project) => (
                 <Card key={project.slug}>
@@ -104,7 +103,7 @@ export default function ProjectsPage() {
               ))}
           </div>
           <div className='grid grid-cols-1 gap-4'>
-            {sorted
+            {nonFeaturedProjects
               .filter((_, i) => i % 3 === 1)
               .map((project) => (
                 <Card key={project.slug}>
@@ -113,7 +112,7 @@ export default function ProjectsPage() {
               ))}
           </div>
           <div className='grid grid-cols-1 gap-4'>
-            {sorted
+            {nonFeaturedProjects
               .filter((_, i) => i % 3 === 2)
               .map((project) => (
                 <Card key={project.slug}>
@@ -126,3 +125,13 @@ export default function ProjectsPage() {
     </div>
   );
 }
+
+const findProjectBySlug = (slug: string) => {
+  const project = allProjects.find((project) => project.slug === slug);
+
+  if (!project) {
+    notFound();
+  }
+
+  return project;
+};

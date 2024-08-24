@@ -14,6 +14,10 @@ const links = [
     href: '/projects',
   },
   {
+    title: 'design',
+    href: '/designs',
+  },
+  {
     title: 'blog',
     href: '/blog',
   },

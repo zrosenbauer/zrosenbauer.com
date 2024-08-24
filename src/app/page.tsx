@@ -4,8 +4,8 @@ import React from 'react';
 
 const navigation = [
   { name: 'about', href: '/about' },
-  // { name: 'Consulting', href: '/consulting' },
   { name: 'projects', href: '/projects' },
+  { name: 'design', href: '/designs' },
   { name: 'blog', href: '/blog' },
   { name: 'contact', href: '/contact' },
 ];

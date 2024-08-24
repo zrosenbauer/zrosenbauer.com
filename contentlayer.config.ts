@@ -1,15 +1,14 @@
 import {
   defineDocumentType,
   makeSource,
-  defineNestedType,
 } from 'contentlayer/source-files';
-import remarkGfm from 'remark-gfm';
-import { remarkAlert } from 'remark-github-blockquote-alert';
+import type { ComputedFields } from 'contentlayer/source-files';
+import _ from 'lodash';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import _ from 'lodash';
-import type { ComputedFields } from 'contentlayer/source-files';
+import remarkGfm from 'remark-gfm';
+import { remarkAlert } from 'remark-github-blockquote-alert';
 
 import { blogTags } from './src/utils/blog/tags';
 
@@ -23,6 +22,28 @@ const computedFields: ComputedFields = {
     resolve: (doc) => doc._raw.flattenedPath.split('/').slice(1).join('/'),
   },
 };
+
+export const Design = defineDocumentType(() => ({
+  name: 'Design',
+  filePathPattern: './designs/**/*.mdx',
+  contentType: 'mdx',
+  fields: {
+    title: {
+      type: 'string',
+      required: true,
+    },
+    description: {
+      type: 'string',
+      required: true,
+    },
+    mode: {
+      type: 'enum',
+      options: ['light', 'dark'],
+      required: true,
+    },
+  },
+  computedFields,
+}));
 
 export const Project = defineDocumentType(() => ({
   name: 'Project',
@@ -117,7 +138,7 @@ export const Page = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: './content',
-  documentTypes: [Page, Project, BlogPost],
+  documentTypes: [Page, Project, Design, BlogPost],
   mdx: {
     remarkPlugins: [remarkAlert, remarkGfm],
     rehypePlugins: [
@@ -135,10 +156,10 @@ export default makeSource({
             }
           },
           onVisitHighlightedLine(node: any) {
-            node.properties.className.push('line--highlighted');
+            node.properties.className.push('line-highlighted');
           },
           onVisitHighlightedWord(node: any) {
-            node.properties.className = ['word--highlighted'];
+            node.properties.className = ['word-highlighted'];
           },
         },
       ],
