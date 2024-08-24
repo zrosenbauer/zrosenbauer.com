@@ -28,13 +28,7 @@ export type NavigationProps = {};
 
 export const Footer: React.FC = () => {
   return (
-    <footer
-    // className={`fixed inset-x-0 top-0 z-50 backdrop-blur  duration-200 border-b  ${
-    //   isIntersecting ?
-    //     'bg-zinc-900/0 border-transparent'
-    //   : 'bg-zinc-900/500  border-zinc-800 '
-    // }`}
-    >
+    <footer className={'text-zinc-100'}>
       <div className='container flex flex-row items-center justify-between p-6 mx-auto'>
         <div>@zrosenbauer All Rights Reserved.</div>
         <div className='flex-grow' />
@@ -47,11 +41,6 @@ export const Footer: React.FC = () => {
               href={href}
             >
               <Icon className='w-6 h-6 duration-200 hover:font-medium' />
-              {/* <Icon className={`w-6 h-6 duration-200 hover:font-medium ${isIntersecting ?
-                    ' text-zinc-400 hover:text-zinc-100'
-                    : 'text-zinc-600 hover:text-zinc-900'
-                  } `}
-                /> */}
             </Link>
           ))}
         </div>

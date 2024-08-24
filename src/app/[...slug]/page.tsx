@@ -26,12 +26,12 @@ export default async function Page({ params }: Props) {
   }
 
   return (
-    <div className='bg-zinc-50 min-h-screen'>
-      <header className='relative isolate overflow-hidden bg-gradient-to-tl from-black via-zinc-900 to-black'>
+    <div className='min-h-screen bg-gradient-to-tl from-black via-zinc-900 to-black'>
+      <header className='relative isolate overflow-hidden'>
         <Navigation />
-        <div className='container mx-auto relative isolate overflow-hidden py-24 sm:py-32'>
-          <div className='mx-auto max-w-7xl px-6 lg:px-8 text-center flex flex-col items-center'>
-            <div className='mx-auto max-w-2xl lg:mx-0'>
+        <div className='container page-container mx-auto relative isolate overflow-hidden py-24 sm:py-32'>
+          <div className='mx-auto text-center flex flex-col items-center'>
+            <div className='mx-auto lg:mx-0'>
               <h1 className='text-4xl font-bold tracking-tight text-white sm:text-6xl font-display'>
                 {page.title}
               </h1>
@@ -44,7 +44,7 @@ export default async function Page({ params }: Props) {
           </div>
         </div>
       </header>
-      <article className='px-4 pb-12 mx-auto prose prose-zinc prose-quoteless'>
+      <article className='pb-12 page-container mx-auto prose prose-zinc prose-quoteless'>
         <Mdx code={page.body.code} />
       </article>
       <Footer />
