@@ -29,6 +29,6 @@ jobs:
       - name: '🎨 Style Linting & Formatting'
         run: yarn check:style
       - name: '🕵️ Code Linting & Formatting'
-        run: yarn check:code --ci
+        run: yarn check:code
       - name: '🟦 Typecheck'
         run: yarn check:types

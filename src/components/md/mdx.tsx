@@ -68,7 +68,7 @@ const components = {
   a: ({ className, ...props }) => (
     <Link
       className={cn(
-        'font-medium text-zinc-900 underline underline-offset-4',
+        'font-medium text-slate-100 hover:text-slate-200 visited:text-slate-300 underline underline-offset-4',
         className
       )}
       {...props}
@@ -92,7 +92,7 @@ const components = {
   blockquote: ({ className, ...props }) => (
     <blockquote
       className={cn(
-        'mt-6 border-l-2 border-zinc-300 pl-6 italic text-zinc-800 [&>*]:text-zinc-600',
+        'md-blockquote mt-6 border-l-2 border-zinc-300 pl-6 italic',
         className
       )}
       {...props}
@@ -146,22 +146,10 @@ const components = {
     />
   ),
   pre: ({ className, ...props }) => (
-    <pre
-      className={cn(
-        'mt-6 mb-4 overflow-x-auto rounded-lg bg-zinc-900 py-4',
-        className
-      )}
-      {...props}
-    />
+    <pre className={cn('md-pre', className)} {...props} />
   ),
   code: ({ className, ...props }) => (
-    <code
-      className={cn(
-        'relative rounded text-wrap py-[0.2rem] px-[0.3rem] font-mono text-sm text-zinc-600',
-        className
-      )}
-      {...props}
-    />
+    <code className={cn('md-code', className)} {...props} />
   ),
   Image,
 } satisfies {

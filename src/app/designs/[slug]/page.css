@@ -1,11 +1,3 @@
-.design-content {
-  max-width: 75ch !important;
-}
-
-.design-content .design-banner {
-  max-width: 75ch;
-}
-
 .design-content h1 {
   @apply mt-12;
 }
