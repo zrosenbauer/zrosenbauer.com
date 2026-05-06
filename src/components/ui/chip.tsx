@@ -25,8 +25,8 @@ export function Chip(props: {
         'hover:bg-zinc-700 hover:text-zinc-200': !!props.onClick && props.dark,
       })}
     >
-      {props.icon && <span className='text-xs'>{props.icon}</span>}
-      <span className='text-base'>{props.label}</span>
+      {props.icon && <span className="text-xs">{props.icon}</span>}
+      <span className="text-base">{props.label}</span>
     </span>
   );
 }

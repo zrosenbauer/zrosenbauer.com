@@ -19,16 +19,20 @@ jobs:
     steps:
       - name: '⬇️ Checkout Code'
         uses: actions/checkout@v4
+      - name: '🧰 Setup pnpm'
+        uses: pnpm/action-setup@v4
       - name: '💚 Setup Node.js'
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'yarn'
+          cache: 'pnpm'
       - name: '📦 Install Packages'
-        run: yarn install
-      - name: '🎨 Style Linting & Formatting'
-        run: yarn check:style
-      - name: '🕵️ Code Linting & Formatting'
-        run: yarn check:code
+        run: pnpm install --frozen-lockfile
+      - name: '🎨 Format Check'
+        run: pnpm format:check
+      - name: '🕵️ Lint'
+        run: pnpm lint
       - name: '🟦 Typecheck'
-        run: yarn check:types
+        run: pnpm check:types
+      - name: '🧹 Knip'
+        run: pnpm knip

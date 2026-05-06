@@ -1,4 +1,4 @@
-import { useMDXComponent } from 'next-contentlayer/hooks';
+import { useMDXComponent } from 'next-contentlayer2/hooks';
 // @ts-nocheck
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,10 +13,7 @@ function cn(...args: (string | undefined)[]) {
 const components = {
   h1: ({ className, ...props }) => (
     <h1
-      className={cn(
-        'mt-2 scroll-m-20 text-4xl font-bold tracking-tight',
-        className
-      )}
+      className={cn('mt-2 scroll-m-20 text-4xl font-bold tracking-tight', className)}
       {...props}
     />
   ),
@@ -31,37 +28,25 @@ const components = {
   ),
   h3: ({ className, ...props }) => (
     <h3
-      className={cn(
-        'mt-8 scroll-m-20 text-2xl font-semibold tracking-tight',
-        className
-      )}
+      className={cn('mt-8 scroll-m-20 text-2xl font-semibold tracking-tight', className)}
       {...props}
     />
   ),
   h4: ({ className, ...props }) => (
     <h4
-      className={cn(
-        'mt-8 scroll-m-20 text-xl font-semibold tracking-tight',
-        className
-      )}
+      className={cn('mt-8 scroll-m-20 text-xl font-semibold tracking-tight', className)}
       {...props}
     />
   ),
   h5: ({ className, ...props }) => (
     <h5
-      className={cn(
-        'mt-8 scroll-m-20 text-lg font-semibold tracking-tight',
-        className
-      )}
+      className={cn('mt-8 scroll-m-20 text-lg font-semibold tracking-tight', className)}
       {...props}
     />
   ),
   h6: ({ className, ...props }) => (
     <h6
-      className={cn(
-        'mt-8 scroll-m-20 text-base font-semibold tracking-tight',
-        className
-      )}
+      className={cn('mt-8 scroll-m-20 text-base font-semibold tracking-tight', className)}
       {...props}
     />
   ),
@@ -75,10 +60,7 @@ const components = {
     />
   ),
   p: ({ className, ...props }) => (
-    <p
-      className={cn('md-para leading-7 [&:not(:first-child)]:mt-6', className)}
-      {...props}
-    />
+    <p className={cn('md-para leading-7 [&:not(:first-child)]:mt-6', className)} {...props} />
   ),
   ul: ({ className, ...props }) => (
     <ul className={cn('my-6 ml-6 list-disc', className)} {...props} />
@@ -86,23 +68,14 @@ const components = {
   ol: ({ className, ...props }) => (
     <ol className={cn('my-6 ml-6 list-decimal', className)} {...props} />
   ),
-  li: ({ className, ...props }) => (
-    <li className={cn('mt-2', className)} {...props} />
-  ),
+  li: ({ className, ...props }) => <li className={cn('mt-2', className)} {...props} />,
   blockquote: ({ className, ...props }) => (
     <blockquote
-      className={cn(
-        'md-blockquote mt-6 border-l-2 border-zinc-300 pl-6 italic',
-        className
-      )}
+      className={cn('md-blockquote mt-6 border-l-2 border-zinc-300 pl-6 italic', className)}
       {...props}
     />
   ),
-  img: ({
-    className,
-    alt,
-    ...props
-  }: React.ImgHTMLAttributes<HTMLImageElement>) => (
+  img: ({ className, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
     // biome-ignore lint/a11y/useAltText: alt is provided just not picked up by the linter
     <img
       className={cn('rounded-md border border-zinc-200', className)}
@@ -110,22 +83,14 @@ const components = {
       {...props}
     />
   ),
-  hr: ({ ...props }) => (
-    <hr className='my-4 border-zinc-200 md:my-8' {...props} />
-  ),
+  hr: ({ ...props }) => <hr className="my-4 border-zinc-200 md:my-8" {...props} />,
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
-    <div className='w-full my-6 overflow-y-auto'>
+    <div className="w-full my-6 overflow-y-auto">
       <table className={cn('w-full', className)} {...props} />
     </div>
   ),
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
-    <tr
-      className={cn(
-        'm-0 border-t border-zinc-300 p-0 even:bg-zinc-100',
-        className
-      )}
-      {...props}
-    />
+    <tr className={cn('m-0 border-t border-zinc-300 p-0 even:bg-zinc-100', className)} {...props} />
   ),
   th: ({ className, ...props }) => (
     <th
@@ -145,12 +110,8 @@ const components = {
       {...props}
     />
   ),
-  pre: ({ className, ...props }) => (
-    <pre className={cn('md-pre', className)} {...props} />
-  ),
-  code: ({ className, ...props }) => (
-    <code className={cn('md-code', className)} {...props} />
-  ),
+  pre: ({ className, ...props }) => <pre className={cn('md-pre', className)} {...props} />,
+  code: ({ className, ...props }) => <code className={cn('md-code', className)} {...props} />,
   Image,
 } satisfies {
   // biome-ignore lint/suspicious/noExplicitAny: low impact issue
@@ -165,7 +126,7 @@ export function Mdx({ code }: MdxProps) {
   const Component = useMDXComponent(code);
 
   return (
-    <div className='mdx'>
+    <div className="mdx">
       <Component components={components} />
     </div>
   );

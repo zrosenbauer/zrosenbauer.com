@@ -132,7 +132,7 @@ export function Starfield(props: {
 
   return (
     <canvas
-      id='starfield'
+      id="starfield"
       style={{
         padding: 0,
         margin: 0,

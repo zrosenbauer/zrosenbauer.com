@@ -1,0 +1,20 @@
+{
+  "$schema": "https://unpkg.com/knip@latest/schema.json",
+  "exclude": ["unresolved"],
+  "entry": [
+    "src/app/**/page.tsx",
+    "src/app/**/layout.tsx",
+    "src/app/**/not-found.tsx",
+    "mdx-components.tsx",
+    "contentlayer.config.ts"
+  ],
+  "project": ["src/**/*.{ts,tsx}", "*.{ts,tsx,mjs,js}"],
+  "ignore": [".contentlayer/**"],
+  "ignoreDependencies": [
+    "@next/mdx",
+    "react-markdown",
+    "@tailwindcss/typography",
+    "tailwindcss",
+    "postcss"
+  ]
+}

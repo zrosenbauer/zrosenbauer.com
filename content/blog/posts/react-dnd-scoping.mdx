@@ -10,13 +10,13 @@ tags:
   - gotchas
 ---
 
-At [Joggr](https://joggr.io) we use [react-dnd](https://react-dnd.github.io/react-dnd/) for drag-n-drop functionality. It's a great library, but it has one major downside... it breaks drag-n-drop everywhere else on the page.
+At [Joggr](https://joggr.ai) we use [react-dnd](https://react-dnd.github.io/react-dnd/) for drag-n-drop functionality. It's a great library, but it has one major downside... it breaks drag-n-drop everywhere else on the page.
 
 TL:DR? If you want to skip the story and just see the fix, [click here](#-the-fix).
 
 ## 📝 the background
 
-If you haven't heard of Joggr (I'm the CTO & Co-Founder), we are a documentation platform built for developers, that is directly in your IDE & automatically keeps documentation up-to-date every time your code changes.
+If you haven't heard of Joggr (I'm the CTO & Co-Founder), we're the knowledge base built for devs and agents — connecting your codebase, conversations, and tools so both your engineers and your AI agents always have the context they need. (At the time of this post we were focused on docs in your IDE; the product has evolved since.)
 
 We use [TipTap](https://tiptap.dev/) which is built on top of [ProseMirror](https://prosemirror.net/) for our custom-built editor. TipTap/ProseMirror has a great drag-n-drop API that we use to drag blocks around in our editor
 and it was one the first features we added when we launched to our design partners last year.
@@ -102,24 +102,16 @@ The fix was super simple, we just needed to wrap our `DndProvider` in a simple H
 export const DirectoryTreeView: React.FC<DirectoryTreeViewProps> = (props) => {
   const [dndArea, setDndArea] = React.useState<HTMLSpanElement | null>(null);
 
-  const handleSidebarRef: React.RefCallback<HTMLSpanElement> =
-    React.useCallback((node) => {
-      setDndArea(node);
-    }, []);
+  const handleSidebarRef: React.RefCallback<HTMLSpanElement> = React.useCallback((node) => {
+    setDndArea(node);
+  }, []);
 
-  const html5Options = React.useMemo(
-    () => ({ rootElement: dndArea }),
-    [dndArea]
-  );
+  const html5Options = React.useMemo(() => ({ rootElement: dndArea }), [dndArea]);
 
   return (
     <span ref={handleSidebarRef}>
       {!_.isNil(dndArea) && (
-        <DndProvider
-          debugMode
-          backend={HTML5Backend}
-          options={html5Options}
-        >
+        <DndProvider debugMode backend={HTML5Backend} options={html5Options}>
           <DirectoryTreeViewInner {...props} />
         </DndProvider>
       )}

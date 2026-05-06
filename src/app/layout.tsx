@@ -1,3 +1,5 @@
+import { GeistMono } from 'geist/font/mono';
+import { GeistPixelSquare } from 'geist/font/pixel';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import LocalFont from 'next/font/local';
@@ -12,11 +14,10 @@ export const metadata: Metadata = {
     default: 'zrosenbauer.com',
     template: '%s | zrosenbauer.com',
   },
-  description: 'Co-founder of Joggr, coffee-fueled Node.js developer.',
+  description: 'Co-founder of Joggr — the knowledge base built for devs and agents. TypeScript, Node, Rust, and a purveyor of all languages.',
   openGraph: {
     title: 'zrosenbauer.com',
-    description:
-      'Co-founder of Joggr, coffee-fueled Node.js developer, and DevOps know-it-all',
+    description: 'Co-founder of Joggr — the knowledge base built for devs and agents. TypeScript, Node, Rust, and a purveyor of all languages.',
     url: 'https://zrosenbauer.com',
     siteName: 'zrosenbauer.com',
     images: [
@@ -58,23 +59,21 @@ const calSans = LocalFont({
   variable: '--font-calsans',
 });
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en' className={[inter.variable, calSans.variable].join(' ')}>
+    <html
+      lang="en"
+      className={[
+        inter.variable,
+        calSans.variable,
+        GeistMono.variable,
+        GeistPixelSquare.variable,
+      ].join(' ')}
+    >
       <head>
         <Analytics />
       </head>
-      <body
-        className={`bg-black ${
-          process.env.NODE_ENV === 'development' ? 'debug-screens' : undefined
-        }`}
-      >
-        {children}
-      </body>
+      <body className="bg-background text-foreground antialiased">{children}</body>
     </html>
   );
 }

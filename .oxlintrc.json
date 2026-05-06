@@ -1,0 +1,112 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
+  "plugins": [
+    "typescript",
+    "react",
+    "unicorn",
+    "import",
+    "nextjs",
+    "jsx-a11y",
+    "react-perf",
+    "promise",
+    "node",
+    "oxc"
+  ],
+  "jsPlugins": ["eslint-plugin-security", "eslint-plugin-functional"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "pedantic": "off",
+    "perf": "warn",
+    "style": "off"
+  },
+  "rules": {
+    "typescript/no-explicit-any": "warn",
+    "unicorn/no-document-cookie": "off",
+    "unicorn/require-post-message-target-origin": "off",
+    "react/no-array-index-key": "off",
+    "react/react-in-jsx-scope": "off",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/no-danger": "off",
+    "unicorn/prefer-node-protocol": "off",
+    "import/no-unassigned-import": "off",
+    "security/detect-child-process": "error",
+    "security/detect-eval-with-expression": "error",
+    "security/detect-non-literal-fs-filename": "warn",
+    "security/detect-non-literal-regexp": "error",
+    "security/detect-object-injection": "warn",
+    "security/detect-possible-timing-attacks": "warn",
+    "security/detect-unsafe-regex": "error",
+    "nextjs/no-page-custom-font": "off",
+    "nextjs/no-img-element": "off",
+    "jsx-a11y/heading-has-content": "off",
+    "jsx-a11y/anchor-has-content": "off",
+    "jsx-a11y/click-events-have-key-events": "warn",
+    "jsx-a11y/no-static-element-interactions": "warn",
+    "react-perf/jsx-no-new-function-as-prop": "off",
+    "react-perf/jsx-no-new-object-as-prop": "warn",
+    "react-perf/jsx-no-jsx-as-prop": "off",
+    "prefer-const": "error",
+    "no-nested-ternary": "warn",
+    "no-unneeded-ternary": "error",
+    "no-var": "error",
+    "unicorn/no-unreadable-iife": "error",
+    "functional/no-let": "warn",
+    "curly": "warn",
+    "no-ternary": "off",
+    "typescript/no-non-null-assertion": "warn",
+    "no-shadow": "off",
+    "no-shadow-restricted-names": "off"
+  },
+  "settings": {
+    "next": {
+      "rootDir": "."
+    },
+    "react": {
+      "formComponents": [],
+      "linkComponents": [
+        {
+          "name": "Link",
+          "linkAttribute": ["href", "to"]
+        }
+      ]
+    },
+    "jsx-a11y": {
+      "components": {
+        "Link": "a",
+        "Image": "img",
+        "Button": "button"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "files": [
+        "contentlayer.config.ts",
+        "next.config.mjs",
+        "postcss.config.js",
+        "stylelint.config.mjs",
+        "tailwind.config.js"
+      ],
+      "rules": {
+        "no-ternary": "off",
+        "functional/no-let": "off"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "node_modules",
+    "dist",
+    "build",
+    "out",
+    ".next",
+    ".contentlayer",
+    ".vercel",
+    "coverage",
+    "**/.generated/**",
+    "**/*.gen.ts",
+    "**/*.gen.tsx",
+    "**/*.d.ts",
+    "public"
+  ]
+}

@@ -1,15 +1,376 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin '@tailwindcss/typography';
+
+@source './**/*.{js,ts,jsx,tsx}';
+@source '../mdx-components.tsx';
+@source '../content/**/*.mdx';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- Theme: Doom 64 (purple-shifted) ---------- */
+/* Heavy / brutalist / hellish, but instead of blood red the primary is a vivid */
+/* purple. Sharp corners (no radius), thick borders, dim background.            */
+
+:root {
+  /* Neutrals are tinted with a sliver of the primary green hue (145°) at very */
+  /* low chroma — reads as plain dark grey to the eye but stays cohesive with  */
+  /* the primary instead of the previous purple cast.                          */
+  --background: oklch(0.07 0.005 145);
+  --foreground: oklch(0.96 0.005 145);
+  --card: oklch(0.11 0.008 145);
+  --card-foreground: oklch(0.96 0.005 145);
+  --popover: oklch(0.11 0.008 145);
+  --popover-foreground: oklch(0.96 0.005 145);
+  /* Primary: phosphor green (CRT). Accent: amber (split-complement at 75°,    */
+  /* the historic green-on-amber CRT pairing — warm hint against cool green).  */
+  --primary: oklch(0.78 0.22 145);
+  --primary-foreground: oklch(0.10 0.03 145);
+  --secondary: oklch(0.20 0.01 145);
+  --secondary-foreground: oklch(0.96 0.005 145);
+  --muted: oklch(0.18 0.008 145);
+  --muted-foreground: oklch(0.68 0.01 145);
+  --accent: oklch(0.82 0.18 75);
+  --accent-foreground: oklch(0.13 0.02 60);
+  --destructive: oklch(0.58 0.25 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.26 0.01 145);
+  --input: oklch(0.20 0.01 145);
+  --ring: oklch(0.78 0.22 145);
+  --radius: 0px;
+  --chart-1: oklch(0.78 0.22 145);
+  --chart-2: oklch(0.82 0.18 75);
+  --chart-3: oklch(0.65 0.22 200);
+  --chart-4: oklch(0.74 0.20 5);
+  --chart-5: oklch(0.55 0.20 280);
+  --sidebar: oklch(0.07 0.005 145);
+  --sidebar-foreground: oklch(0.96 0.005 145);
+  --sidebar-primary: oklch(0.78 0.22 145);
+  --sidebar-primary-foreground: oklch(0.10 0.03 145);
+  --sidebar-accent: oklch(0.20 0.01 145);
+  --sidebar-accent-foreground: oklch(0.96 0.005 145);
+  --sidebar-border: oklch(0.26 0.01 145);
+  --sidebar-ring: oklch(0.78 0.22 145);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+
+  --font-sans: var(--font-geist-mono), var(--font-inter), ui-monospace,
+    SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo,
+    Consolas, 'Liberation Mono', monospace;
+  --font-display: var(--font-calsans);
+  --font-pixel: var(--font-geist-pixel-square), ui-monospace, monospace;
+
+  --background-image-gradient-radial: radial-gradient(
+    50% 50% at 50% 50%,
+    var(--tw-gradient-stops)
+  );
+  --background-image-rainbow: linear-gradient(
+    90deg,
+    #ef4444,
+    #f59e0b,
+    #eab308,
+    #22c55e,
+    #06b6d4,
+    #6366f1,
+    #a855f7,
+    #ec4899,
+    #ef4444
+  );
+
+  --animate-fade-in: fade-in 3s ease-in-out forwards;
+  --animate-title: title 3s ease-out forwards;
+  --animate-fade-left: fade-left 3s ease-in-out forwards;
+  --animate-fade-right: fade-right 3s ease-in-out forwards;
+  --animate-rainbow: rainbow 8s linear infinite;
+  --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0%;
+    }
+    75% {
+      opacity: 0%;
+    }
+    100% {
+      opacity: 100%;
+    }
+  }
+
+  @keyframes fade-left {
+    0% {
+      transform: translateX(100%);
+      opacity: 0%;
+    }
+    30% {
+      transform: translateX(0%);
+      opacity: 100%;
+    }
+    100% {
+      opacity: 0%;
+    }
+  }
+
+  @keyframes fade-right {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0%;
+    }
+    30% {
+      transform: translateX(0%);
+      opacity: 100%;
+    }
+    100% {
+      opacity: 0%;
+    }
+  }
+
+  @keyframes title {
+    0% {
+      line-height: 0%;
+      letter-spacing: 0.25em;
+      opacity: 0;
+    }
+    25% {
+      line-height: 0%;
+      opacity: 0%;
+    }
+    80% {
+      opacity: 100%;
+    }
+    100% {
+      line-height: 100%;
+      opacity: 100%;
+    }
+  }
+
+  @keyframes rainbow {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 200% 50%;
+    }
+  }
+
+  @keyframes glow-pulse {
+    0%,
+    100% {
+      filter: drop-shadow(0 0 8px var(--color-primary)) drop-shadow(0 0 16px var(--color-primary));
+    }
+    50% {
+      filter: drop-shadow(0 0 16px var(--color-primary)) drop-shadow(0 0 32px var(--color-accent));
+    }
+  }
+}
+
+/* ---------- Mario sprite keyframes (used by tui terminal banner + gui hero) --- */
+
+@keyframes terminal-mario-run {
+  /* `left: 100% - 3em` keeps Mario flush with the right edge of the banner    */
+  /* (his sprite is 3em wide). Spin-off rotates + lifts + fades in place — he   */
+  /* never travels past the actual ASCII letters.                              */
+  0% {
+    left: -3em;
+    opacity: 0;
+    transform: rotate(0deg) scale(1);
+  }
+  10% {
+    opacity: 1;
+  }
+  78% {
+    left: calc(100% - 3em);
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+  85% {
+    left: calc(100% - 3em);
+    opacity: 1;
+    transform: rotate(0deg) scale(1) translateY(-0.8em);
+  }
+  100% {
+    left: calc(100% - 3em);
+    opacity: 0;
+    transform: rotate(720deg) scale(0.3) translateY(-2.5em);
+  }
+}
+
+@keyframes terminal-mario-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes terminal-mario-step-a {
+  0%,
+  49.999% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes terminal-mario-step-b {
+  0%,
+  49.999% {
+    opacity: 0;
+  }
+  50%,
+  100% {
+    opacity: 1;
+  }
+}
+
+/* ---------- base / element resets ---------- */
 
 @layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+  ::selection {
+    background-color: oklch(from var(--primary) l c h / 0.35);
+    color: var(--foreground);
+  }
   .text-edge-outline {
     -webkit-text-stroke: 1px rgb(255 255 255 / 30%);
+  }
+
+  :where(.prose-zinc) {
+    --tw-prose-body: var(--color-zinc-200);
+    --tw-prose-headings: var(--color-zinc-100);
+    --tw-prose-lead: var(--color-zinc-300);
+    --tw-prose-links: var(--color-zinc-100);
+    --tw-prose-bold: var(--color-zinc-100);
+    --tw-prose-counters: var(--color-zinc-600);
+    --tw-prose-bullets: var(--color-zinc-400);
+    --tw-prose-hr: var(--color-zinc-300);
+    --tw-prose-quotes: var(--color-zinc-400);
+    --tw-prose-quote-borders: var(--color-zinc-300);
+    --tw-prose-captions: var(--color-zinc-300);
+    --tw-prose-code: var(--color-zinc-100);
+    --tw-prose-pre-code: var(--color-zinc-100);
+    --tw-prose-pre-bg: var(--color-zinc-100);
+    --tw-prose-th-borders: var(--color-zinc-300);
+    --tw-prose-td-borders: var(--color-zinc-200);
+    --tw-prose-invert-body: var(--color-zinc-200);
+    --tw-prose-invert-headings: var(--color-white);
+    --tw-prose-invert-lead: var(--color-zinc-300);
+    --tw-prose-invert-links: var(--color-white);
+    --tw-prose-invert-bold: var(--color-white);
+    --tw-prose-invert-counters: var(--color-zinc-400);
+    --tw-prose-invert-bullets: var(--color-zinc-600);
+    --tw-prose-invert-hr: var(--color-zinc-300);
+    --tw-prose-invert-quotes: var(--color-zinc-400);
+    --tw-prose-invert-quote-borders: var(--color-zinc-300);
+    --tw-prose-invert-captions: var(--color-zinc-400);
+    --tw-prose-invert-code: var(--color-white);
+    --tw-prose-invert-pre-code: var(--color-zinc-300);
+    --tw-prose-invert-pre-bg: rgb(0 0 0 / 50%);
+    --tw-prose-invert-th-borders: var(--color-zinc-600);
+    --tw-prose-invert-td-borders: var(--color-zinc-300);
+  }
+
+  :where(.prose-quoteless) :where(blockquote p:first-of-type)::before,
+  :where(.prose-quoteless) :where(blockquote p:first-of-type)::after {
+    content: none;
   }
 }
 
 .page-container {
-  @apply mx-auto;
-
+  margin-inline: auto;
   max-width: 100ch;
+}
+
+/* ---------- prose overrides (un-layered to beat the typography plugin) ----- */
+/* The @tailwindcss/typography plugin emits its rules into @layer components,  */
+/* so any `:where(.prose) { --tw-prose-body: ... }` we put in @layer base      */
+/* loses the cascade. Defining these outside layers wins.                       */
+
+:where(.prose) {
+  --tw-prose-body: var(--foreground);
+  --tw-prose-headings: var(--foreground);
+  --tw-prose-lead: var(--muted-foreground);
+  --tw-prose-links: var(--primary);
+  --tw-prose-bold: var(--foreground);
+  --tw-prose-counters: var(--muted-foreground);
+  --tw-prose-bullets: var(--muted-foreground);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--muted-foreground);
+  --tw-prose-quote-borders: var(--border);
+  --tw-prose-captions: var(--muted-foreground);
+  --tw-prose-code: var(--primary);
+  --tw-prose-pre-code: var(--foreground);
+  --tw-prose-pre-bg: oklch(from var(--card) l c h / 0.6);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
+}
+
+:where(.prose) :where(code)::before,
+:where(.prose) :where(code)::after {
+  content: '';
+}
+
+/* A bit more breathing room between paragraphs than the typography plugin's default. */
+:where(.prose) :where(p) {
+  margin-top: 1.6em;
+  margin-bottom: 1.6em;
+}
+
+/* ---------- rainbow text (for landing banner) ---------- */
+
+.rainbow-text {
+  background: var(--background-image-rainbow);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rainbow 8s linear infinite;
 }

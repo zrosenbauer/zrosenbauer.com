@@ -8,8 +8,6 @@ export const Popout: React.FC<{
   children: React.ReactNode;
 }> = ({ children, className }) => {
   return (
-    <article className={cn('p-4 border rounded-xl border-zinc-600', className)}>
-      {children}
-    </article>
+    <article className={cn('p-4 border rounded-xl border-zinc-600', className)}>{children}</article>
   );
 };

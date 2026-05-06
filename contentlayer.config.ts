@@ -1,8 +1,5 @@
-import {
-  defineDocumentType,
-  makeSource,
-} from 'contentlayer/source-files';
-import type { ComputedFields } from 'contentlayer/source-files';
+import { defineDocumentType, makeSource } from 'contentlayer2/source-files';
+import type { ComputedFields } from 'contentlayer2/source-files';
 import _ from 'lodash';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
@@ -15,7 +12,13 @@ import { blogTags } from './src/utils/blog/tags';
 const computedFields: ComputedFields = {
   path: {
     type: 'string',
-    resolve: (doc) => `/${doc._raw.flattenedPath}`,
+    resolve: (doc) => {
+      // Pages live at /gui/<slug> (we strip the `pages/` directory prefix).
+      if (doc._raw.flattenedPath.startsWith('pages/')) {
+        return `/gui/${doc._raw.flattenedPath.replace(/^pages\//, '')}`;
+      }
+      return `/gui/${doc._raw.flattenedPath}`;
+    },
   },
   slug: {
     type: 'string',
@@ -60,6 +63,15 @@ export const Project = defineDocumentType(() => ({
     },
     deprecated: {
       type: 'boolean',
+      required: true,
+    },
+    role: {
+      type: 'enum',
+      options: ['author', 'contributor'],
+      required: true,
+    },
+    description: {
+      type: 'string',
       required: true,
     },
   },
@@ -144,7 +156,6 @@ export default makeSource({
     rehypePlugins: [
       rehypeSlug,
       [
-        // @ts-expect-error - `theme` is not in the types
         rehypePrettyCode,
         {
           theme: 'github-dark',

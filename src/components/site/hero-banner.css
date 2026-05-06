@@ -1,0 +1,73 @@
+.hero-stage {
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+  user-select: none;
+  max-width: 100%;
+  margin-top: 0;
+  /* Slow ease-out so the section settles after Mario has spun off-screen */
+  /* rather than snapping. Triggered by the `.hero-stage--intro` class being   */
+  /* removed when the intro timer fires.                                       */
+  transition: margin-top 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-stage--intro {
+  /* Reserve vertical space above the banner for the running / jumping Mario. */
+  margin-top: 4.5em;
+}
+
+.hero-banner {
+  margin: 0;
+  /* Box-drawing glyphs only render correctly in fonts where every glyph has the */
+  /* same advance width — Geist Mono kerns some of them, so pin to the platform   */
+  /* monospace stack.                                                              */
+  font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas,
+    'Liberation Mono', monospace;
+  font-size: clamp(6px, 0.9vw, 11px);
+  font-weight: 700;
+  line-height: 1;
+  white-space: pre;
+}
+
+/* ---------- Mario rig ---------- */
+
+.hero-mario-rig {
+  position: absolute;
+  bottom: calc(100% + 0.4em);
+  left: 0;
+  width: 3em;
+  height: 3em;
+  /* The sticky SiteHeader is z-50 with a semi-opaque background — Mario has to */
+  /* sit above it so he's not painted over while running across the top.         */
+  z-index: 60;
+  pointer-events: none;
+  animation: terminal-mario-run 3.5s cubic-bezier(0.55, 0.08, 0.85, 1) forwards;
+}
+
+.hero-mario-bouncer {
+  width: 100%;
+  height: 100%;
+  animation: terminal-mario-bounce 0.36s ease-in-out infinite;
+}
+
+.hero-mario-frame {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.hero-mario-frame--a {
+  animation: terminal-mario-step-a 0.18s steps(1) infinite;
+}
+
+.hero-mario-frame--b {
+  animation: terminal-mario-step-b 0.18s steps(1) infinite;
+}
+
+.hero-mario-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.6));
+  image-rendering: pixelated;
+}

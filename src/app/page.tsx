@@ -1,56 +1,82 @@
-import { Starfield } from '@components/starfield';
+'use client';
+
+import { HeroBanner } from '@components/site/hero-banner';
 import Link from 'next/link';
-import React from 'react';
+import { useEffect, useState } from 'react';
 
-const navigation = [
-  { name: 'about', href: '/about' },
-  { name: 'projects', href: '/projects' },
-  { name: 'design', href: '/designs' },
-  { name: 'blog', href: '/blog' },
-  { name: 'contact', href: '/contact' },
-];
+import './landing.css';
 
-export default function Home() {
+export default function LandingPage() {
+  const [stored, setStored] = useState<'tui' | 'gui' | null>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const v = window.localStorage.getItem('ui-preference');
+    if (v === 'tui' || v === 'gui') setStored(v);
+  }, []);
+
+  const remember = (choice: 'tui' | 'gui') => {
+    if (typeof window === 'undefined') return;
+    window.localStorage.setItem('ui-preference', choice);
+  };
+
   return (
-    <div className='flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black'>
-      <nav className='my-16 animate-fade-in'>
-        <ul className='flex items-center justify-center gap-4'>
-          {navigation.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className='text-sm duration-500 text-zinc-500 hover:text-zinc-300'
-            >
-              {item.name}
-            </Link>
-          ))}
-        </ul>
-      </nav>
-      <div className='hidden w-screen h-px animate-glow md:block animate-fade-left bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0' />
-      <div className='inset-0 -z-10 animate-fade-in'>
-        <Starfield
-          starCount={1000}
-          starColor={[255, 255, 255]}
-          speedFactor={0.05}
-        />
+    <main className="landing">
+      <HeroBanner />
+      <p className="landing-tagline">
+        co-founder of joggr.ai · typescript · node · rust · purveyor of all languages · pick your interface
+      </p>
+      <div className="landing-choices">
+        <Link
+          href="/tui"
+          className="landing-choice landing-choice--tui"
+          onClick={() => remember('tui')}
+          data-recommended={stored === 'tui' ? 'true' : undefined}
+        >
+          <span className="landing-choice-key">[1]</span>
+          <span className="landing-choice-name">tui</span>
+          <span className="landing-choice-desc">terminal interface</span>
+          <span className="landing-choice-meta">cli · keyboard · old-school</span>
+        </Link>
+        <Link
+          href="/gui"
+          className="landing-choice landing-choice--gui"
+          onClick={() => remember('gui')}
+          data-recommended={stored === 'gui' ? 'true' : undefined}
+        >
+          <span className="landing-choice-key">[2]</span>
+          <span className="landing-choice-name">gui</span>
+          <span className="landing-choice-desc">classic site</span>
+          <span className="landing-choice-meta">mouse · scroll · designed</span>
+        </Link>
       </div>
-      <h1 className='z-10 text-4xl text-transparent duration-1000 bg-white cursor-default text-edge-outline animate-title font-display sm:text-6xl md:text-9xl whitespace-nowrap bg-clip-text '>
-        zrosenbauer
-      </h1>
-      <div className='hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0' />
-      <div className='my-16 text-center animate-fade-in'>
-        <h2 className='text-sm text-zinc-500 '>
-          I'm building{' '}
-          <Link
-            target='_blank'
-            href='https://joggr.io'
-            className='underline duration-500 hover:text-zinc-300'
-          >
-            joggr.io
-          </Link>{' '}
-          to help developers write great documentation.
-        </h2>
-      </div>
-    </div>
+      <p className="landing-foot">
+        {stored ? (
+          <>
+            last visit: <strong>{stored}</strong> ·{' '}
+          </>
+        ) : null}
+        press <kbd>1</kbd> or <kbd>2</kbd>
+      </p>
+      <KeyHandler />
+    </main>
   );
+}
+
+function KeyHandler() {
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === '1') {
+        window.localStorage.setItem('ui-preference', 'tui');
+        window.location.assign('/tui');
+      } else if (e.key === '2') {
+        window.localStorage.setItem('ui-preference', 'gui');
+        window.location.assign('/gui');
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
+  return null;
 }
