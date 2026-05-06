@@ -30,6 +30,14 @@ const nextConfig = {
   experimental: {
     mdxRs: true,
   },
+
+  /**
+   * Opt into Turbopack (default in Next 16). Empty config is enough — the
+   * webpack config injected by `withContentlayer` coexists at build time.
+   *
+   * @see https://nextjs.org/docs/app/api-reference/next-config-js/turbopack
+   */
+  turbopack: {},
 };
 
 export default withContentlayer(nextConfig);
