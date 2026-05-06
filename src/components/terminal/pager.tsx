@@ -138,7 +138,7 @@ export function Pager({ state, onClose, onNext, onPrev }: PagerProps) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          open in classic ↗
+          open in gui ↗
         </Link>
       </footer>
     </div>

@@ -1,4 +1,4 @@
-// Pixel-art Super Mario sprite. Two running frames, 16x16, classic SMB palette.
+// Pixel-art Super Mario sprite. Two running frames, 16x16, NES palette option.
 // Letters in the grid map to colors below. `.` = transparent.
 
 // Tones drive off CSS custom properties on `.terminal`, so Mario re-skins
@@ -12,7 +12,7 @@ const PALETTE_THEMED: Record<string, string> = {
 };
 
 // Authentic Super Mario Bros NES palette.
-const PALETTE_CLASSIC: Record<string, string> = {
+const PALETTE_NES: Record<string, string> = {
   R: '#e52521', // fire-engine red
   B: '#3a1f04', // dark brown
   S: '#fcd6a6', // peach
@@ -71,12 +71,12 @@ export interface MarioSpriteProps {
   frame: 'a' | 'b';
   className?: string;
   /** When true, use authentic SMB colors instead of theme-driven CSS variables. */
-  classic?: boolean;
+  nesPalette?: boolean;
 }
 
-export function MarioSprite({ frame, className, classic = false }: MarioSpriteProps) {
+export function MarioSprite({ frame, className, nesPalette = false }: MarioSpriteProps) {
   const grid = frame === 'a' ? FRAME_A : FRAME_B;
-  const palette = classic ? PALETTE_CLASSIC : PALETTE_THEMED;
+  const palette = nesPalette ? PALETTE_NES : PALETTE_THEMED;
   return (
     <svg
       viewBox="0 0 16 16"

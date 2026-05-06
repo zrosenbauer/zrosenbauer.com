@@ -598,8 +598,7 @@ export function TerminalShell({ initialPath }: TerminalShellProps = {}) {
                 · purveyor of all languages
               </span>
               <span>
-                type <strong>help</strong> to get started · <strong>exit</strong> to switch to the
-                classic site
+                type <strong>help</strong> to get started · <strong>exit</strong> to switch to gui
               </span>
             </div>
           </header>
@@ -679,7 +678,7 @@ export function TerminalShell({ initialPath }: TerminalShellProps = {}) {
               </>
             )}
           </span>
-          <Link href="/gui" className="terminal-classic-link">
+          <Link href="/gui" className="terminal-gui-link">
             switch to gui →
           </Link>
         </footer>

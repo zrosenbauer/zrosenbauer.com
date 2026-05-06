@@ -46,10 +46,10 @@ export function HeroBanner({ withMario = false, className }: HeroBannerProps) {
         <div className="hero-mario-rig" aria-hidden="true">
           <div className="hero-mario-bouncer">
             <div className="hero-mario-frame hero-mario-frame--a">
-              <MarioSprite frame="a" classic className="hero-mario-svg" />
+              <MarioSprite frame="a" nesPalette className="hero-mario-svg" />
             </div>
             <div className="hero-mario-frame hero-mario-frame--b">
-              <MarioSprite frame="b" classic className="hero-mario-svg" />
+              <MarioSprite frame="b" nesPalette className="hero-mario-svg" />
             </div>
           </div>
         </div>

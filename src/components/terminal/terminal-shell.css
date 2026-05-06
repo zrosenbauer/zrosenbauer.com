@@ -556,11 +556,11 @@
   font-family: inherit;
 }
 
-.terminal-classic-link {
+.terminal-gui-link {
   color: var(--term-link);
   text-decoration: none;
 }
 
-.terminal-classic-link:hover {
+.terminal-gui-link:hover {
   text-decoration: underline;
 }

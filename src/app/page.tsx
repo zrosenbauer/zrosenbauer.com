@@ -47,7 +47,7 @@ export default function LandingPage() {
         >
           <span className="landing-choice-key">[2]</span>
           <span className="landing-choice-name">gui</span>
-          <span className="landing-choice-desc">classic site</span>
+          <span className="landing-choice-desc">graphical interface</span>
           <span className="landing-choice-meta">mouse · scroll · designed</span>
         </Link>
       </div>
