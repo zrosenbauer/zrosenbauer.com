@@ -103,7 +103,7 @@ const pageToFile = (page: Page): FsFile => {
     title: page.title,
     description: page.description,
     content: `${header}\n${page.body.raw.trim()}\n`,
-    href: `/${slug}`,
+    href: page.path,
   };
 };
 

@@ -17,8 +17,8 @@ import remarkGfm from 'remark-gfm';
 import { COMMAND_NAMES, completeCommand, runCommand } from './command-registry';
 import { HOME_PATH, prettyPath, resolveNode } from './fs';
 import { MarioSprite } from './mario-sprite';
-import { Pager } from './pager';
 import { pagerSlugForState, resolveTuiPath } from './navigators';
+import { Pager } from './pager';
 import {
   type CommandContext,
   type CommandOutput,
@@ -87,7 +87,6 @@ const BANNER_ART = [
   '███████╗██║  ██║╚██████╔╝███████║███████╗██║ ╚████║██████╔╝██║  ██║╚██████╔╝███████╗██║  ██║',
   '╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝',
 ].join('\n');
-
 
 const isStoredState = (value: unknown): value is StoredState => {
   if (typeof value !== 'object' || value === null) return false;
@@ -459,9 +458,7 @@ export function TerminalShell({ initialPath }: TerminalShellProps = {}) {
   // Sync URL whenever pager state changes meaningfully (after first mount).
   useEffect(() => {
     if (!hydrated || typeof window === 'undefined') return;
-    const desired = pagerMode
-      ? `${TUI_BASE_PATH}/${pagerSlugForState(pagerMode)}`
-      : TUI_BASE_PATH;
+    const desired = pagerMode ? `${TUI_BASE_PATH}/${pagerSlugForState(pagerMode)}` : TUI_BASE_PATH;
     if (window.location.pathname !== desired) {
       window.history.pushState({}, '', desired);
     }
@@ -577,34 +574,35 @@ export function TerminalShell({ initialPath }: TerminalShellProps = {}) {
         ref={scrollRef}
       >
         {pagerMode ? null : (
-        <header className="terminal-banner">
-          <div
-            className={`terminal-banner-stage${introPlaying ? ' terminal-banner-stage--intro' : ''}`}
-          >
-            {introPlaying ? (
-              <div className="terminal-banner-mario-rig" aria-hidden="true">
-                <div className="terminal-banner-mario-bouncer">
-                  <div className="terminal-banner-mario-frame terminal-banner-mario-frame--a">
-                    <MarioSprite frame="a" className="terminal-banner-mario-svg" />
-                  </div>
-                  <div className="terminal-banner-mario-frame terminal-banner-mario-frame--b">
-                    <MarioSprite frame="b" className="terminal-banner-mario-svg" />
+          <header className="terminal-banner">
+            <div
+              className={`terminal-banner-stage${introPlaying ? ' terminal-banner-stage--intro' : ''}`}
+            >
+              {introPlaying ? (
+                <div className="terminal-banner-mario-rig" aria-hidden="true">
+                  <div className="terminal-banner-mario-bouncer">
+                    <div className="terminal-banner-mario-frame terminal-banner-mario-frame--a">
+                      <MarioSprite frame="a" className="terminal-banner-mario-svg" />
+                    </div>
+                    <div className="terminal-banner-mario-frame terminal-banner-mario-frame--b">
+                      <MarioSprite frame="b" className="terminal-banner-mario-svg" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ) : null}
-            <pre className="terminal-banner-art">{BANNER_ART}</pre>
-          </div>
-          <div className="terminal-banner-tagline">
-            <span>
-              <strong>zrosenbauer.com</strong> — co-founder of joggr.ai · typescript · node · rust · purveyor of all languages
-            </span>
-            <span>
-              type <strong>help</strong> to get started · <strong>exit</strong> to switch to the
-              classic site
-            </span>
-          </div>
-        </header>
+              ) : null}
+              <pre className="terminal-banner-art">{BANNER_ART}</pre>
+            </div>
+            <div className="terminal-banner-tagline">
+              <span>
+                <strong>zrosenbauer.com</strong> — co-founder of joggr.ai · typescript · node · rust
+                · purveyor of all languages
+              </span>
+              <span>
+                type <strong>help</strong> to get started · <strong>exit</strong> to switch to the
+                classic site
+              </span>
+            </div>
+          </header>
         )}
         {pagerMode ? (
           <Pager
@@ -627,44 +625,43 @@ export function TerminalShell({ initialPath }: TerminalShellProps = {}) {
         {pagerMode
           ? null
           : entries.map((entry) => (
-          <div key={entry.id} className="terminal-entry">
-            <div className="terminal-entry-line">
-              {entry.promptOverride ? (
-                <span className="terminal-prompt-text terminal-prompt-select">
-                  <span className="terminal-prompt-user">{entry.promptOverride}</span>
-                  <span className="terminal-prompt-sigil">›</span>{' '}
-                </span>
-              ) : (
-                <Prompt cwd={entry.cwd} />
-              )}
-              <span className="terminal-entry-input">{entry.input}</span>
-            </div>
-            {renderOutput(entry.output)}
-          </div>
+              <div key={entry.id} className="terminal-entry">
+                <div className="terminal-entry-line">
+                  {entry.promptOverride ? (
+                    <span className="terminal-prompt-text terminal-prompt-select">
+                      <span className="terminal-prompt-user">{entry.promptOverride}</span>
+                      <span className="terminal-prompt-sigil">›</span>{' '}
+                    </span>
+                  ) : (
+                    <Prompt cwd={entry.cwd} />
+                  )}
+                  <span className="terminal-entry-input">{entry.input}</span>
+                </div>
+                {renderOutput(entry.output)}
+              </div>
             ))}
         {pagerMode ? null : (
-        <form onSubmit={onSubmit} className="terminal-input-line">
-          {selectionMode ? (
-            <SelectPrompt
-              label={selectionMode.promptLabel}
-              count={selectionMode.items.length}
+          <form onSubmit={onSubmit} className="terminal-input-line">
+            {selectionMode ? (
+              <SelectPrompt label={selectionMode.promptLabel} count={selectionMode.items.length} />
+            ) : (
+              <Prompt cwd={cwd} />
+            )}
+            <input
+              ref={inputRef}
+              value={input}
+              onChange={onChange}
+              onKeyDown={onKeyDown}
+              spellCheck={false}
+              autoCapitalize="off"
+              autoCorrect="off"
+              autoComplete="off"
+              aria-label={
+                selectionMode ? `${selectionMode.promptLabel} selection` : 'Terminal input'
+              }
+              className="terminal-input"
             />
-          ) : (
-            <Prompt cwd={cwd} />
-          )}
-          <input
-            ref={inputRef}
-            value={input}
-            onChange={onChange}
-            onKeyDown={onKeyDown}
-            spellCheck={false}
-            autoCapitalize="off"
-            autoCorrect="off"
-            autoComplete="off"
-            aria-label={selectionMode ? `${selectionMode.promptLabel} selection` : 'Terminal input'}
-            className="terminal-input"
-          />
-        </form>
+          </form>
         )}
       </div>
       {pagerMode ? null : (

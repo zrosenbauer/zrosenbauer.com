@@ -123,8 +123,8 @@ export function Pager({ state, onClose, onNext, onPrev }: PagerProps) {
       </div>
       <footer className="terminal-pager-footer">
         <span className="terminal-pager-hints">
-          <kbd>q</kbd>/<kbd>esc</kbd> quit · <kbd>↑</kbd>/<kbd>↓</kbd> scroll ·{' '}
-          <kbd>space</kbd> page
+          <kbd>q</kbd>/<kbd>esc</kbd> quit · <kbd>↑</kbd>/<kbd>↓</kbd> scroll · <kbd>space</kbd>{' '}
+          page
           {hasCollection ? (
             <>
               {' '}

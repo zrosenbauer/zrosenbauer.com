@@ -21,8 +21,8 @@
   /* Box-drawing glyphs only render correctly in fonts where every glyph has the */
   /* same advance width — Geist Mono kerns some of them, so pin to the platform   */
   /* monospace stack.                                                              */
-  font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas,
-    'Liberation Mono', monospace;
+  font-family:
+    ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
   font-size: clamp(6px, 0.9vw, 11px);
   font-weight: 700;
   line-height: 1;

@@ -1,11 +1,7 @@
 import { Section } from '@components/site/section';
 import { allProjects } from '@content';
-import {
-  fetchProjectsWithStars,
-  formatStars,
-  type ProjectWithStars,
-} from '@utils/github/projects';
 import { IconStarFilled } from '@tabler/icons-react';
+import { fetchProjectsWithStars, formatStars, type ProjectWithStars } from '@utils/github/projects';
 import Link from 'next/link';
 
 const FEATURED_SLUGS = ['voltagent', 'viteval', 'kidd'];
@@ -96,4 +92,3 @@ function RoleBadge({ role }: { role: 'author' | 'contributor' }) {
       : 'rounded-sm border border-primary/50 bg-primary/15 px-1.5 py-0 text-[10px] font-bold uppercase tracking-widest text-primary';
   return <span className={className}>{role}</span>;
 }
-

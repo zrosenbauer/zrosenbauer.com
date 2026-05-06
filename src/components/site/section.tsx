@@ -13,15 +13,7 @@ interface SectionProps {
   children: React.ReactNode;
 }
 
-export function Section({
-  index,
-  label,
-  id,
-  first,
-  bleed,
-  className,
-  children,
-}: SectionProps) {
+export function Section({ index, label, id, first, bleed, className, children }: SectionProps) {
   const padding = bleed ? '' : 'px-6 py-8 md:py-12';
   const sectionClass = `${padding} ${first ? '' : 'border-t-2 border-border'}${
     className ? ` ${className}` : ''

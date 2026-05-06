@@ -24,7 +24,8 @@ export default function LandingPage() {
     <main className="landing">
       <HeroBanner />
       <p className="landing-tagline">
-        co-founder of joggr.ai · typescript · node · rust · purveyor of all languages · pick your interface
+        co-founder of joggr.ai · typescript · node · rust · purveyor of all languages · pick your
+        interface
       </p>
       <div className="landing-choices">
         <Link

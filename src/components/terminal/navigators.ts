@@ -182,10 +182,7 @@ type FsLookup = {
  * Resolve a `/tui/...` URL to a pager state. Returns null for `/tui` itself
  * or any unknown path.
  */
-export const resolveTuiPath = (
-  pathname: string,
-  fs: FsLookup
-): ResolvedPagerView | null => {
+export const resolveTuiPath = (pathname: string, fs: FsLookup): ResolvedPagerView | null => {
   const segments = pathname
     .replace(/^\/tui\/?/, '')
     .split('/')
@@ -230,12 +227,7 @@ export const pagerSlugForState = (state: {
   collection?: ReadonlyArray<NavigatorItem>;
   href: string;
 }): string => {
-  if (
-    state.navigatorId &&
-    state.collection &&
-    state.index !== undefined &&
-    state.index >= 0
-  ) {
+  if (state.navigatorId && state.collection && state.index !== undefined && state.index >= 0) {
     const item = state.collection[state.index];
     if (item) return `${state.navigatorId}/${item.slug}`;
   }

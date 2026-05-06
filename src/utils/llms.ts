@@ -4,8 +4,8 @@ const SITE_URL = 'https://zrosenbauer.com';
 
 const link = (path: string): string => `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`;
 
-// Pages live at /{slug}, not at the contentlayer-computed /pages/{slug} path.
-const pageHref = (slug: string): string => link(`/${slug}`);
+// Pages live at /gui/{slug}, not at the contentlayer source /pages/{slug} path.
+const pageHref = (slug: string): string => link(`/gui/${slug}`);
 
 const sortedBlog = () =>
   [...allBlogPosts].sort(
@@ -29,7 +29,7 @@ export const buildLlmsTxt = (): string => {
     '',
     '> Personal site of Zac Rosenbauer — co-founder of joggr.ai (the developer toolkit for building with AI agents). TypeScript, Node, Rust, and a purveyor of all languages.',
     '',
-    'This site has two front-ends: a terminal interface (default at `/`) and a classic web layout at `/classic`. All written content is also published as Markdown — fetch `/llms-full.txt` for the full corpus.',
+    'This site has two front-ends: a terminal interface at `/tui` and a classic web layout at `/gui`. All written content is also published as Markdown — fetch `/llms-full.txt` for the full corpus.',
     '',
   ].join('\n');
 

@@ -29,36 +29,34 @@ export default async function DesignPage({ params }: Props) {
 
   return (
     <>
-      
-        <Section first>
-          <div className="flex flex-col gap-4">
-            <h1 className="font-pixel text-4xl font-bold tracking-tight text-primary md:text-6xl">
-              {design.title}
-            </h1>
-            <p className="max-w-prose text-base text-muted-foreground md:text-lg">
-              {design.description}
-            </p>
-          </div>
-        </Section>
+      <Section first>
+        <div className="flex flex-col gap-4">
+          <h1 className="font-pixel text-4xl font-bold tracking-tight text-primary md:text-6xl">
+            {design.title}
+          </h1>
+          <p className="max-w-prose text-base text-muted-foreground md:text-lg">
+            {design.description}
+          </p>
+        </div>
+      </Section>
 
-        <Section>
-          <div className="relative aspect-[1500/918] w-full border-2 border-border">
-            <Image
-              src={`/img/designs/${design.slug}/banner.png`}
-              alt={design.title}
-              fill
-              sizes="(min-width: 1024px) 768px, 100vw"
-              className="object-cover"
-            />
-          </div>
-        </Section>
+      <Section>
+        <div className="relative aspect-[1500/918] w-full border-2 border-border">
+          <Image
+            src={`/img/designs/${design.slug}/banner.png`}
+            alt={design.title}
+            fill
+            sizes="(min-width: 1024px) 768px, 100vw"
+            className="object-cover"
+          />
+        </div>
+      </Section>
 
-        <Section>
-          <article className="prose prose-quoteless design-content max-w-none font-mono">
-            <Mdx code={design.body.code} />
-          </article>
-        </Section>
-      
+      <Section>
+        <article className="prose prose-quoteless design-content max-w-none font-mono">
+          <Mdx code={design.body.code} />
+        </article>
+      </Section>
     </>
   );
 }

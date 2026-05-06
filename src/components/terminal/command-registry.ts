@@ -1,10 +1,5 @@
 import { HOME_PATH, listDir, normalizePath, prettyPath, resolveNode } from './fs';
-import {
-  type Navigator,
-  type NavigatorItem,
-  NAVIGATORS,
-  resolveNavigatorItem,
-} from './navigators';
+import { type Navigator, type NavigatorItem, NAVIGATORS, resolveNavigatorItem } from './navigators';
 import {
   type CommandContext,
   type CommandDefinition,
@@ -338,9 +333,7 @@ export const runCommand = (input: string, ctx: CommandContext): CommandOutput =>
 
 export const completeCommand = (prefix: string): string[] => {
   const lower = prefix.toLowerCase();
-  return allCommands
-    .filter((c) => !c.hidden && c.name.startsWith(lower))
-    .map((c) => c.name);
+  return allCommands.filter((c) => !c.hidden && c.name.startsWith(lower)).map((c) => c.name);
 };
 
 export type { CommandGroup };

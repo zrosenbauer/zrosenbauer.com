@@ -25,8 +25,8 @@
   /* Primary: phosphor green (CRT). Accent: amber (split-complement at 75°,    */
   /* the historic green-on-amber CRT pairing — warm hint against cool green).  */
   --primary: oklch(0.78 0.22 145);
-  --primary-foreground: oklch(0.10 0.03 145);
-  --secondary: oklch(0.20 0.01 145);
+  --primary-foreground: oklch(0.1 0.03 145);
+  --secondary: oklch(0.2 0.01 145);
   --secondary-foreground: oklch(0.96 0.005 145);
   --muted: oklch(0.18 0.008 145);
   --muted-foreground: oklch(0.68 0.01 145);
@@ -35,19 +35,19 @@
   --destructive: oklch(0.58 0.25 25);
   --destructive-foreground: oklch(0.99 0 0);
   --border: oklch(0.26 0.01 145);
-  --input: oklch(0.20 0.01 145);
+  --input: oklch(0.2 0.01 145);
   --ring: oklch(0.78 0.22 145);
   --radius: 0px;
   --chart-1: oklch(0.78 0.22 145);
   --chart-2: oklch(0.82 0.18 75);
   --chart-3: oklch(0.65 0.22 200);
-  --chart-4: oklch(0.74 0.20 5);
-  --chart-5: oklch(0.55 0.20 280);
+  --chart-4: oklch(0.74 0.2 5);
+  --chart-5: oklch(0.55 0.2 280);
   --sidebar: oklch(0.07 0.005 145);
   --sidebar-foreground: oklch(0.96 0.005 145);
   --sidebar-primary: oklch(0.78 0.22 145);
-  --sidebar-primary-foreground: oklch(0.10 0.03 145);
-  --sidebar-accent: oklch(0.20 0.01 145);
+  --sidebar-primary-foreground: oklch(0.1 0.03 145);
+  --sidebar-accent: oklch(0.2 0.01 145);
   --sidebar-accent-foreground: oklch(0.96 0.005 145);
   --sidebar-border: oklch(0.26 0.01 145);
   --sidebar-ring: oklch(0.78 0.22 145);
@@ -92,17 +92,16 @@
   --radius-lg: var(--radius);
   --radius-xl: var(--radius);
 
-  --font-sans: var(--font-geist-mono), var(--font-inter), ui-monospace,
-    SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo,
-    Consolas, 'Liberation Mono', monospace;
+  --font-sans:
+    var(--font-geist-mono), var(--font-inter), ui-monospace, SFMono-Regular, Menlo, Consolas,
+    'Liberation Mono', monospace;
+  --font-mono:
+    var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono',
+    monospace;
   --font-display: var(--font-calsans);
   --font-pixel: var(--font-geist-pixel-square), ui-monospace, monospace;
 
-  --background-image-gradient-radial: radial-gradient(
-    50% 50% at 50% 50%,
-    var(--tw-gradient-stops)
-  );
+  --background-image-gradient-radial: radial-gradient(50% 50% at 50% 50%, var(--tw-gradient-stops));
   --background-image-rainbow: linear-gradient(
     90deg,
     #ef4444,

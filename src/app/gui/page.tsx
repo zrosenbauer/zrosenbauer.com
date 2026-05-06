@@ -1,8 +1,8 @@
 import { HeroBanner } from '@components/site/hero-banner';
 import { Section } from '@components/site/section';
 import { allBlogPosts, allProjects } from '@content';
-import { fetchProjectsWithStars, formatStars } from '@utils/github/projects';
 import { IconStarFilled } from '@tabler/icons-react';
+import { fetchProjectsWithStars, formatStars } from '@utils/github/projects';
 import Link from 'next/link';
 
 const FEATURED_PROJECT_SLUGS = ['voltagent', 'viteval', 'kidd'];
@@ -23,9 +23,6 @@ export default async function GuiHome() {
 
   return (
     <>
-
-
-
       {/* 00 — index/hero */}
       <Section index="00" label="index" first>
         <div className="flex flex-col gap-6">
@@ -40,7 +37,9 @@ export default async function GuiHome() {
             >
               joggr.ai
             </Link>
-            — the developer toolkit for building with AI agents. Mostly typescript, node, and rust. Purveyor of all languages. I ship open-source tools and write about the things I learned the hard way.
+            &nbsp; — the developer toolkit for building with AI agents. Mostly typescript, node, and
+            rust. Purveyor of all languages. I ship open-source tools and write about the things I
+            learned the hard way.
           </p>
         </div>
       </Section>
@@ -175,8 +174,6 @@ export default async function GuiHome() {
           />
         </ul>
       </Section>
-
-
     </>
   );
 }
@@ -197,4 +194,3 @@ function RoleBadge({ role }: { role: 'author' | 'contributor' }) {
       : 'rounded-sm border border-primary/50 bg-primary/15 px-1.5 py-0 text-[10px] font-bold uppercase tracking-widest text-primary';
   return <span className={className}>{role}</span>;
 }
-

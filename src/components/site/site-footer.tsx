@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const externalLinks = [
   { href: 'https://github.com/zrosenbauer', label: 'github' },
@@ -6,8 +9,35 @@ const externalLinks = [
   { href: 'mailto:zac@joggr.ai', label: 'email' },
 ];
 
+const tuiHrefForPath = (pathname: string | null): string => {
+  if (!pathname) {
+    return '/tui';
+  }
+  if (pathname === '/gui/about') {
+    return '/tui/about';
+  }
+  if (pathname === '/gui/contact') {
+    return '/tui/contact';
+  }
+
+  const blogSlug = pathname.match(/^\/gui\/blog\/posts\/([^/]+)$/)?.[1];
+  if (blogSlug) {
+    return `/tui/blog/${blogSlug}`;
+  }
+
+  const designSlug = pathname.match(/^\/gui\/designs\/([^/]+)$/)?.[1];
+  if (designSlug) {
+    return `/tui/designs/${designSlug}`;
+  }
+
+  return '/tui';
+};
+
 export function SiteFooter() {
+  const pathname = usePathname();
   const year = new Date().getFullYear();
+  const tuiHref = tuiHrefForPath(pathname);
+
   return (
     <footer className="border-t-2 border-border">
       <div className="flex flex-col items-start justify-between gap-6 px-6 py-8 md:flex-row md:items-center">
@@ -36,10 +66,10 @@ export function SiteFooter() {
           ))}
         </div>
         <Link
-          href="/tui"
+          href={tuiHref}
           className="text-xs font-bold uppercase tracking-widest text-primary transition-colors hover:text-accent"
         >
-          switch to tui →
+          {tuiHref === '/tui' ? 'switch to tui →' : 'view in tui →'}
         </Link>
       </div>
     </footer>

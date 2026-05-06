@@ -1,8 +1,31 @@
-<div id="header" align="center">
-  <img src="public/img/hello-world.png" alt="Hello World (Header)" width="100%" />
-  <h1>zrosenbauer.com</h1>
-  <p>My personsal website built on Next.js published on GitHub Pages, based on <a href="https://chronark.com">chronark.com</a>.</p>
-  <a href="https://zrosenbauer.com">
-    <img src="https://img.shields.io/badge/↗️%20view%20zrosenbauer.com-99ccff?style=for-the-badge" alt="View Button" width="224" />
-  </a>
-</div>
+# zrosenbauer.com
+
+Personal website for Zac Rosenbauer, published at [zrosenbauer.com](https://zrosenbauer.com).
+
+The site has two front ends over the same content:
+
+- `/tui` - a keyboard-driven terminal interface with in-terminal reading views.
+- `/gui` - a classic web layout for browsing projects, posts, designs, about, and contact pages.
+
+## Stack
+
+- Next.js App Router with static export for GitHub Pages
+- React, TypeScript, and Tailwind CSS
+- Contentlayer for MDX-backed pages, blog posts, projects, and designs
+- pnpm for package management
+
+## Development
+
+```bash
+pnpm install
+pnpm dev
+pnpm build
+```
+
+Useful checks:
+
+```bash
+pnpm check:types
+pnpm lint
+pnpm format:check
+```
