@@ -40,7 +40,7 @@ export default async function GuiHome() {
             >
               joggr.ai
             </Link>
-            — the knowledge base for devs and agents. Mostly typescript, node, and rust. Purveyor of all languages. I ship open-source tools and write the things I learned the hard way.
+            — the knowledge base built for devs and agents. Mostly typescript, node, and rust. Purveyor of all languages. I ship open-source tools and write the things I learned the hard way.
           </p>
         </div>
       </Section>
