@@ -50,7 +50,8 @@ pnpm dev           # Start the local Next.js dev server
 pnpm build         # Generate Contentlayer data and export the site
 pnpm start         # Serve the exported out/ directory
 pnpm preview       # Build, then serve the export
-pnpm check:types   # Run TypeScript
+pnpm check:types   # Generate Contentlayer data, then run TypeScript
+pnpm typecheck     # Alias for check:types
 pnpm lint          # Run oxlint
 pnpm format:check  # Check formatting
 pnpm knip          # Check for unused files/dependencies
