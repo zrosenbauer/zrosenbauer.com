@@ -24,7 +24,7 @@ export default async function GuiHome() {
   return (
     <>
 
-      
+
 
       {/* 00 — index/hero */}
       <Section index="00" label="index" first>
@@ -40,7 +40,7 @@ export default async function GuiHome() {
             >
               joggr.ai
             </Link>
-            — the knowledge base built for devs and agents. Mostly typescript, node, and rust. Purveyor of all languages. I ship open-source tools and write the things I learned the hard way.
+            — the developer toolkit for building with AI agents. Mostly typescript, node, and rust. Purveyor of all languages. I ship open-source tools and write about the things I learned the hard way.
           </p>
         </div>
       </Section>
@@ -176,7 +176,7 @@ export default async function GuiHome() {
         </ul>
       </Section>
 
-      
+
     </>
   );
 }

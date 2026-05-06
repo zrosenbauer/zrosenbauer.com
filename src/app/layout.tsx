@@ -14,10 +14,10 @@ export const metadata: Metadata = {
     default: 'zrosenbauer.com',
     template: '%s | zrosenbauer.com',
   },
-  description: 'Co-founder of Joggr — the knowledge base built for devs and agents. TypeScript, Node, Rust, and a purveyor of all languages.',
+  description: 'Co-founder of Joggr — the developer toolkit for building with AI agents. TypeScript, Node, Rust, and a purveyor of all languages.',
   openGraph: {
     title: 'zrosenbauer.com',
-    description: 'Co-founder of Joggr — the knowledge base built for devs and agents. TypeScript, Node, Rust, and a purveyor of all languages.',
+    description: 'Co-founder of Joggr — the developer toolkit for building with AI agents. TypeScript, Node, Rust, and a purveyor of all languages.',
     url: 'https://zrosenbauer.com',
     siteName: 'zrosenbauer.com',
     images: [

@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build --webpack",
-    "start": "next start",
+    "start": "pnpm dlx serve@latest out",
+    "preview": "pnpm build && pnpm start",
     "check:types": "tsc --noEmit",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
