@@ -36,10 +36,10 @@ export default async function GuiHome() {
               className="text-foreground underline underline-offset-4 hover:text-accent"
             >
               joggr.ai
-            </Link>
-            &nbsp; — the developer toolkit for building with AI agents. Mostly typescript, node, and
-            rust. Purveyor of all languages. I ship open-source tools and write about the things I
-            learned the hard way.
+            </Link>{' '}
+            — the developer toolkit for building with AI agents. Mostly typescript, node, and rust.
+            Purveyor of all languages. I ship open-source tools and write about the things I learned
+            the hard way.
           </p>
         </div>
       </Section>
