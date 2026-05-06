@@ -65,7 +65,7 @@ const blogPostBody = (post: (typeof allBlogPosts)[number]): string => {
   ].join('\n');
 };
 
-export const blogNavigator: Navigator = {
+const blogNavigator: Navigator = {
   id: 'blog',
   name: 'blog',
   summary: 'Browse blog posts',
@@ -82,7 +82,7 @@ export const blogNavigator: Navigator = {
     })),
 };
 
-export const projectsNavigator: Navigator = {
+const projectsNavigator: Navigator = {
   id: 'projects',
   name: 'projects',
   summary: 'Browse projects',
@@ -112,7 +112,7 @@ const designBody = (design: (typeof allDesigns)[number]): string =>
     '',
   ].join('\n');
 
-export const designsNavigator: Navigator = {
+const designsNavigator: Navigator = {
   id: 'designs',
   name: 'designs',
   summary: 'Browse design experiments',
@@ -143,8 +143,7 @@ export const NAVIGATORS: ReadonlyArray<Navigator> = [
   designsNavigator,
 ];
 
-export const findNavigator = (id: string): Navigator | null =>
-  NAVIGATORS.find((n) => n.id === id) ?? null;
+const findNavigator = (id: string): Navigator | null => NAVIGATORS.find((n) => n.id === id) ?? null;
 
 /**
  * Every URL slug under `/tui/` that maps to a viewable pager state.

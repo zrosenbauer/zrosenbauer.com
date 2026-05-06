@@ -3,7 +3,6 @@ import { type Navigator, type NavigatorItem, NAVIGATORS, resolveNavigatorItem } 
 import {
   type CommandContext,
   type CommandDefinition,
-  type CommandGroup,
   type CommandOutput,
   TERMINAL_THEMES,
   type TerminalTheme,
@@ -335,5 +334,3 @@ export const completeCommand = (prefix: string): string[] => {
   const lower = prefix.toLowerCase();
   return allCommands.filter((c) => !c.hidden && c.name.startsWith(lower)).map((c) => c.name);
 };
-
-export type { CommandGroup };

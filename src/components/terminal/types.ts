@@ -2,8 +2,6 @@ export type TerminalTheme = 'matrix' | 'dark' | 'light';
 
 export const TERMINAL_THEMES: TerminalTheme[] = ['matrix', 'dark', 'light'];
 
-export type FsNodeKind = 'dir' | 'file';
-
 export interface FsDir {
   kind: 'dir';
   name: string;
@@ -95,7 +93,7 @@ export interface CommandContext {
   commandNames: ReadonlyArray<string>;
 }
 
-export type CommandGroup = 'navigate' | 'shell';
+type CommandGroup = 'navigate' | 'shell';
 
 export interface CommandDefinition {
   name: string;

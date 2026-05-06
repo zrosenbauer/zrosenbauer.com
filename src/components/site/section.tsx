@@ -49,24 +49,3 @@ export function Section({ index, label, id, first, bleed, className, children }:
     </section>
   );
 }
-
-interface PageShellProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
-/**
- * The bordered column wrapper. Place all gui-route content inside one of these.
- * Designed to sit between SiteHeader and SiteFooter (which extend the side rails).
- */
-export function PageShell({ children, className }: PageShellProps) {
-  return (
-    <main
-      className={`mx-auto w-full max-w-5xl border-x-2 border-border${
-        className ? ` ${className}` : ''
-      }`}
-    >
-      {children}
-    </main>
-  );
-}

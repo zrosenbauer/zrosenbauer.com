@@ -173,7 +173,7 @@ const buildTree = (): FsDir => {
   return root;
 };
 
-export const ROOT: FsDir = buildTree();
+const ROOT: FsDir = buildTree();
 export { HOME_PATH };
 
 const splitPath = (raw: string): string[] => raw.split('/').filter(Boolean);
@@ -222,19 +222,6 @@ export const listDir = (dir: FsDir): FsNode[] =>
     if (a.kind !== b.kind) return a.kind === 'dir' ? -1 : 1;
     return a.name.localeCompare(b.name);
   });
-
-export const allFiles = (): FsFile[] => {
-  const out: FsFile[] = [];
-  const walk = (node: FsNode) => {
-    if (node.kind === 'file') {
-      out.push(node);
-      return;
-    }
-    for (const child of Object.values(node.children)) walk(child);
-  };
-  walk(ROOT);
-  return out;
-};
 
 export const prettyPath = (path: string): string => {
   if (path === HOME_PATH) return '~';
