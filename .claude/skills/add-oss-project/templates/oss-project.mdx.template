@@ -1,0 +1,9 @@
+---
+title: '{{TITLE}}'
+repository: {{OWNER}}/{{REPO}}
+deprecated: false
+role: {{author_or_contributor}}
+description: '{{ONE_PUNCHY_SENTENCE}}'
+---
+
+{{ONE_OR_TWO_SENTENCES_ADDING_A_HUMAN_ANGLE}}

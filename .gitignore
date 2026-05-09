@@ -39,3 +39,10 @@ next-env.d.ts
 
 ## VS Code
 .vscode
+
+## Claude Code
+.claude/settings.local.json
+.claude/.credentials.json
+
+## Scratch (uncommitted notes, drafts, throwaway files)
+.scratch/

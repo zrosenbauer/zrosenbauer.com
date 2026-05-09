@@ -1,0 +1,106 @@
+# Design entry — format & structural conventions
+
+Shared voice rules live in [`contributing/voice.md`](../../../../contributing/voice.md). This doc covers what's specific to design entries: heading levels, image syntax, mode selection, and the playful third-person voice.
+
+## Frontmatter
+
+| Field | Required | Notes |
+|---|---|---|
+| `title` | yes | Title-case (`'Coding States'`). Single straight quotes. |
+| `description` | yes | One sentence. Can be deadpan or playful. |
+| `mode` | yes | `'light'` or `'dark'` — controls the page theme (background + accent colors). |
+
+### Picking `mode`
+
+The `mode` field doesn't describe the images themselves; it controls the **page** theme on the site. Pick based on what makes the images pop:
+
+- Dark, moody, neon, or saturated images → `mode: 'dark'` (dark page background lets them breathe).
+- Light, pastel, line-art, or minimal images → `mode: 'light'` (light page background keeps them readable).
+- If unsure, ask the user.
+
+`coding-states.mdx` uses `dark` because the images are dark/saturated. New designs should make a deliberate choice.
+
+## Body structure
+
+Designs use a fixed three-part shape:
+
+```
+# Background
+[1–2 sentences. How this came to exist. Personal context. Self-deprecating asides welcome.]
+
+# The <Group Noun>
+[One-line intro to the showcase. Set up the third-person joke if you're using one.]
+
+## <item-name>     ← lowercase
+[One-line description. Often a third-person Zac joke. Can include parenthetical asides.]
+
+<img src="/img/designs/<slug>/<file>.png" />
+
+## <item-name>
+...
+```
+
+### Heading rules
+
+- **Top-level sections use `# H1`** — `# Background`, `# The States`. This is intentional in designs and differs from blog posts (which start at `##`).
+- **Per-item sections use `## H2`**, lowercase: `## angry`, `## focused`, `## broke prod`.
+- **No third level** in designs. If you need it, the design wants to be split into multiple pages.
+
+### Per-item content
+
+Each item under a `## name` heading has:
+
+1. One sentence describing the item (in voice — third-person Zac jokes are the standard).
+2. A blank line.
+3. A raw `<img>` tag.
+4. A blank line before the next `##`.
+
+Example:
+
+```mdx
+## focused
+
+"Focused Zac" put his headphones on but forgot to play music, because he's so focused (cough cough **ADHD**).
+
+<img src="/img/designs/coding-states/focused.png" />
+```
+
+## Image rules
+
+- **Use raw `<img>` tags**, not Markdown `![alt](src)` syntax. The existing designs all use raw HTML.
+- **Absolute paths only**: `/img/designs/<slug>/<file>.png`. Files live under `public/img/designs/<slug>/`.
+- **No optimization happens** (static export, `images.unoptimized: true`). Size and compress images before committing — large images bloat the build.
+- **Width/height are not required** but can be added: `<img src="..." width="800" />`.
+- **Alt text** is encouraged but not enforced by the existing files. If you add it, keep it short and descriptive.
+
+## Voice — third-person Zac jokes
+
+The designs page leans into a playful third-person Zac persona. From `coding-states.mdx`:
+
+- "Angry Zac" smashes the keyboard while listening to Death Metal.
+- "Focused Zac" put his headphones on but forgot to play music, because he's so focused (cough cough **ADHD**).
+- "Bierzeit Zac" is attempting to hit the [Ballmer Peak](https://xkcd.com/323/).
+- "Uh-oh, Broke Prod Zac" is trying to figure out the age-old-question: "But it worked on my machine..."
+
+Notice the pattern: a quoted Zac persona name + verb + situation. Often with a parenthetical link, an asterisk-bolded aside, or a trailing question.
+
+If a design isn't a Zac-states-themed thing, third-person isn't required — but the playful tone is. Don't sterilize.
+
+## What NOT to include
+
+- **No code blocks** (designs aren't tutorials).
+- **No GitHub alerts** (`> [!TIP]` etc. are a blog convention).
+- **No sign-off CTA** ("reach out on X"). Designs don't have a CTA.
+- **No tags / readTime / publishedAt** in frontmatter — those fields don't exist on the `Design` schema.
+
+## After scaffolding
+
+Run `pnpm typecheck` from the repo root to validate frontmatter (`mode` must be `light` | `dark`).
+
+Then verify the image paths actually exist:
+
+```bash
+ls public/img/designs/<slug>/
+```
+
+A missing image won't fail the build — it'll silently 404 on the live site.

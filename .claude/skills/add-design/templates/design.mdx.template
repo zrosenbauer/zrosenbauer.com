@@ -1,0 +1,31 @@
+---
+title: '{{TITLE}}'
+description: '{{ONE_SENTENCE}}'
+mode: '{{light_or_dark}}'
+---
+
+# Background
+
+{{HOW_THIS_CAME_TO_EXIST}}
+
+# The {{GROUP_NOUN}}
+
+{{ONE_LINE_INTRO_TO_THE_SHOWCASE}}
+
+## {{item-name-1}}
+
+{{ONE_LINE_DESCRIPTION_IN_VOICE}}
+
+<img src="/img/designs/{{SLUG}}/{{file-1}}.png" />
+
+## {{item-name-2}}
+
+{{ONE_LINE_DESCRIPTION_IN_VOICE}}
+
+<img src="/img/designs/{{SLUG}}/{{file-2}}.png" />
+
+## {{item-name-3}}
+
+{{ONE_LINE_DESCRIPTION_IN_VOICE}}
+
+<img src="/img/designs/{{SLUG}}/{{file-3}}.png" />

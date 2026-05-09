@@ -1,0 +1,61 @@
+---
+title: '{{TITLE}}'
+description: '{{ONE_SENTENCE_WITH_PERSONALITY}}'
+image: '/img/blog/posts/{{SLUG}}/main.png'
+authorGithubUsername: 'zrosenbauer'
+readTime: 3
+publishedAt: '{{YYYY-MM-DD}}'
+tags:
+  - {{TAG_FROM_ENUM}}
+---
+
+{{HOOK_PARAGRAPH}}
+
+TL;DR? If you want to skip the story and just see the fix, [click here](#-the-fix).
+
+## 📝 the background
+
+{{WHAT_EXISTED_BEFORE_AND_WHY}}
+
+## 🐛 the bug
+
+{{ONE_OR_TWO_PARAGRAPHS}}
+
+> {{QUOTE_THE_BUG_REPORT}}
+
+{{WHY_IT_WAS_CONFUSING}}
+
+## 🔎 the hunt
+
+{{WHAT_YOU_TRIED}}
+
+> {{SEARCH_QUERY_OR_FAILED_PATH}}
+
+{{KEEP_GOING_UNTIL_BREAKTHROUGH}}
+
+## 🤯 the discovery
+
+{{THE_AHA_MOMENT}} See [{{SOURCE}}]({{LINK}}).
+
+> [!TIP]
+> {{ONE_LINE_GENERALIZABLE_LESSON}}
+
+## 🔧 the fix
+
+{{SETUP_FOR_THE_BROKEN_CODE}}
+
+```tsx
+{{BROKEN_CODE}}
+```
+
+{{ONE_LINE_TRANSITION_TO_FIX}}
+
+```tsx
+{{FIXED_CODE}}
+```
+
+{{WHAT_CHANGED_AND_WHY}}
+
+## 🎉 the conclusion
+
+{{WRAP_UP}} If you have any questions feel free to reach out to me on [X](https://twitter.com/zrosenbauer) or [me@zrosenbauer.com](mailto:me@zrosenbauer.com).
