@@ -32,6 +32,8 @@ jobs:
         run: pnpm format:check
       - name: '🕵️ Lint'
         run: pnpm lint
+      - name: '✍️ Content Lint'
+        run: pnpm lint:content
       - name: '🟦 Typecheck'
         run: pnpm check:types
       - name: '🧹 Knip'

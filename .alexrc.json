@@ -1,0 +1,28 @@
+{
+  "noBinary": true,
+  "allow": [
+    "add",
+    "angry",
+    "banana",
+    "bigger",
+    "black",
+    "blind",
+    "death",
+    "dumb",
+    "execute",
+    "failure",
+    "fire",
+    "fraud",
+    "gal-guy",
+    "gals-man",
+    "he-she",
+    "her-him",
+    "husband-wife",
+    "invalid",
+    "just",
+    "shit",
+    "simple",
+    "stupid",
+    "wacko"
+  ]
+}

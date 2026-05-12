@@ -152,7 +152,9 @@ export default makeSource({
   contentDirPath: './content',
   documentTypes: [Page, Project, Design, BlogPost],
   mdx: {
-    remarkPlugins: [remarkAlert, remarkGfm],
+    // contentlayer2 ships unified v10 types internally; remark-gfm v4 and
+    // remark-github-blockquote-alert ship v11 types. Cast bridges the drift.
+    remarkPlugins: [remarkAlert, remarkGfm] as any,
     rehypePlugins: [
       rehypeSlug,
       [

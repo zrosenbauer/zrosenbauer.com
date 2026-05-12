@@ -1,0 +1,37 @@
+MIT License
+
+Copyright (c) 2026 Zac Rosenbauer
+
+## Scope
+
+This MIT License applies to the source code, configuration, tooling, and
+infrastructure in this repository, EXCEPT for the following paths, which
+are governed by `content/LICENSE`:
+
+  - `content/` (all MDX files: blog posts, projects, designs, pages)
+  - `public/img/` (authored imagery, screenshots, designs)
+
+Original authored prose that incidentally appears in source files (bios,
+intro copy, page text) is considered content and is governed by
+`content/LICENSE`, not this MIT License. The intent of this MIT License
+is to cover code, structure, and tooling, not the writing.
+
+## License Terms
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

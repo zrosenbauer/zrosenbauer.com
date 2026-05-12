@@ -35,12 +35,12 @@ src/
 
 ## Path aliases (tsconfig)
 
-| Alias | Resolves to |
-|---|---|
-| `@components/*` | `src/components/*` |
-| `@utils/*`      | `src/utils/*` |
-| `@layouts/*`    | `src/layouts/*` |
-| `@types/*`      | `src/types/*` |
+| Alias           | Resolves to               |
+| --------------- | ------------------------- |
+| `@components/*` | `src/components/*`        |
+| `@utils/*`      | `src/utils/*`             |
+| `@layouts/*`    | `src/layouts/*`           |
+| `@types/*`      | `src/types/*`             |
 | `@content`      | `.contentlayer/generated` |
 
 Always import via aliases, not relative paths across feature boundaries. `@content` gives you the typed document arrays (`allBlogPosts`, `allProjects`, etc.).

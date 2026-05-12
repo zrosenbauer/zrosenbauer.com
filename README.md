@@ -60,3 +60,14 @@ pnpm knip          # Check for unused files/dependencies
 ## Deployment
 
 Production builds use Next.js static export. The generated site is written to `out/` and can be hosted as static files.
+
+## License
+
+This repo is dual-licensed:
+
+- **Code, configuration, and tooling** — MIT, see [`LICENSE`](./LICENSE).
+- **Content** (blog posts, designs, project entries, page copy, imagery in `public/img/`, and authored prose wherever it appears) — All Rights Reserved, see [`content/LICENSE`](./content/LICENSE).
+
+Third-party logos, screenshots, and embedded material remain the property of their respective owners and are not covered by either license. See `content/LICENSE` for details.
+
+For permission to reuse content beyond fair use, contact zac@joggr.io.

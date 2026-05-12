@@ -78,11 +78,22 @@ Always use straight quotes (`'`) in YAML frontmatter and straight double quotes 
 
 ### 5. Validate
 
-Run `pnpm typecheck` from the repo root. This rebuilds contentlayer and validates the frontmatter against the schema. If it fails:
+Run both checks from the repo root:
+
+1. `pnpm typecheck` — rebuilds contentlayer and validates the frontmatter against the schema.
+2. `pnpm lint:content` — runs `alex` for inclusive-language and profanity checks across all MDX content.
+
+Typecheck failures:
 
 - `tags` not in enum → fix tag or add to `src/utils/blog/tags.ts`.
 - Missing required field → fill it in, do not delete the field.
 - Date format wrong → must be `YYYY-MM-DD`.
+
+Content-lint failures (alex warnings on the new post):
+
+- If the flag is a **real issue** (e.g., `peanut gallery`, `master/slave`, `blacklist`, gendered defaults like `guys`/`mankind`), rewrite the prose. Do not auto-allow.
+- If the flag is a **legitimate false positive** for the site's voice (alex flags conversational words like `dude`, `simple`, color descriptors), add the rule ID to the `allow` array in `.alexrc.json` at the repo root rather than rewriting. Mention the addition to the user so they can confirm.
+- For one-off intentional uses, prefer an inline `<!--alex ignore <rule-id>-->` comment over a global allow.
 
 ### 6. Optional preview
 
@@ -129,6 +140,7 @@ Things the agent might be tempted to do, and why each is wrong.
 | Match the war-story arc on bug posts | "The user only described the fix, so I'll lead with the fix" | The arc is the format. Lead with story, not solution; offer a TL;DR anchor link to the fix for impatient readers. |
 | Use only allowed tags | "I'll add `typescript` since the post is about TS" | The enum in `src/utils/blog/tags.ts` is the source of truth; add a tag there first or contentlayer fails the build. |
 | Run `pnpm typecheck` after scaffolding | "Frontmatter looks right, no need to verify" | Contentlayer validates at build time; a typo in `publishedAt` or an unknown tag silently breaks the deploy. Always verify. |
+| Run `pnpm lint:content` after scaffolding | "Alex is just style; the post reads fine" | Alex catches real issues (bias-etymology phrases, ableist tech terms, profanity) that the lefthook pre-commit hook will block on. Catch them now, not at commit time. |
 | Keep first-person voice | "Third person sounds more authoritative for technical content" | Every existing post is first person. Authority on this site comes from specifics and self-deprecation, not detached prose. |
 
 ## References

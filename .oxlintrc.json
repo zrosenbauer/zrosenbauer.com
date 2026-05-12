@@ -107,6 +107,8 @@
     "**/*.gen.ts",
     "**/*.gen.tsx",
     "**/*.d.ts",
-    "public"
+    "public",
+    ".claude/skills",
+    ".agents/skills"
   ]
 }

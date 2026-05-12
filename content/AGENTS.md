@@ -4,11 +4,11 @@ All MDX documents live here. Each subdirectory maps to a Contentlayer document t
 
 ## Document types
 
-| Path | Type | URL |
-|---|---|---|
-| `blog/posts/*.mdx` | `BlogPost` | `/gui/blog/posts/<slug>` |
-| `projects/*.mdx`   | `Project`  | `/gui/projects/<slug>` |
-| `designs/*.mdx`    | `Design`   | `/gui/designs/<slug>` |
+| Path               | Type       | URL                                             |
+| ------------------ | ---------- | ----------------------------------------------- |
+| `blog/posts/*.mdx` | `BlogPost` | `/gui/blog/posts/<slug>`                        |
+| `projects/*.mdx`   | `Project`  | `/gui/projects/<slug>`                          |
+| `designs/*.mdx`    | `Design`   | `/gui/designs/<slug>`                           |
 | `pages/*.mdx`      | `Page`     | `/gui/<slug>` (the `pages/` prefix is stripped) |
 
 The `/tui/` route renders the same documents in terminal style — no separate authoring needed.
@@ -19,13 +19,13 @@ The `/tui/` route renders the same documents in terminal style — no separate a
 
 ```yaml
 ---
-title: 'string'                       # required
-description: 'string'                 # required
-authorGithubUsername: 'string'        # required
-readTime: 3                           # required, minutes
-publishedAt: '2024-05-10'             # required, ISO date
-image: '/img/foo.gif'                 # optional
-tags:                                 # optional, must be from allowed list
+title: 'string' # required
+description: 'string' # required
+authorGithubUsername: 'string' # required
+readTime: 3 # required, minutes
+publishedAt: '2024-05-10' # required, ISO date
+image: '/img/foo.gif' # optional
+tags: # optional, must be from allowed list
   - fun
 ---
 ```
@@ -61,9 +61,9 @@ mode: 'light' | 'dark'                # required, controls page theme
 
 ```yaml
 ---
-title: 'string'                       # required
-description: 'string'                 # optional
-template: 'default'                   # required
+title: 'string' # required
+description: 'string' # optional
+template: 'default' # required
 ---
 ```
 
@@ -76,8 +76,8 @@ template: 'default'                   # required
   > Helpful context
   ```
 - **Code highlighting** via `rehype-pretty-code` (theme: `github-dark`)
-  - Line highlighting: ```` ```ts {1,3-5} ````
-  - Word highlighting: ```` ```ts /word/ ````
+  - Line highlighting: ` ```ts {1,3-5} `
+  - Word highlighting: ` ```ts /word/ `
 - **Auto-linked headings** via `rehype-autolink-headings` (anchor class `subheading-anchor`)
 - **Raw HTML / JSX** is supported (e.g. `<img src="..." />` in `designs/coding-states.mdx`)
 

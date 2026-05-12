@@ -30,10 +30,12 @@ Read any new draft out loud. If it sounds like:
 - **Third-person Zac is OK for jokes.** The designs page does it deliberately ("Angry Zac smashes the keyboard"). Use sparingly and only when the joke lands.
 - **Name names.** Real people get linked. Tools get linked. Companies get linked.
 - **Acknowledge what you didn't know / got wrong.** Self-deprecation is part of the trust signal.
+- **Irreverent but respectful.** Lean punny, goofy, nerdy as hell. Walks the line, never crosses into NSFW. The vibe is "smart friend riffing", not "edgelord".
 
 ## Sentence-level rules
 
 - **Mix sentence lengths.** Short punchy line. Then a longer sentence that takes its time and unwinds the thought without being precious about it. Then short again.
+- **Use contractions.** "I'm", "it's", "don't", "you're", "I'll", "I'd". Existing posts do this naturally. Full forms ("I am", "it is", "I had") read stiff and immediately make a sentence sound like a press release or an LLM that forgot.
 - **Start in the middle.** No throat-clearing. State the thing.
 - **Parenthetical asides are normal.** Use them to add context without breaking the main thread. Bonus points if the aside is funny.
 - **Italic for spoken-aloud emphasis.** Sparingly — once or twice per piece.
@@ -58,6 +60,8 @@ Read any new draft out loud. If it sounds like:
 - Concrete nouns: actual library names, actual error messages, actual file paths.
 - Direct verbs: "broke", "fixed", "shipped", "ran into", "stumbled on".
 - Mild profanity-adjacent intensifiers if natural ("the winner was…", "banged his head against the wall"). Don't force them.
+- "shit" is OK as a casual intensifier ("the cool shit", "shipped some weird shit"). Use sparingly, only where it lands.
+- **Hard line: no slurs, no stronger profanity than "shit".** No exceptions in published content, regardless of how the chat went.
 
 ## Punctuation rules
 
