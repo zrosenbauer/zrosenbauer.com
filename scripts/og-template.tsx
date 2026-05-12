@@ -29,10 +29,8 @@ export type OgInput =
   | { kind: 'design'; title: string; description: string }
   | { kind: 'page'; title: string; description: string };
 
-const labelFor = (input: OgInput): string => {
-  switch (input.kind) {
-    case 'site':
-      return '~ zrosenbauer.com';
+const labelFor = (kind: Exclude<OgInput['kind'], 'site'>): string => {
+  switch (kind) {
     case 'blog':
       return '~ blog';
     case 'project':
@@ -50,13 +48,118 @@ const titleFontSize = (title: string): number => {
   return 88;
 };
 
-export function template(input: OgInput): ReactElement {
-  const title = input.kind === 'site' ? 'zrosenbauer.com' : input.title;
-  const description =
-    input.kind === 'site'
-      ? 'TypeScript, Node, Rust, and a purveyor of all languages.'
-      : input.description;
+const siteTemplate = (): ReactElement => {
+  return (
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        backgroundColor: COLORS.bg,
+        display: 'flex',
+        flexDirection: 'column',
+        padding: 56,
+        fontFamily: 'CalSans',
+        color: COLORS.fg,
+        borderTop: `10px solid ${COLORS.primary}`,
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 14,
+          fontSize: 22,
+          color: COLORS.muted,
+          letterSpacing: '0.08em',
+        }}
+      >
+        <span style={{ color: COLORS.primary }}>●</span>
+        <span style={{ color: COLORS.primary }}>●</span>
+        <span style={{ color: COLORS.primary }}>●</span>
+        <span style={{ marginLeft: 16 }}>zrosenbauer@home: ~</span>
+      </div>
 
+      <div
+        style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: 22,
+          marginTop: 12,
+        }}
+      >
+        <div style={{ display: 'flex', fontSize: 30, color: COLORS.muted }}>
+          <span style={{ color: COLORS.primary }}>$&nbsp;</span>
+          <span>whoami</span>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 104,
+            lineHeight: 1.0,
+            color: COLORS.fg,
+            letterSpacing: '-0.02em',
+          }}
+        >
+          zrosenbauer
+        </div>
+
+        <div style={{ display: 'flex', fontSize: 30, color: COLORS.muted, marginTop: 16 }}>
+          <span style={{ color: COLORS.primary }}>$&nbsp;</span>
+          <span>cat profile.txt</span>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 32,
+            color: COLORS.fg,
+            lineHeight: 1.35,
+          }}
+        >
+          typescript · node · rust · purveyor of all languages
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            fontSize: 30,
+            color: COLORS.muted,
+            marginTop: 4,
+          }}
+        >
+          <span style={{ color: COLORS.primary }}>$</span>
+          <span
+            style={{
+              width: 18,
+              height: 36,
+              backgroundColor: COLORS.primary,
+              display: 'flex',
+            }}
+          />
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          fontSize: 24,
+          borderTop: `2px solid ${COLORS.border}`,
+          paddingTop: 20,
+        }}
+      >
+        <span style={{ color: COLORS.primary }}>zrosenbauer.com</span>
+        <span style={{ color: COLORS.accent }}>~ home</span>
+      </div>
+    </div>
+  );
+};
+
+const cardTemplate = (input: Exclude<OgInput, { kind: 'site' }>): ReactElement => {
   return (
     <div
       style={{
@@ -82,7 +185,7 @@ export function template(input: OgInput): ReactElement {
           textTransform: 'uppercase',
         }}
       >
-        <span>{labelFor(input)}</span>
+        <span>{labelFor(input.kind)}</span>
         {input.kind === 'blog' && input.tags && input.tags.length > 0 ? (
           <span style={{ color: COLORS.muted }}>· {input.tags.join(' · ')}</span>
         ) : null}
@@ -106,12 +209,12 @@ export function template(input: OgInput): ReactElement {
         <div
           style={{
             display: 'flex',
-            fontSize: titleFontSize(title),
+            fontSize: titleFontSize(input.title),
             lineHeight: 1.05,
             color: COLORS.fg,
           }}
         >
-          {title}
+          {input.title}
         </div>
         <div
           style={{
@@ -122,7 +225,7 @@ export function template(input: OgInput): ReactElement {
             maxWidth: '92%',
           }}
         >
-          {description}
+          {input.description}
         </div>
       </div>
 
@@ -150,4 +253,9 @@ export function template(input: OgInput): ReactElement {
       </div>
     </div>
   );
+};
+
+export function template(input: OgInput): ReactElement {
+  if (input.kind === 'site') return siteTemplate();
+  return cardTemplate(input);
 }

@@ -6,19 +6,8 @@ import { useEffect, useState } from 'react';
 
 import './landing.css';
 
-const BOOT_LINES = [
-  '[ ok ]  loaded ascii banner',
-  '[ ok ]  mounted routes (/tui · /gui)',
-  '[ ok ]  checked session preference',
-  '[ ok ]  ready',
-];
-
-const formatBootTime = (d: Date): string =>
-  `${d.toISOString().slice(0, 10)} ${d.toISOString().slice(11, 16)} UTC`;
-
 export default function LandingPage() {
   const [stored, setStored] = useState<'tui' | 'gui' | null>(null);
-  const [bootedAt] = useState(() => new Date());
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -34,54 +23,41 @@ export default function LandingPage() {
   return (
     <main className="landing">
       <HeroBanner />
-      <div className="landing-inner">
-        <pre className="landing-meta">
-          {`zrosenbauer.com · v1.0.0 · boot ${formatBootTime(bootedAt)}
-typescript · node · rust · purveyor of all languages`}
-        </pre>
-        <pre className="landing-bootlog">{BOOT_LINES.join('\n')}</pre>
-        <p className="landing-prompt">&gt; select interface:</p>
-        <ul className="landing-menu">
-          <li>
-            <Link
-              href="/tui"
-              className="landing-menu-item"
-              onClick={() => remember('tui')}
-              data-recommended={stored === 'tui' ? 'true' : undefined}
-            >
-              <span className="landing-menu-key">[1]</span>
-              <span className="landing-menu-name">tui</span>
-              <span className="landing-menu-desc">terminal interface</span>
-              <span className="landing-menu-meta">cli · keyboard · old-school</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/gui"
-              className="landing-menu-item"
-              onClick={() => remember('gui')}
-              data-recommended={stored === 'gui' ? 'true' : undefined}
-            >
-              <span className="landing-menu-key">[2]</span>
-              <span className="landing-menu-name">gui</span>
-              <span className="landing-menu-desc">graphical interface</span>
-              <span className="landing-menu-meta">mouse · scroll · designed</span>
-            </Link>
-          </li>
-        </ul>
-        <p className="landing-foot">
-          press <kbd>1</kbd> or <kbd>2</kbd>
-          {stored ? (
-            <>
-              {' '}
-              · last session: <strong>{stored}</strong>
-            </>
-          ) : null}
-        </p>
-        <p className="landing-cursor">
-          $ <span className="landing-blink">█</span>
-        </p>
+      <p className="landing-tagline">
+        typescript · node · rust · purveyor of all languages · pick your interface
+      </p>
+      <div className="landing-choices">
+        <Link
+          href="/tui"
+          className="landing-choice landing-choice--tui"
+          onClick={() => remember('tui')}
+          data-recommended={stored === 'tui' ? 'true' : undefined}
+        >
+          <span className="landing-choice-key">[1]</span>
+          <span className="landing-choice-name">tui</span>
+          <span className="landing-choice-desc">terminal interface</span>
+          <span className="landing-choice-meta">cli · keyboard · old-school</span>
+        </Link>
+        <Link
+          href="/gui"
+          className="landing-choice landing-choice--gui"
+          onClick={() => remember('gui')}
+          data-recommended={stored === 'gui' ? 'true' : undefined}
+        >
+          <span className="landing-choice-key">[2]</span>
+          <span className="landing-choice-name">gui</span>
+          <span className="landing-choice-desc">graphical interface</span>
+          <span className="landing-choice-meta">mouse · scroll · designed</span>
+        </Link>
       </div>
+      <p className="landing-foot">
+        {stored ? (
+          <>
+            last visit: <strong>{stored}</strong> ·{' '}
+          </>
+        ) : null}
+        press <kbd>1</kbd> or <kbd>2</kbd>
+      </p>
       <KeyHandler />
     </main>
   );
