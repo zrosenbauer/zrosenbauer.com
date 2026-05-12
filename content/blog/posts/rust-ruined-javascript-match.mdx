@@ -1,0 +1,134 @@
+---
+title: 'how rust ruined javascript: match'
+description: 'Two years of Rust on the side has done things to my TypeScript brain. The first casualty was the switch statement. This is part one of a series on what Rust gave me and what TypeScript still owes me.'
+authorGithubUsername: 'zrosenbauer'
+readTime: 3
+publishedAt: '2026-05-12'
+tags:
+  - typescript
+  - rust
+  - dx
+---
+
+I've been writing [Rust](https://www.rust-lang.org/) on the side for a little over two years now. Year one was mostly dabbling, a side language I'd pick up on weekends and put down the second a Joggr deadline hit. The last six months are where I've actually leaned in. The "this language will change how you think" promise almost always fails to deliver. Rust did, almost immediately. The first place it hit was my reflex for branching on the shape of a value. `match` ruined `switch` for me, ruined the long `if/else` chains I'd been writing my entire career, and I haven't been able to write either in TypeScript since without flinching.
+
+This is part one of an opinionated series I'm calling "how rust ruined javascript", a running set of patterns I picked up from Rust that I now miss every day in TypeScript. Next post is on (cough cough `Result`).
+
+## 📝 the background
+
+For years my TypeScript reflex for "branch on the shape of this thing" landed in one of three places, all of them mediocre:
+
+```ts
+switch (event.kind) {
+  case 'click':
+    return handleClick(event);
+  case 'hover':
+    return handleHover(event);
+  case 'submit':
+    return handleSubmit(event);
+  default: {
+    const _exhaustive: never = event;
+    throw new Error(`unhandled event: ${_exhaustive}`);
+  }
+}
+```
+
+That's the "good" version. Discriminated union, exhaustiveness asserted via `never`, technically correct. It also costs three lines of boilerplate at the bottom of every `switch` just to make the compiler shout at me when I add a variant. I can't destructure inside the case, I can't match on the shape of `event.payload`, and if I forget the `default` block TypeScript happily ships a `switch` that silently falls through on whichever variant I added last Tuesday.
+
+The other two options were `if/else` ladders (worse) and a record of handlers keyed by tag (clever, but you lose narrowing on the payload the moment you index in).
+
+## 🤯 the discovery
+
+`match` got me on first contact. The first time I used it on a real enum I knew it was going to replace every `switch` I'd ever write, and I was hunting for the TypeScript equivalent before the week was out.
+
+```rust
+enum Event {
+    Click { x: i32, y: i32 },
+    Hover { target: String },
+    Submit(FormData),
+}
+
+fn handle(event: Event) -> Response {
+    match event {
+        Event::Click { x, y } if x < 0 || y < 0 => Response::ignore(),
+        Event::Click { x, y } => Response::click(x, y),
+        Event::Hover { target } => Response::hover(target),
+        Event::Submit(data) => Response::submit(data),
+    }
+}
+```
+
+A few things hit me at once:
+
+1. The whole block is an expression. It evaluates to a value, so I can `return` it directly or hand it to a `let`.
+2. It's exhaustive by default. Drop a variant and the compiler stops the build, with no `never` workaround needed on my end.
+3. The pattern destructures for you. `Event::Click { x, y }` gives you the fields right there in the arm, no extra line below to pull them out.
+4. Guards live inside the arm. `if x < 0 || y < 0` sits on the pattern itself instead of being shoved into a nested `if` in the body.
+
+It took me longer than I'd like to admit to fully register what I was looking at. The thing I had been constructing in TypeScript out of `switch` plus `never` plus a layer of personal discipline is a first-class feature in Rust. Not an idiom, not a pattern, not a workaround dressed up in a tutorial. Actual syntax in the language, with the compiler enforcing it.
+
+> [!TIP]
+> Exhaustiveness is the feature. The syntax is the bonus.
+
+## 🔧 enter ts-pattern
+
+The day after that Rust function I went back to a TypeScript file, started writing a `switch`, and stopped halfway through. The TypeScript ecosystem is too large and too obsessive to leave a gap this size unfilled. Someone had to have built this.
+
+Someone had. It's called [ts-pattern](https://github.com/gvergnaud/ts-pattern), and it's the closest thing to Rust's `match` you can get without leaving the type system.
+
+Same handler, rewritten:
+
+```ts
+import { match, P } from 'ts-pattern';
+
+type Event =
+  | { kind: 'click'; x: number; y: number }
+  | { kind: 'hover'; target: string }
+  | { kind: 'submit'; data: FormData };
+
+function handle(event: Event): Response {
+  return match(event)
+    .with({ kind: 'click', x: P.number.negative() }, () => Response.ignore())
+    .with({ kind: 'click', y: P.number.negative() }, () => Response.ignore())
+    .with({ kind: 'click' }, ({ x, y }) => Response.click(x, y))
+    .with({ kind: 'hover' }, ({ target }) => Response.hover(target))
+    .with({ kind: 'submit' }, ({ data }) => Response.submit(data))
+    .exhaustive();
+}
+```
+
+`.exhaustive()` is the line that pays for the library on its own. If I add a new variant to `Event` and forget to handle it, the TypeScript compiler refuses to build. That single method call replaces the runtime `throw`, the `_exhaustive: never` boilerplate, and the `default` arm I'd inevitably forget to write anyway. Bonus: the pattern itself does the narrowing, so `({ x, y })` is fully typed inside the arm without a cast.
+
+It also does the stuff `switch` could never:
+
+- Match nested shapes (`{ kind: 'submit', data: { valid: true } }`).
+- Match on predicates via `P` (`P.string`, `P.number.between(0, 10)`, `P.array(P.string)`).
+- Bind values out of the pattern with `P.select()`.
+- Return a value (it's an expression, like Rust).
+
+It's not as elegant as `match` in Rust, but in fairness no userland TypeScript library can be. The method-chain shape is the price of doing this in userland instead of inventing syntax. The semantics are almost identical though, and after a week of writing it that way I stopped registering the chain at all.
+
+## 🤷 what about native?
+
+There is a [TC39 pattern matching proposal](https://github.com/tc39/proposal-pattern-matching). It would give us something like this, natively in JavaScript:
+
+```js
+const result = match (event) {
+  when ({ kind: 'click', x, y }) when (x < 0 || y < 0): Response.ignore();
+  when ({ kind: 'click', x, y }): Response.click(x, y);
+  when ({ kind: 'hover', target }): Response.hover(target);
+  when ({ kind: 'submit', data }): Response.submit(data);
+};
+```
+
+That syntax is gorgeous. It's also been at Stage 1 since May 2018, which is approaching eight years without advancing a single stage. Stage 2, Stage 3, then engine work across V8, JSC, and SpiderMonkey. Realistic shipping window is 2027-2028 at the earliest. Probably later.
+
+I'm not waiting.
+
+## 🎉 the conclusion
+
+`ts-pattern` has been in my workflow since roughly the week I found `match`, and it's lived in my starter template for going on a year and a half. Every new file with more than one conditional branch on a shape gets `match().with(...).exhaustive()` instead of a `switch`, and existing `switch` blocks get converted opportunistically whenever I'm in the file for another reason. The cost is one dependency and a method-chain shape that takes a few hours to stop noticing. What I get back is exhaustiveness the compiler enforces and destructuring that just works. The match-as-expression ergonomics I missed every time I came back from a Rust session are the part I didn't know I needed.
+
+Up next: how `Result` and `Option` ruined exceptions for me, and what I'm reaching for in TypeScript to get the same feel.
+
+If you have any questions or want to argue with me about any of this, reach out on [X](https://twitter.com/zrosenbauer) or [me@zrosenbauer.com](mailto:me@zrosenbauer.com).
