@@ -1,0 +1,151 @@
+---
+title: 'writing a good AGENTS.md'
+description: 'Most AGENTS.md files have the same three problems. Here is what the research (and rewriting a stack of them) taught me about fixing them.'
+authorGithubUsername: 'zrosenbauer'
+readTime: 5
+publishedAt: '2026-05-09'
+tags:
+  - ai
+  - dx
+---
+
+AI agents are bad at your codebase. Not because the models are bad, but because they walk into a repo blind, every single request, and try to guess at conventions you never wrote down anywhere they can read.
+
+The fix is not a bigger model. It is a markdown file called [`AGENTS.md`](https://agents.md/) that every major coding agent reads on every request. I rewrote a stack of them for a 30-package monorepo recently and did a depressing amount of research along the way. Here is what actually moves the needle.
+
+TL;DR? If you want to skip the story and just see the template, [click here](#-the-fix).
+
+## 📝 the background
+
+`AGENTS.md` is just markdown at the root of your repo. No schema, no frontmatter, no required fields. The [official spec](https://agents.md/) is essentially "write any markdown you want, the agent reads it."
+
+OpenAI shipped the format alongside Codex in August 2025 and [donated it to the Linux Foundation in December 2025](https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation). It is now natively supported by Codex, Cursor, Factory, GitHub Copilot, Amp, Jules, Aider, Continue, and most of the rest of the ecosystem. (Claude Code reads `CLAUDE.md` instead. Symlink it.)
+
+Two conventions matter:
+
+1. **Closest wins.** In a monorepo, nest `AGENTS.md` files per package. The agent uses the closest file relative to whatever it is editing. ([agents.md notes](https://agents.md/) that OpenAI's main repo has 88 nested `AGENTS.md` files.)
+2. **User chat overrides everything.** The file is the default; explicit instructions in a chat message win.
+
+## 🐛 the bug
+
+Most `AGENTS.md` files I have read have the same three problems.
+
+**They put critical rules in the middle.** [Chroma's context rot research](https://www.trychroma.com/research/context-rot) found that "model performance grows increasingly unreliable as input length grows" across 18 LLMs. Combine that with the well-known "lost in the middle" failure mode (LLMs attend disproportionately to the start and end of long inputs), and if your most-broken rule is on line 61 of a 73-line file (which one of mine was), the agent is going to skip it.
+
+**They are auto-generated.** [The ETH Zürich study from Feb 2026](https://arxiv.org/html/2602.11988v1) compared LLM-written context files against human-written ones. LLM-generated files reduced success rates by 0.5-2% versus no context at all, with a 20%+ inference-cost penalty. Human-written files scored +4%. Init scripts that fill your `AGENTS.md` with everything they can find are actively making things worse.
+
+**They are vague.** "Use the package logger." "Tests must pass." "Be careful with telemetry." None of these tell the agent anything it can act on.
+
+## 🔎 the hunt
+
+The most useful piece of research I found was [GitHub's 2,500-repo study](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/), which analyzed real production `AGENTS.md` files and pulled out what the good ones share. [Vercel's evals](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals) measured pass rates and found `AGENTS.md` hit 100% versus 53% for the no-docs baseline. [HumanLayer's writeup](https://www.humanlayer.dev/blog/writing-a-good-claude-md) recommends keeping it under 300 lines, with their own root file under 60.
+
+The pattern across all of them is the same: short, specific, hand-written, and ordered for the lost-in-the-middle problem.
+
+## 🤯 the discovery
+
+[GitHub's study](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/) found great `AGENTS.md` files cluster around six areas: Commands, Testing, Project Structure, Code Style, Git Workflow, and Boundaries. Order matters. Most-broken rule first.
+
+Two patterns punch above their weight.
+
+**Specificity replaces vagueness.** Compare:
+
+> Tests must pass.
+
+versus
+
+> `pnpm --dir packages/core test:single -- src/agent/agent.spec.ts`
+
+The first requires the agent to guess. The second is copy-pasteable. GitHub's writeup sums it up nicely: _"Say 'React 18 with TypeScript, Vite, and Tailwind CSS', not 'React project'."_
+
+**The 3-tier Boundaries section.** This was the highest-impact change for me. Three tiers, not two:
+
+```markdown
+## Boundaries
+
+**Allowed without asking** ✅
+
+- Read files; run validation commands
+- Edit code within a single package; add tests
+
+**Ask first** ⚠️
+
+- New dependencies or version bumps
+- Cross-package public API changes
+- Bypassing hooks (--no-verify)
+
+**Never without explicit request** 🚫
+
+- git push --force to main
+- pnpm publish; deleting public exports
+- Committing secrets or credentials
+```
+
+A binary "allowed/forbidden" pushes every action into one of two buckets, so the agent either over-asks (friction) or over-acts (risk). The middle tier is where real engineering work lives.
+
+## 🔧 the fix
+
+Here is the spine I now use for every file in the monorepo, root or nested:
+
+```markdown
+# <package or repo name>
+
+<1-2 sentences: what this scope owns>
+
+## Critical Rules
+
+1. <most-broken rule first>
+2. ...
+3. ... (3-7 rules total)
+
+## Setup / Validation
+
+<exact commands, with flags>
+
+## Key Files
+
+| File / Dir | Purpose |
+| ---------- | ------- |
+| ...        | ...     |
+
+## Code Style
+
+<one good vs bad snippet, not three paragraphs of prose>
+
+## Boundaries
+
+**Allowed without asking** ✅
+
+- ...
+  **Ask first** ⚠️
+- ...
+  **Never without explicit request** 🚫
+- ...
+
+## Tests
+
+<exact test command, scoped to this dir>
+
+## See Also
+
+- <link to parent AGENTS.md>
+- <link to sibling files>
+```
+
+A few rules of thumb that hold across every file:
+
+- **Target ~100 lines (~1,000 tokens).** Past 200, you are duplicating something the agent can already see in the code. Past 500, [context rot](https://www.trychroma.com/research/context-rot) starts beating you up.
+- **One real code snippet beats three paragraphs of prose.** Show the pattern, do not describe it.
+- **Symlink it.** `CLAUDE.md` and `.cursor/rules` should point at the same `AGENTS.md`. One source of truth, every tool happy.
+- **Iterate.** When an agent makes a mistake, ask whether the rule belongs in `AGENTS.md`. When you onboard a contributor and answer the same question twice, it definitely does.
+
+> [!TIP]
+> Don't run an init script to populate your `AGENTS.md`. The strength of the file is the editorial choice of what to leave out.
+
+## 🎉 the conclusion
+
+The whole rewrite took about three hours of agent-assisted work to produce 12 files across a 30-package monorepo. The biggest lesson was the cheapest one: cut, do not pad. A 100-line file with five specific rules beats a 500-line autogenerated dump every time.
+
+If you want to go deeper, the [agents.md spec](https://agents.md/), [GitHub's 2,500-repo study](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/), and the [Chroma context rot paper](https://www.trychroma.com/research/context-rot) are the three I would read first.
+
+If you have any questions feel free to reach out to me on [X](https://twitter.com/zrosenbauer) or [me@zrosenbauer.com](mailto:me@zrosenbauer.com).

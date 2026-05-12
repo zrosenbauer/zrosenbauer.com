@@ -1,0 +1,55 @@
+---
+title: 'rebuilding zrosenbauer.com'
+description: 'I wanted a personal site with two front doors: a GUI for everyone, and a TUI for the kind of weirdo who refuses to leave vim. Reader, I built it.'
+authorGithubUsername: 'zrosenbauer'
+readTime: 3
+publishedAt: '2026-05-09'
+tags:
+  - fun
+  - dx
+  - react
+---
+
+My old site looked like it was written in 2018. Which makes sense, because it was written in 2018.
+
+So I nuked it and rebuilt the whole thing over a weekend, because I wanted a site with two front doors: a GUI for everyone, and a TUI for the kind of person who panics whenever they have to leave vim (aka me).
+
+## 🤨 why bother?
+
+The old site was honestly fine. Next.js, all the right pieces, just... old. I'd been staring at it for years and it had stopped sparking anything, and I needed a fun thing to hack on for a weekend. "Rebuild the personal site" is the universal developer pressure-release valve.
+
+The upgrade: [Next.js 16](https://nextjs.org/) with App Router, React 19, Tailwind v4, MDX via [Contentlayer](https://contentlayer.dev/), and [oxlint](https://oxc.rs/docs/guide/usage/linter.html) plus oxfmt instead of ESLint and Prettier. Static export, same as before. Modern enough that I'll resent it again in two years.
+
+## 🎨 the GUI
+
+The site at the root is the version most people will see. Clean, modern, vaguely techy in the way every AI startup landing page is right now. Lowercase type, landing page, blog, projects, designs.
+
+![the GUI](https://placehold.co/1200x720?text=GUI+screenshot)
+
+## 💻 the TUI
+
+This is the dumb one I'm the most proud of. Every page is also rendered at `/tui/<same-route>`, which means yes, you can read this blog post inside a terminal-styled UI. If you're reading this on the TUI route right now: respect. GOOD FOR YOU.
+
+Same MDX, different shell.
+
+![the TUI](https://placehold.co/1200x720?text=TUI+screenshot)
+
+You navigate by clicking commands like you booted up a computer from the 80s and it somehow loaded my website. It's for the kind of person whose favorite editor is vim, whose browser tab count is 3, and who would unironically prefer to read a blog post via `cat`. You know who you are. I see you. I built this for you.
+
+It also gave me an excuse to write a custom MDX renderer that strips images, mangles code blocks back into monospace, and impersonates `cat` with a straight face.
+
+## 🏃 the gaming character
+
+There's a small pixel character who runs across the bottom of the page. He's a gaming character. Or, more precisely, he eerily resembles a gaming character you might recognize, but legally speaking, he is not that character. Any resemblance to anyone you may have spent your childhood with is, you guessed it, purely coincidental (legally).
+
+![the runner](<https://placehold.co/1200x400?text=running+dude+(legally+distinct)>)
+
+He just runs. Forever. Across every page. It's very stupid and I love him.
+
+## 🎉 the wrap
+
+I rebuilt my personal site because it sounded fun to do for a weekend. It was. That's pretty much the whole story.
+
+If you want to poke around, the source is on [GitHub](https://github.com/zrosenbauer/zrosenbauer.com), and the weird parts live in `src/app/tui/` and `src/components/terminal/`.
+
+If you have any questions feel free to email me at [me@zrosenbauer.com](mailto:me@zrosenbauer.com).
