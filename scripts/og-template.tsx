@@ -90,37 +90,34 @@ const siteTemplate = (): ReactElement => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          gap: 28,
+          gap: 32,
           marginTop: 12,
         }}
       >
         <div
           style={{
             display: 'flex',
-            fontSize: 96,
+            fontSize: 128,
             lineHeight: 1.0,
             color: COLORS.fg,
             fontFamily: PIXEL_FONT,
+            fontWeight: 700,
+            WebkitTextStroke: `3px ${COLORS.fg}`,
           }}
         >
-          <span style={{ color: COLORS.primary }}>$&nbsp;</span>
-          <span>whoami</span>
+          whoami
         </div>
 
         <div
           style={{
             display: 'flex',
-            flexDirection: 'column',
-            gap: 8,
-            paddingLeft: 4,
             fontSize: 32,
-            lineHeight: 1.35,
+            lineHeight: 1.4,
+            color: COLORS.muted,
+            maxWidth: '92%',
           }}
         >
-          <span style={{ color: COLORS.fg }}>zrosenbauer</span>
-          <span style={{ color: COLORS.muted }}>
-            typescript · node · rust · purveyor of all languages
-          </span>
+          Zac Rosenbauer — blog, open-source projects, and notes on TypeScript, Node, and Rust.
         </div>
 
         <div
@@ -130,7 +127,7 @@ const siteTemplate = (): ReactElement => {
             gap: 12,
             fontSize: 32,
             color: COLORS.muted,
-            marginTop: 4,
+            marginTop: 8,
           }}
         >
           <span style={{ color: COLORS.primary }}>$</span>
@@ -216,6 +213,8 @@ const cardTemplate = (input: Exclude<OgInput, { kind: 'site' }>): ReactElement =
             lineHeight: 1.1,
             color: COLORS.fg,
             fontFamily: PIXEL_FONT,
+            fontWeight: 700,
+            WebkitTextStroke: `2px ${COLORS.fg}`,
           }}
         >
           {input.title}
