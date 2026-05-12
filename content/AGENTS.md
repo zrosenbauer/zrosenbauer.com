@@ -31,7 +31,7 @@ tags: # optional, must be from allowed list
 ```
 
 Allowed tags (defined in `src/utils/blog/tags.ts`):
-`devops`, `gotchas`, `react`, `docker`, `github`, `nextjs`, `fun`
+`devops`, `typescript`, `javascript`, `node`, `react`, `rust`, `ai`, `dx`, `gotchas`, `fun`
 
 To add a new tag: edit `src/utils/blog/tags.ts`. Contentlayer reads the list at build time, so the enum updates automatically.
 
