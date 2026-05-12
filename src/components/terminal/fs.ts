@@ -161,10 +161,9 @@ const buildTree = (): FsDir => {
     content: [
       '# contact',
       '',
-      '- email: [zac@joggr.ai](mailto:zac@joggr.ai)',
+      '- email: [me@zrosenbauer.com](mailto:me@zrosenbauer.com)',
       '- github: [@zrosenbauer](https://github.com/zrosenbauer)',
       '- twitter: [@zrosenbauer](https://twitter.com/zrosenbauer)',
-      '- joggr: [joggr.ai](https://joggr.ai)',
       '',
     ].join('\n'),
   };

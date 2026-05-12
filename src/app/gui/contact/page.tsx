@@ -4,8 +4,8 @@ import Link from 'next/link';
 const channels = [
   {
     label: 'email',
-    href: 'mailto:zac@joggr.ai',
-    handle: 'zac@joggr.ai',
+    href: 'mailto:me@zrosenbauer.com',
+    handle: 'me@zrosenbauer.com',
     note: 'best signal — i actually read it',
   },
   {

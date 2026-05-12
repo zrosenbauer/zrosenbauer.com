@@ -594,8 +594,8 @@ export function TerminalShell({ initialPath }: TerminalShellProps = {}) {
             </div>
             <div className="terminal-banner-tagline">
               <span>
-                <strong>zrosenbauer.com</strong> — co-founder of joggr.ai · typescript · node · rust
-                · purveyor of all languages
+                <strong>zrosenbauer.com</strong> — typescript · node · rust · purveyor of all
+                languages
               </span>
               <span>
                 type <strong>help</strong> to get started · <strong>exit</strong> to switch to gui

@@ -28,18 +28,8 @@ export default async function GuiHome() {
         <div className="flex flex-col gap-6">
           <HeroBanner withMario />
           <p className="max-w-prose text-base text-muted-foreground md:text-lg">
-            Co-founder of{' '}
-            <Link
-              href="https://joggr.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground underline underline-offset-4 hover:text-accent"
-            >
-              joggr.ai
-            </Link>{' '}
-            — the developer toolkit for building with AI agents. Mostly typescript, node, and rust.
-            Purveyor of all languages. I ship open-source tools and write about the things I learned
-            the hard way.
+            Mostly typescript, node, and rust. Purveyor of all languages. I ship open-source tools
+            and write about the things I learned the hard way.
           </p>
         </div>
       </Section>
@@ -47,7 +37,7 @@ export default async function GuiHome() {
       {/* 01 — about */}
       <Section index="01" label="about">
         <ul className="space-y-3 text-sm md:text-base">
-          <Stat k="now" v="building joggr.ai · open-source on the side" />
+          <Stat k="now" v="open-source · personal projects" />
           <Stat k="prev" v="fedex dataworks · shoprunner · precognitive · techstars" />
           <Stat k="stack" v="typescript · node · rust · purveyor of all the codez" />
           <Stat k="based" v="ny · usa" />
@@ -139,10 +129,10 @@ export default async function GuiHome() {
             k="email"
             v={
               <Link
-                href="mailto:zac@joggr.ai"
+                href="mailto:me@zrosenbauer.com"
                 className="text-foreground underline underline-offset-4 hover:text-primary"
               >
-                zac@joggr.ai
+                me@zrosenbauer.com
               </Link>
             }
           />

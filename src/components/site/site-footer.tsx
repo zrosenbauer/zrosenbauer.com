@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 const externalLinks = [
   { href: 'https://github.com/zrosenbauer', label: 'github' },
   { href: 'https://linkedin.com/in/zacrosenbauer', label: 'linkedin' },
-  { href: 'mailto:zac@joggr.ai', label: 'email' },
+  { href: 'mailto:me@zrosenbauer.com', label: 'email' },
 ];
 
 const tuiHrefForPath = (pathname: string | null): string => {

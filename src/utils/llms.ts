@@ -27,7 +27,7 @@ export const buildLlmsTxt = (): string => {
   const intro = [
     '# zrosenbauer.com',
     '',
-    '> Personal site of Zac Rosenbauer — co-founder of joggr.ai (the developer toolkit for building with AI agents). TypeScript, Node, Rust, and a purveyor of all languages.',
+    '> Personal site of Zac Rosenbauer — TypeScript, Node, Rust, and a purveyor of all languages.',
     '',
     'This site has two front-ends: a terminal interface at `/tui` and a graphical web interface at `/gui`. All written content is also published as Markdown — fetch `/llms-full.txt` for the full corpus.',
     '',

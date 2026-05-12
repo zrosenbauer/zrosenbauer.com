@@ -70,4 +70,4 @@ This repo is dual-licensed:
 
 Third-party logos, screenshots, and embedded material remain the property of their respective owners and are not covered by either license. See `content/LICENSE` for details.
 
-For permission to reuse content beyond fair use, contact zac@joggr.io.
+For permission to reuse content beyond fair use, contact me@zrosenbauer.com.

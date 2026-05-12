@@ -54,7 +54,7 @@ export function template(input: OgInput): ReactElement {
   const title = input.kind === 'site' ? 'zrosenbauer.com' : input.title;
   const description =
     input.kind === 'site'
-      ? 'TypeScript, Node, Rust. Co-founder of Joggr — the developer toolkit for building with AI agents.'
+      ? 'TypeScript, Node, Rust, and a purveyor of all languages.'
       : input.description;
 
   return (
@@ -144,7 +144,7 @@ export function template(input: OgInput): ReactElement {
               month: 'short',
               day: 'numeric',
             })}{' '}
-            · {input.readTime} min
+            · {input.readTime} min read
           </span>
         ) : null}
       </div>
