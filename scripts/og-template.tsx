@@ -71,17 +71,11 @@ const siteTemplate = (): ReactElement => {
       <div
         style={{
           display: 'flex',
-          alignItems: 'center',
-          gap: 14,
-          fontSize: 22,
-          color: COLORS.muted,
-          letterSpacing: '0.08em',
+          fontSize: 28,
+          color: COLORS.primary,
         }}
       >
-        <span style={{ color: COLORS.primary }}>●</span>
-        <span style={{ color: COLORS.primary }}>●</span>
-        <span style={{ color: COLORS.primary }}>●</span>
-        <span style={{ marginLeft: 16 }}>zrosenbauer@home: ~</span>
+        ~
       </div>
 
       <div
