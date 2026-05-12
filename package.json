@@ -58,7 +58,8 @@
     "postcss": "^8.5.14",
     "satori": "^0.26.0",
     "tailwindcss": "^4.3.0",
-    "tsx": "^4.21.0"
+    "tsx": "^4.21.0",
+    "wawoff2": "^2.0.1"
   },
   "packageManager": "pnpm@10.0.0",
   "pnpm": {

@@ -9,6 +9,9 @@ const COLORS = {
   muted: '#9aa39a',
 };
 
+const PIXEL_FONT = 'GeistPixel';
+const BODY_FONT = 'CalSans';
+
 export type OgInput =
   | { kind: 'site' }
   | {
@@ -42,10 +45,12 @@ const labelFor = (kind: Exclude<OgInput['kind'], 'site'>): string => {
   }
 };
 
-const titleFontSize = (title: string): number => {
-  if (title.length > 80) return 60;
-  if (title.length > 50) return 72;
-  return 88;
+// Pixel fonts run wider than proportional ones; tune sizes per length so titles
+// fit the 1200px canvas.
+const pixelTitleFontSize = (title: string): number => {
+  if (title.length > 50) return 44;
+  if (title.length > 30) return 56;
+  return 72;
 };
 
 const siteTemplate = (): ReactElement => {
@@ -58,7 +63,7 @@ const siteTemplate = (): ReactElement => {
         display: 'flex',
         flexDirection: 'column',
         padding: 56,
-        fontFamily: 'CalSans',
+        fontFamily: BODY_FONT,
         color: COLORS.fg,
         borderTop: `10px solid ${COLORS.primary}`,
       }}
@@ -85,39 +90,37 @@ const siteTemplate = (): ReactElement => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          gap: 22,
+          gap: 28,
           marginTop: 12,
         }}
       >
-        <div style={{ display: 'flex', fontSize: 30, color: COLORS.muted }}>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 96,
+            lineHeight: 1.0,
+            color: COLORS.fg,
+            fontFamily: PIXEL_FONT,
+          }}
+        >
           <span style={{ color: COLORS.primary }}>$&nbsp;</span>
           <span>whoami</span>
         </div>
-        <div
-          style={{
-            display: 'flex',
-            fontSize: 104,
-            lineHeight: 1.0,
-            color: COLORS.fg,
-            letterSpacing: '-0.02em',
-          }}
-        >
-          zrosenbauer
-        </div>
 
-        <div style={{ display: 'flex', fontSize: 30, color: COLORS.muted, marginTop: 16 }}>
-          <span style={{ color: COLORS.primary }}>$&nbsp;</span>
-          <span>cat profile.txt</span>
-        </div>
         <div
           style={{
             display: 'flex',
+            flexDirection: 'column',
+            gap: 8,
+            paddingLeft: 4,
             fontSize: 32,
-            color: COLORS.fg,
             lineHeight: 1.35,
           }}
         >
-          typescript · node · rust · purveyor of all languages
+          <span style={{ color: COLORS.fg }}>zrosenbauer</span>
+          <span style={{ color: COLORS.muted }}>
+            typescript · node · rust · purveyor of all languages
+          </span>
         </div>
 
         <div
@@ -125,7 +128,7 @@ const siteTemplate = (): ReactElement => {
             display: 'flex',
             alignItems: 'center',
             gap: 12,
-            fontSize: 30,
+            fontSize: 32,
             color: COLORS.muted,
             marginTop: 4,
           }}
@@ -169,7 +172,7 @@ const cardTemplate = (input: Exclude<OgInput, { kind: 'site' }>): ReactElement =
         display: 'flex',
         flexDirection: 'column',
         padding: 56,
-        fontFamily: 'CalSans',
+        fontFamily: BODY_FONT,
         color: COLORS.fg,
         borderTop: `10px solid ${COLORS.primary}`,
       }}
@@ -203,15 +206,16 @@ const cardTemplate = (input: Exclude<OgInput, { kind: 'site' }>): ReactElement =
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          gap: 28,
+          gap: 32,
         }}
       >
         <div
           style={{
             display: 'flex',
-            fontSize: titleFontSize(input.title),
-            lineHeight: 1.05,
+            fontSize: pixelTitleFontSize(input.title),
+            lineHeight: 1.1,
             color: COLORS.fg,
+            fontFamily: PIXEL_FONT,
           }}
         >
           {input.title}
