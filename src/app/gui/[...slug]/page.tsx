@@ -1,6 +1,7 @@
 import { Mdx } from '@components/md/mdx';
 import { Section } from '@components/site/section';
 import { allPages } from '@content';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 interface ParamsShape {
@@ -15,6 +16,30 @@ export async function generateStaticParams(): Promise<Array<ParamsShape>> {
   return allPages.map((p) => ({
     slug: p.slug.split('/'),
   }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const page = allPages.find((p) => p.slug === slug.join('/'));
+  if (!page) return {};
+  const image = `/og/pages/${page.slug}.png`;
+  return {
+    title: page.title,
+    description: page.description,
+    openGraph: {
+      title: page.title,
+      description: page.description,
+      type: 'website',
+      url: `https://zrosenbauer.com${page.path}`,
+      images: [{ url: image, width: 1200, height: 630, alt: page.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: page.title,
+      description: page.description,
+      images: [image],
+    },
+  };
 }
 
 export default async function Page({ params }: Props) {

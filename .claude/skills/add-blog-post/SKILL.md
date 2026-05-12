@@ -95,7 +95,17 @@ Content-lint failures (alex warnings on the new post):
 - If the flag is a **legitimate false positive** for the site's voice (alex flags conversational words like `dude`, `simple`, color descriptors), add the rule ID to the `allow` array in `.alexrc.json` at the repo root rather than rewriting. Mention the addition to the user so they can confirm.
 - For one-off intentional uses, prefer an inline `<!--alex ignore <rule-id>-->` comment over a global allow.
 
-### 6. Optional preview
+### 6. Generate the OG image
+
+After typecheck passes, run:
+
+```bash
+pnpm generate:og --type=blog --slug=<slug>
+```
+
+This renders `public/og/blog/<slug>.png` (1200x630) from the post's frontmatter — title, description, date, read time, tags. The PNG is committed alongside the post. If the design template changes globally, re-run with `--force` to regenerate everything. The blog slug page's `generateMetadata` references this file at `/og/blog/<slug>.png`, so no further wiring is needed.
+
+### 7. Optional preview
 
 Suggest the user run `pnpm dev` and visit `/gui/blog/posts/<slug>` to preview, and `/tui/blog/posts/<slug>` for the terminal-style render.
 

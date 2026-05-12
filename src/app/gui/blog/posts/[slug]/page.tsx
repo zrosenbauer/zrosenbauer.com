@@ -1,6 +1,7 @@
 import { Mdx } from '@components/md/mdx';
 import { Section } from '@components/site/section';
 import { allBlogPosts } from '@content';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 interface ParamsShape {
@@ -15,6 +16,31 @@ export async function generateStaticParams(): Promise<Array<ParamsShape>> {
   return allBlogPosts.map((p) => ({
     slug: p.slug,
   }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post = allBlogPosts.find((p) => p.slug === slug);
+  if (!post) return {};
+  const image = `/og/blog/${post.slug}.png`;
+  return {
+    title: post.title,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: 'article',
+      publishedTime: post.publishedAt,
+      url: `https://zrosenbauer.com${post.path}`,
+      images: [{ url: image, width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+      images: [image],
+    },
+  };
 }
 
 const formatDate = (iso: string) =>

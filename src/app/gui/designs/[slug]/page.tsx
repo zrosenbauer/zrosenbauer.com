@@ -1,6 +1,7 @@
 import { Mdx } from '@components/md/mdx';
 import { Section } from '@components/site/section';
 import { allDesigns } from '@content';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
@@ -18,6 +19,30 @@ export async function generateStaticParams(): Promise<Array<ParamsShape>> {
   return allDesigns.map((d) => ({
     slug: d.slug,
   }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const design = allDesigns.find((d) => d.slug === slug);
+  if (!design) return {};
+  const image = `/og/designs/${design.slug}.png`;
+  return {
+    title: design.title,
+    description: design.description,
+    openGraph: {
+      title: design.title,
+      description: design.description,
+      type: 'article',
+      url: `https://zrosenbauer.com${design.path}`,
+      images: [{ url: image, width: 1200, height: 630, alt: design.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: design.title,
+      description: design.description,
+      images: [image],
+    },
+  };
 }
 
 export default async function DesignPage({ params }: Props) {

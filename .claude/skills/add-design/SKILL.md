@@ -85,7 +85,17 @@ Run `pnpm typecheck` from the repo root. Contentlayer rebuilds and validates fro
 
 Then verify the images actually exist at the paths referenced. Static export means a missing image silently 404s in production.
 
-### 6. Optional preview
+### 6. Generate the OG image
+
+After typecheck passes, run:
+
+```bash
+pnpm generate:og --type=design --slug=<slug>
+```
+
+This renders `public/og/designs/<slug>.png` (1200x630) from the design's frontmatter — title and description. The PNG is committed alongside the design. If the OG template changes globally, re-run with `--force` to regenerate everything. The design slug page's `generateMetadata` references this file at `/og/designs/<slug>.png`, so no further wiring is needed.
+
+### 7. Optional preview
 
 Suggest the user run `pnpm dev` and visit `/gui/designs/<slug>` to preview, and `/tui/designs/<slug>` for the terminal-style render.
 

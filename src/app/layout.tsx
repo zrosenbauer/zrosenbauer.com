@@ -10,6 +10,7 @@ import 'remark-github-blockquote-alert/alert.css';
 import '../global.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://zrosenbauer.com'),
   title: {
     default: 'zrosenbauer.com',
     template: '%s | zrosenbauer.com',
@@ -24,9 +25,9 @@ export const metadata: Metadata = {
     siteName: 'zrosenbauer.com',
     images: [
       {
-        url: 'https://zrosenbauer.com/logo.png',
-        width: 1920,
-        height: 1080,
+        url: '/og/default.png',
+        width: 1200,
+        height: 630,
       },
     ],
     locale: 'en-US',
