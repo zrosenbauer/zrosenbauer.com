@@ -117,7 +117,7 @@ const siteTemplate = (): ReactElement => {
             maxWidth: '92%',
           }}
         >
-          Zac Rosenbauer — blog, open-source projects, and notes on TypeScript, Node, and Rust.
+          Zac Rosenbauer - blog, open-source projects, and notes on TypeScript, Node, and Rust.
         </div>
 
         <div
