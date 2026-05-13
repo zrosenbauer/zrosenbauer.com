@@ -150,6 +150,8 @@ export const Page = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: './content',
+  contentDirExclude: ['AGENTS.md', 'CLAUDE.md'],
+  disableImportAliasWarning: true,
   documentTypes: [Page, Project, Design, BlogPost],
   mdx: {
     // contentlayer2 ships unified v10 types internally; remark-gfm v4 and

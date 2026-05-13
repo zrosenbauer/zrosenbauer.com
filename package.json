@@ -16,6 +16,7 @@
     "knip": "knip",
     "lint:content": "alex 'content/**/*.mdx'",
     "generate:og": "tsx scripts/generate-og.ts",
+    "generate:design-banner": "tsx scripts/generate-design-banner.ts",
     "prepare": "lefthook install"
   },
   "dependencies": {
