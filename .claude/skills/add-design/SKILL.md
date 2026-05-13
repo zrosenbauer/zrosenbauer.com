@@ -3,8 +3,8 @@ name: add-design
 description: >-
   This skill should be used when the user wants to add a new design entry
   to zrosenbauer.com. Common triggers include "add a design", "new design
-  entry", "publish a design page", "add design page", and "scaffold a
-  design". Bakes in the contentlayer Design frontmatter schema (`mode`
+  entry", "publish a design page", "add design page", "scaffold a design",
+  and "add a designs page". Bakes in the contentlayer Design frontmatter schema (`mode`
   light/dark for page theme), top-level H1 headings, raw `<img>`
   tags for images, and the playful third-person Zac voice used in existing
   designs. Skip when the user wants a blog post, an OSS project entry, or
@@ -76,16 +76,41 @@ Use raw HTML `<img src="..." />` tags, **not** Markdown `![alt](...)` syntax. Th
 
 Always use straight quotes in YAML frontmatter. No curly quotes. No em dashes; use commas, periods, or parentheses.
 
-### 5. Validate
+### 5. Generate the hero banner
 
-Run `pnpm typecheck` from the repo root. Contentlayer rebuilds and validates frontmatter. If it fails:
+After the per-item images are in place at `public/img/designs/<slug>/`, run:
+
+```bash
+pnpm generate:design-banner --slug=<slug>
+```
+
+This composites every `<img>` referenced in the MDX (in document order) into a single `public/img/designs/<slug>/banner.png`. The script reads `mode` from the MDX to pick the background (dark → `#0a0a0a`, light → transparent), and auto-picks a grid layout based on image count (≤4 → 1 row, 5-6 → 3 cols, 7-12 → 4 cols, more → square-ish).
+
+Override with `--cols=N`, `--gap=PX`, or `--bg=#hex|none` when the default layout doesn't suit the assets.
+
+The design page route at `src/app/gui/designs/[slug]/page.tsx` hard-codes the hero img path to `/img/designs/<slug>/banner.png` and renders it as a hero section between the title and the body. **Do not** embed the banner inline at the top of the MDX — it'll render twice. Just generate the file; the route handles surfacing it.
+
+### 6. Validate
+
+Run both checks from the repo root:
+
+1. `pnpm typecheck` — rebuilds contentlayer and validates frontmatter against the schema.
+2. `pnpm lint:content` — runs `alex` for inclusive-language and profanity checks across all MDX content.
+
+Typecheck failures:
 
 - `mode` not `light` or `dark` → fix.
 - Missing required field → fill in.
 
+Content-lint failures (alex warnings on the new design):
+
+- If the flag is a **real issue** (e.g., `peanut gallery`, `master/slave`, `blacklist`, gendered defaults like `guys`/`mankind`), rewrite the prose. Do not auto-allow.
+- If the flag is a **legitimate false positive** for the site's voice (alex flags conversational words like `dude`, `simple`, color descriptors), add the rule ID to the `allow` array in `.alexrc.json` at the repo root rather than rewriting. Mention the addition to the user so they can confirm.
+- For one-off intentional uses, prefer an inline `<!--alex ignore <rule-id>-->` comment over a global allow.
+
 Then verify the images actually exist at the paths referenced. Static export means a missing image silently 404s in production.
 
-### 6. Generate the OG image
+### 7. Generate the OG image
 
 After typecheck passes, run:
 
@@ -95,7 +120,7 @@ pnpm generate:og --type=design --slug=<slug>
 
 This renders `public/og/designs/<slug>.png` (1200x630) from the design's frontmatter — title and description. The PNG is committed alongside the design. If the OG template changes globally, re-run with `--force` to regenerate everything. The design slug page's `generateMetadata` references this file at `/og/designs/<slug>.png`, so no further wiring is needed.
 
-### 7. Optional preview
+### 8. Optional preview
 
 Suggest the user run `pnpm dev` and visit `/gui/designs/<slug>` to preview, and `/tui/designs/<slug>` for the terminal-style render.
 
@@ -157,11 +182,14 @@ Things the agent might be tempted to do, and why each is wrong.
 | Reference images that exist | "The user said the design has 6 states, I'll add 6 `<img>` tags with placeholder filenames" | Static export means missing images 404 silently in prod. Only reference paths the user has confirmed exist on disk. |
 | Match the playful third-person voice | "Third person is unprofessional" | The designs page is intentionally playful. "Angry Zac smashes the keyboard" is the voice. Don't sterilize it. |
 | Pick `mode` based on images | "I'll default to `light`" | If the images are dark/moody (Coding States) the page theme should be `dark` so the contrast works. Ask. |
+| Run `pnpm generate:design-banner` | "The per-item images already show what the design looks like, a banner is redundant." | The page route hard-codes `/img/designs/<slug>/banner.png` as a hero element above the body. Skip the script and that hero 404s. Always run the script after dropping the per-item PNGs. |
+| Don't embed the banner `<img>` inline | "Putting `<img src=".../banner.png">` at the top of the body makes the hero explicit and self-documenting." | The route already renders the banner as a hero section between the title and the body. An inline copy duplicates it. The banner file is referenced by the route, never inline in the MDX. |
 
 ## References
 
 - [`contributing/voice.md`](../../../contributing/voice.md) — Zac's writing voice & standards (shared across all content types)
-- [`references/format.md`](references/format.md) — design-specific heading conventions, image rules, mode selection
-- [`templates/design.mdx.template`](templates/design.mdx.template) — copyable boilerplate
+- [`references/format.md`](references/format.md) — design-specific heading conventions, image rules, mode selection, banner hero pattern
+- [`templates/design.mdx.template`](templates/design.mdx.template) — copyable boilerplate (includes the banner `<img>` line)
+- `scripts/generate-design-banner.ts` (repo root) — composites per-item PNGs into `banner.png`. Run via `pnpm generate:design-banner --slug=<slug>`.
 - `contentlayer.config.ts` (repo root) — `Design` schema source of truth
 - `content/AGENTS.md` — repo-level content authoring guide

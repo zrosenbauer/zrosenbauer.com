@@ -4,8 +4,8 @@ description: >-
   This skill should be used when the user wants to add a new open-source
   project entry to zrosenbauer.com. Common triggers include "add an OSS
   project", "add a project entry", "list this repo on the site", "new
-  project entry", and "add a project to the projects page". Bakes in the
-  contentlayer Project frontmatter schema (`repository`, `role`,
+  project entry", "add a project to the projects page", and "scaffold a project".
+  Bakes in the contentlayer Project frontmatter schema (`repository`, `role`,
   `deprecated`) and the tight one-paragraph body convention used in
   existing entries. Skip when the user wants a blog post, a design, or any
   non-project MDX content.

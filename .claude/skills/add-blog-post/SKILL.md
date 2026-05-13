@@ -3,8 +3,8 @@ name: add-blog-post
 description: >-
   This skill should be used when the user wants to add a new blog post to
   zrosenbauer.com. Common triggers include "new blog post", "add a blog
-  post", "write a post about X", "draft a blog post", and "publish a post
-  on the site". Bakes in the contentlayer BlogPost frontmatter schema, the
+  post", "write a post about X", "draft a blog post", "publish a post
+  on the site", and "scaffold a post". Bakes in the contentlayer BlogPost frontmatter schema, the
   emoji-prefixed lowercase section structure used in existing posts, and
   Zac's writing voice (shared across all content types). Skip when the user
   wants an OSS project entry, a design doc, or any non-blog MDX content.
@@ -53,7 +53,7 @@ Confirm the following before writing any file. If the user gave a topic in the s
 | `readTime` | Default `3` minutes; existing posts are short. Bump only if content warrants it. |
 | `publishedAt` | Today's ISO date (`YYYY-MM-DD`). |
 | `image` | Optional. If the user has an image, place under `public/img/blog/posts/<slug>/` and reference as `/img/blog/posts/<slug>/<file>`. |
-| `tags` | Pick from the allowed enum in `src/utils/blog/tags.ts`: `devops`, `gotchas`, `react`, `docker`, `github`, `nextjs`, `fun`. If the right tag doesn't exist, ask whether to add it (edit `tags.ts`). |
+| `tags` | Pick from the allowed enum in `src/utils/blog/tags.ts`: `devops`, `typescript`, `javascript`, `node`, `react`, `rust`, `ai`, `dx`, `gotchas`, `fun`. If the right tag doesn't exist, ask whether to add it (edit `tags.ts`). |
 
 If any field is missing and not derivable, ask before scaffolding. Do not invent.
 
