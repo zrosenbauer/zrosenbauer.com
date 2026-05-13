@@ -1,0 +1,87 @@
+{
+  "skill_name": "editorialize-blog",
+  "evals": [
+    {
+      "id": 0,
+      "eval_name": "polished-post-noop",
+      "prompt": "/editorialize-blog rust-ruined-javascript-result auto",
+      "expected_output": "Skill resolves the post, dispatches 4 agents in parallel, aggregates findings into .scratch/editorialize-rust-ruined-javascript-result.md, and applies only safe humanizer + structure fixes. For an already-polished post, structure findings should be 0 and humanizer findings minimal. Factcheck and voice findings should land in the report unapplied.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "aggregated report file is written under .scratch/",
+          "type": "file_exists",
+          "path": ".scratch/editorialize-rust-ruined-javascript-result.md"
+        },
+        {
+          "text": "report contains all four section headers in order",
+          "type": "regex",
+          "pattern": "(?s)##\\s+1\\.\\s+Structure.*##\\s+2\\.\\s+Factcheck.*##\\s+3\\.\\s+Voice.*##\\s+4\\.\\s+Humanizer"
+        },
+        {
+          "text": "final summary names the mode and the report path",
+          "type": "regex",
+          "pattern": "(?i)mode:\\s*auto.*report:\\s*\\.scratch/editorialize-rust-ruined-javascript-result\\.md"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "eval_name": "factchecker-catches-category-error",
+      "prompt": "/editorialize-blog .scratch/seeded-factual-errors.mdx ask\n\nFirst create .scratch/seeded-factual-errors.mdx with this frontmatter and body:\n\n---\ntitle: 'seeded errors'\ndescription: 'test post with factual errors'\nauthorGithubUsername: 'zrosenbauer'\nreadTime: 1\npublishedAt: '2026-05-13'\n---\n\nJavaScript is a classical language. Rust was created at Mozilla in 2005 by Graydon Hoare.\n\nThen run editorialize-blog against it.",
+      "expected_output": "Factchecker agent flags both errors: (a) JavaScript is prototypal/multi-paradigm, not classical — `class` is sugar over prototypes; (b) Rust's first stable release was 2015 and the project itself dates to 2006, not 2005. Both appear in .scratch/editorialize-seeded-factual-errors-factcheck.md with verdict ✗ and a source URL.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "factcheck partial report exists",
+          "type": "file_exists",
+          "path": ".scratch/editorialize-seeded-factual-errors-factcheck.md"
+        },
+        {
+          "text": "flags the JavaScript classical-language claim",
+          "type": "regex",
+          "pattern": "(?i)(prototyp|multi.?paradigm|not (a )?class.?based|class.?syntax.*sugar)"
+        },
+        {
+          "text": "flags the Rust 2005 date claim",
+          "type": "regex",
+          "pattern": "(?i)(2006|2015|first stable|Graydon Hoare)"
+        },
+        {
+          "text": "each finding includes a source URL",
+          "type": "regex",
+          "pattern": "https?://"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "humanizer-flags-ai-patterns",
+      "prompt": "/editorialize-blog .scratch/seeded-ai-flavored.mdx auto\n\nFirst create .scratch/seeded-ai-flavored.mdx with this frontmatter and body:\n\n---\ntitle: 'seeded ai prose'\ndescription: 'test post with AI patterns'\nauthorGithubUsername: 'zrosenbauer'\nreadTime: 1\npublishedAt: '2026-05-13'\n---\n\nReact stands as a testament to the transformative potential of modern web frameworks — marking a pivotal moment — in the evolution of UI. It's not just a library; it's an ecosystem. Developers can build apps that are fast, scalable, and maintainable.\n\nThen run editorialize-blog against it.",
+      "expected_output": "Humanizer agent identifies multiple patterns: (a) #1 significance inflation (`stands as a testament`, `pivotal moment`), (b) #14 em dash overuse, (c) #9 negative parallelism (`not just X, it's Y`), (d) #10 rule of three (`fast, scalable, and maintainable`). All appear in .scratch/editorialize-seeded-ai-flavored-humanizer.md with before/after pairs.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "humanizer partial report exists",
+          "type": "file_exists",
+          "path": ".scratch/editorialize-seeded-ai-flavored-humanizer.md"
+        },
+        {
+          "text": "names at least three of the AI patterns by number",
+          "type": "regex",
+          "pattern": "(#1\\b|#9\\b|#10\\b|#14\\b).*(#1\\b|#9\\b|#10\\b|#14\\b).*(#1\\b|#9\\b|#10\\b|#14\\b)"
+        },
+        {
+          "text": "flags significance inflation language",
+          "type": "regex",
+          "pattern": "(?i)(testament|pivotal|significance inflation)"
+        },
+        {
+          "text": "flags rule-of-three triplet",
+          "type": "regex",
+          "pattern": "(?i)(rule of three|fast,\\s*scalable,\\s*and maintainable)"
+        }
+      ]
+    }
+  ]
+}

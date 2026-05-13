@@ -1,0 +1,57 @@
+# Editorial report: {{title}}
+
+Post: {{path}}
+Slug: {{slug}}
+Mode: {{mode}}
+Generated: {{date}}
+
+## Summary
+
+| Section          | Findings | Applied | Deferred | Skipped |
+| ---------------- | -------- | ------- | -------- | ------- |
+| Structure        | {{n}}    | {{n}}   | {{n}}    | {{n}}   |
+| Factcheck        | {{n}}    | {{n}}   | {{n}}    | {{n}}   |
+| Voice            | {{n}}    | {{n}}   | {{n}}    | {{n}}   |
+| Humanizer        | {{n}}    | {{n}}   | {{n}}    | {{n}}   |
+
+---
+
+## 1. Structure (blocking)
+
+> Source: `.scratch/editorialize-{{slug}}-structure.md`
+
+{{structure_findings}}
+
+---
+
+## 2. Factcheck (verify before applying)
+
+> Source: `.scratch/editorialize-{{slug}}-factcheck.md`
+
+{{factcheck_findings}}
+
+---
+
+## 3. Voice (subjective)
+
+> Source: `.scratch/editorialize-{{slug}}-voice.md`
+
+{{voice_findings}}
+
+---
+
+## 4. Humanizer (mechanical)
+
+> Source: `.scratch/editorialize-{{slug}}-humanizer.md`
+
+{{humanizer_findings}}
+
+---
+
+## Applied edits
+
+{{applied_list}}
+
+## Deferred findings
+
+{{deferred_list}}

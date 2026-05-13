@@ -1,0 +1,1 @@
+../../.agents/agents/structure-reviewer.md
