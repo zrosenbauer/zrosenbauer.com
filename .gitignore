@@ -46,3 +46,6 @@ next-env.d.ts
 
 ## Scratch (uncommitted notes, drafts, throwaway files)
 .scratch/
+
+## ImageMagick intermediates (e.g. row1.miff from generate-design-banner)
+*.miff
