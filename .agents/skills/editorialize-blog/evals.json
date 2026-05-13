@@ -3,9 +3,9 @@
   "evals": [
     {
       "id": 0,
-      "eval_name": "polished-post-noop",
-      "prompt": "/editorialize-blog rust-ruined-javascript-result auto",
-      "expected_output": "Skill resolves the post, dispatches 4 agents in parallel, aggregates findings into .scratch/editorialize-rust-ruined-javascript-result.md, and applies only safe humanizer + structure fixes. For an already-polished post, structure findings should be 0 and humanizer findings minimal. Factcheck and voice findings should land in the report unapplied.",
+      "eval_name": "polished-post-end-to-end-report",
+      "prompt": "ok can you do a full editorial pass on the rust-ruined-javascript-result post — i don't want any edits applied, just generate the report so i can read it first",
+      "expected_output": "Skill triggers from the natural-language request, resolves the slug to content/blog/posts/rust-ruined-javascript-result.mdx, dispatches all four subagents in parallel using scratch mode (no edits applied), aggregates the four partial reports into .scratch/editorialize-rust-ruined-javascript-result.md with the four sections in the documented order, and prints a final summary showing 0 applied / N deferred / report path. The post itself must remain unmodified.",
       "files": [],
       "assertions": [
         {
@@ -14,22 +14,22 @@
           "path": ".scratch/editorialize-rust-ruined-javascript-result.md"
         },
         {
-          "text": "report contains all four section headers in order",
+          "text": "report contains all four section headers in documented order",
           "type": "regex",
           "pattern": "(?s)##\\s+1\\.\\s+Structure.*##\\s+2\\.\\s+Factcheck.*##\\s+3\\.\\s+Voice.*##\\s+4\\.\\s+Humanizer"
         },
         {
-          "text": "final summary names the mode and the report path",
+          "text": "final summary uses scratch mode and reports zero applied",
           "type": "regex",
-          "pattern": "(?i)mode:\\s*auto.*report:\\s*\\.scratch/editorialize-rust-ruined-javascript-result\\.md"
+          "pattern": "(?si)mode:\\s*scratch.*applied:\\s*0"
         }
       ]
     },
     {
       "id": 1,
       "eval_name": "factchecker-catches-category-error",
-      "prompt": "/editorialize-blog .scratch/seeded-factual-errors.mdx ask\n\nFirst create .scratch/seeded-factual-errors.mdx with this frontmatter and body:\n\n---\ntitle: 'seeded errors'\ndescription: 'test post with factual errors'\nauthorGithubUsername: 'zrosenbauer'\nreadTime: 1\npublishedAt: '2026-05-13'\n---\n\nJavaScript is a classical language. Rust was created at Mozilla in 2005 by Graydon Hoare.\n\nThen run editorialize-blog against it.",
-      "expected_output": "Factchecker agent flags both errors: (a) JavaScript is prototypal/multi-paradigm, not classical — `class` is sugar over prototypes; (b) Rust's first stable release was 2015 and the project itself dates to 2006, not 2005. Both appear in .scratch/editorialize-seeded-factual-errors-factcheck.md with verdict ✗ and a source URL.",
+      "prompt": "i wrote a quick draft at .scratch/seeded-factual-errors.mdx (frontmatter title='seeded errors', description='test', authorGithubUsername='zrosenbauer', readTime=1, publishedAt='2026-05-13'). the body says 'JavaScript is a classical language. Rust was created at Mozilla in 2005 by Graydon Hoare.' please create that file then run the editorial pass on it in scratch mode so the post stays untouched and i just get the factcheck findings.",
+      "expected_output": "Agent creates the fixture, the skill resolves the relative path (.scratch/seeded-factual-errors.mdx), dispatches the factchecker subagent which uses Context7 + WebSearch to verify both claims and writes findings to .scratch/editorialize-seeded-factual-errors-factcheck.md. Both claims are flagged as wrong with corrections (JS is prototypal/multi-paradigm; Rust dates to 2006, first stable 2015) and at least one source URL per finding.",
       "files": [],
       "assertions": [
         {
@@ -38,14 +38,19 @@
           "path": ".scratch/editorialize-seeded-factual-errors-factcheck.md"
         },
         {
-          "text": "flags the JavaScript classical-language claim",
+          "text": "report uses the documented finding-line marker (✗) for wrong claims",
+          "type": "regex",
+          "pattern": "(?m)^###\\s+✗"
+        },
+        {
+          "text": "factchecker correction explains JS is prototypal / multi-paradigm (not a verbatim restate of the prompt)",
           "type": "regex",
           "pattern": "(?i)(prototyp|multi.?paradigm|not (a )?class.?based|class.?syntax.*sugar)"
         },
         {
-          "text": "flags the Rust 2005 date claim",
+          "text": "factchecker provides the correct Rust date (2006 project / 2015 stable)",
           "type": "regex",
-          "pattern": "(?i)(2006|2015|first stable|Graydon Hoare)"
+          "pattern": "(?i)(2006|2015|first stable|1\\.0)"
         },
         {
           "text": "each finding includes a source URL",
@@ -56,9 +61,9 @@
     },
     {
       "id": 2,
-      "eval_name": "humanizer-flags-ai-patterns",
-      "prompt": "/editorialize-blog .scratch/seeded-ai-flavored.mdx auto\n\nFirst create .scratch/seeded-ai-flavored.mdx with this frontmatter and body:\n\n---\ntitle: 'seeded ai prose'\ndescription: 'test post with AI patterns'\nauthorGithubUsername: 'zrosenbauer'\nreadTime: 1\npublishedAt: '2026-05-13'\n---\n\nReact stands as a testament to the transformative potential of modern web frameworks — marking a pivotal moment — in the evolution of UI. It's not just a library; it's an ecosystem. Developers can build apps that are fast, scalable, and maintainable.\n\nThen run editorialize-blog against it.",
-      "expected_output": "Humanizer agent identifies multiple patterns: (a) #1 significance inflation (`stands as a testament`, `pivotal moment`), (b) #14 em dash overuse, (c) #9 negative parallelism (`not just X, it's Y`), (d) #10 rule of three (`fast, scalable, and maintainable`). All appear in .scratch/editorialize-seeded-ai-flavored-humanizer.md with before/after pairs.",
+      "eval_name": "humanizer-flags-ai-patterns-by-number",
+      "prompt": "wrote a draft at .scratch/seeded-ai-flavored.mdx (frontmatter: title='seeded ai prose', description='test', authorGithubUsername='zrosenbauer', readTime=1, publishedAt='2026-05-13'). body: 'React stands as a testament to the transformative potential of modern web frameworks — marking a pivotal moment — in the evolution of UI. It is not just a library; it is an ecosystem. Developers can build apps that are fast, scalable, and maintainable.' run the full editorial in scratch mode, i want the humanizer findings as a report only.",
+      "expected_output": "Agent creates the fixture, skill dispatches in scratch mode (zero edits), humanizer subagent flags four patterns with their numbers from the taxonomy in the structured ### #N heading format: #1 (significance inflation), #14 (em dash overuse), #9 (negative parallelism), and #10 (rule of three). Each finding has a before/after pair.",
       "files": [],
       "assertions": [
         {
@@ -67,19 +72,48 @@
           "path": ".scratch/editorialize-seeded-ai-flavored-humanizer.md"
         },
         {
-          "text": "names at least three of the AI patterns by number",
+          "text": "report uses the documented ### #N heading format for each finding",
           "type": "regex",
-          "pattern": "(#1\\b|#9\\b|#10\\b|#14\\b).*(#1\\b|#9\\b|#10\\b|#14\\b).*(#1\\b|#9\\b|#10\\b|#14\\b)"
+          "pattern": "(?ms)^###\\s+#\\d+\\b.*^###\\s+#\\d+\\b.*^###\\s+#\\d+\\b"
         },
         {
-          "text": "flags significance inflation language",
+          "text": "report identifies pattern #1 (significance inflation) by number in heading",
           "type": "regex",
-          "pattern": "(?i)(testament|pivotal|significance inflation)"
+          "pattern": "(?m)^###\\s+#1\\b"
         },
         {
-          "text": "flags rule-of-three triplet",
+          "text": "report identifies pattern #10 (rule of three) by number in heading",
           "type": "regex",
-          "pattern": "(?i)(rule of three|fast,\\s*scalable,\\s*and maintainable)"
+          "pattern": "(?m)^###\\s+#10\\b"
+        },
+        {
+          "text": "every finding includes a Before / After pair",
+          "type": "regex",
+          "pattern": "(?si)\\*\\*Before:\\*\\*.*\\*\\*After:\\*\\*"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "eval_name": "trigger-recognition-different-phrasings",
+      "prompt": "hey can u review my latest blog post real quick — i'm shipping it tomorrow and want a fact check before it goes out, just give me the report don't change the file",
+      "expected_output": "The skill should trigger from this casual phrasing (matches description triggers like 'edit my latest post' / 'review my most recent blog post' / 'fact check'). With no target arg, the skill prompts the user (via AskUserQuestion in Claude Code or numbered list elsewhere) to pick from the 4 most recent posts sorted by publishedAt. The 'just give me the report' phrasing should be interpreted as scratch mode. After the user picks (or the agent defaults to most recent), the four agents run and the .scratch/ report is written.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "agent identifies the most recent post by publishedAt before dispatching",
+          "type": "regex",
+          "pattern": "(?si)(most recent|latest|publishedAt|sorted by)"
+        },
+        {
+          "text": "agent recognizes scratch mode from the 'don't change the file' phrasing",
+          "type": "regex",
+          "pattern": "(?si)(scratch mode|report.only|no edits|won.?t (apply|change|modify))"
+        },
+        {
+          "text": "an aggregated report under .scratch/ exists with the editorialize- prefix",
+          "type": "regex",
+          "pattern": "(?m)\\.scratch/editorialize-[a-z0-9-]+\\.md"
         }
       ]
     }

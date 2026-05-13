@@ -4,7 +4,8 @@ description: >-
   This skill should be used when the user wants to run a full editorial pass
   over a blog post on zrosenbauer.com. Common triggers include "editorialize
   the blog post", "edit my blog post", "review the blog draft", "run editorial
-  on X", "fact check and humanize this post", and "edit my latest post". When
+  on X", "fact check and humanize this post", "edit my latest post", and "review
+  my most recent blog post". When
   invoked without a target, lists the most recent posts by publishedAt and
   prompts the user to pick. Dispatches four subagents in parallel (factchecker,
   humanizer, voice-matcher, structure-reviewer), aggregates findings into a
@@ -14,7 +15,7 @@ description: >-
   underlying agents directly.
 
 # --- Claude Code extensions (ignored by other agents) ---
-argument-hint: '[<slug|path>] [auto|ask]'
+argument-hint: '[<slug|path>] [auto|ask|scratch]'
 user-invocable: true
 model-invocable: false
 ---
@@ -52,29 +53,33 @@ Verbatim trigger phrases:
 
 ## Inputs
 
-`$ARGUMENTS` — `[<slug|path>] [auto|ask]`
+`$ARGUMENTS` — `[<slug|path>] [auto|ask|scratch]`
 
 | Position | Name      | Required | Description                                                                                                          |
 | -------- | --------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
-| 1        | `target`  | No       | Slug (`rust-ruined-javascript-result`), filename, or absolute path. If omitted, prompt the user to pick from recent. |
-| 2        | `mode`    | No       | `auto` or `ask`. Defaults to `ask`.                                                                                  |
+| 1        | `target`  | No       | Slug (`rust-ruined-javascript-result`), filename, relative path, or absolute path. If omitted, prompt the user.       |
+| 2        | `mode`    | No       | `auto`, `ask`, or `scratch`. Defaults to `ask`.                                                                       |
 
 Mode behavior:
 
 - **`ask`** — walks every finding with the user. For each: show context, original, proposed change. Apply on yes. This is the safe default for prose where voice matters.
 - **`auto`** — applies only mechanical, low-risk fixes: humanizer pattern replacements with clear before/after, structure-reviewer blocking fixes (lowercase headings, tag corrections, broken image paths). Leaves factcheck disputes and voice rewrites in the report for human review.
+- **`scratch`** — report-only. Dispatches all four agents, aggregates the `.scratch/editorialize-<slug>.md` report, applies **zero** edits to the post. Use this for evals, dry-runs, and review without commitment.
 
 ## Workflow
 
-### 1. Resolve target
+### 1. Resolve args
+
+First, separate `target` and `mode` from `$ARGUMENTS`. The second positional is `mode` (`auto` / `ask` / `scratch`); default `ask`. If the **first** positional looks like a mode keyword (not a slug or path), treat it as `mode` and treat `target` as omitted.
 
 **If `target` is passed:**
 
 - Absolute path → use as-is, verify file exists
+- Contains `/` → treat as a relative path from `repoRoot`, verify it exists
 - Ends in `.mdx` → match `content/blog/posts/<target>`
 - Otherwise → match `content/blog/posts/<target>.mdx`
 
-Fail loudly if no match or multiple matches. Surface the resolved `title`, `slug`, and `path` so the user can confirm.
+Fail loudly if no match or multiple matches. Surface the resolved `title`, `slug`, and `path` so the user can confirm. Note: `slug` for non-`content/blog/posts/` paths is the basename without the `.mdx` extension.
 
 **If `target` is omitted:**
 
@@ -99,9 +104,7 @@ Fail loudly if no match or multiple matches. Surface the resolved `title`, `slug
 
 5. Resolve the user's pick to `path`, `slug`, `title`, then continue. If the user replies with a slug or path not in the list, resolve it via the same rules as when `target` is passed.
 
-### 1b. Resolve mode
-
-`mode` is the second positional arg. If absent, default to `ask`. If the first arg is `auto` or `ask` and looks like a mode (not a slug or path), treat it as the mode and prompt for target via the flow above.
+If the agent has no user (running in eval / CI), `target` MUST be provided — fail with an explanatory message rather than guessing.
 
 ### 2. Dispatch the four agents in parallel
 
@@ -131,6 +134,12 @@ Read all four partial reports. Merge into `.scratch/editorialize-<slug>.md` usin
 4. **Humanizer** — mechanical; safest to apply
 
 ### 4. Apply per mode
+
+**`scratch` mode (report-only):**
+
+Skip step 4 entirely. The aggregated report from step 3 is the deliverable. Print the final summary (step 5) showing 0 applied, all findings deferred, and the report path. Do **not** call `Edit` on the post.
+
+This is the mode for evals, CI, and any time you want to inspect findings without committing to edits.
 
 **`ask` mode:**
 
@@ -213,6 +222,23 @@ Editorial pass — <title>
 5. User reads the report in `.scratch/` and decides what else to apply manually.
 </output>
 </example>
+
+<example>
+<good>User says: "edit my latest blog post" → routes to `/editorialize-blog`, prompts to pick from recent posts</good>
+<bad>User says: "add a new blog post about Result types" → wrong skill, route to `/add-blog-post`. The trigger is *adding* new content, not editing existing content.</bad>
+<bad>User says: "humanize this paragraph: <text>" → wrong skill, route to `/humanizer`. The user wants the standalone humanizer on a snippet, not a multi-agent pass on a published `.mdx` file.</bad>
+</example>
+
+## Rationalization table
+
+`auto` mode has rules the agent might rationalize skipping. Recognize these excuses; they are wrong.
+
+| Skipped rule                                  | Verbatim excuse                                                  | Why it's wrong                                                                                           |
+| --------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Defer factcheck findings in `auto` mode       | "this factcheck is obviously correct, I'll just apply it"        | Even confident-looking factchecks can be wrong about category, version, or attribution — human verifies. |
+| Defer voice-matcher findings in `auto` mode   | "this voice rewrite is clearly better, applying it"              | Voice is the author's signature; a "clearly better" rewrite still flattens it. Human decides.            |
+| Run `auto` mode in evals/CI to "save a step"  | "no user is here, auto is the only mode that finishes"           | Use `scratch` mode. `auto` mutates tracked content; that's a working-tree contamination, not a feature.  |
+| Apply edits without the report aggregating first | "I have all 4 partials, I can skip step 3 and apply directly" | The aggregated report is the audit trail. Skipping it loses the per-section ordering and deferred list.  |
 
 ## References
 
