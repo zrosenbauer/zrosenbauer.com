@@ -16,7 +16,7 @@ Shared voice rules live in [`contributing/voice.md`](../../../../contributing/vo
 
 | Role | Use when |
 |---|---|
-| `author` | You started the project, or you own it now. Joggr-led projects (`joggrdocs/*`) where you're the engineering driver count as `author`. Personal repos under `zrosenbauer/*` are `author`. |
+| `author` | You started the project, or you own it now. Projects you led at a company (e.g. `joggrdocs/*`) where you were the engineering driver count as `author`. Personal repos under `zrosenbauer/*` are `author`. |
 | `contributor` | The project is run by someone else and you're a meaningful contributor — e.g., `voltagent/voltagent` is run by the VoltAgent team; you contribute regularly but don't own it. Token PRs to random repos do **not** warrant a project entry at all. |
 
 If unsure, ask. Lying about `role` on the site is worse than not listing the project.

@@ -49,7 +49,7 @@ Confirm the following before writing any file. If the user gave a repo or projec
 | `title` | The project name itself, lowercase by default (`'kidd'`, `'viteval'`). Exception: domain-style names keep their casing (`'zrosenbauer.com'`). |
 | `slug` | Kebab-case derivation of the title. The file lands at `content/projects/<slug>.mdx`. |
 | `repository` | GitHub `owner/repo` (e.g., `joggrdocs/kidd`). Required. Ask if not derivable from context. |
-| `role` | `author` for solo / Joggr-led projects you started. `contributor` for projects others run where you're a meaningful contributor. Ask if unclear. |
+| `role` | `author` for projects you started or led (solo or at a company). `contributor` for projects others run where you're a meaningful contributor. Ask if unclear. |
 | `deprecated` | `false` by default. Only `true` if the project is no longer maintained. |
 | `description` | One punchy sentence describing what it does. Often mirrors the repo's own tagline but tightened to Zac voice. No marketing fluff. |
 

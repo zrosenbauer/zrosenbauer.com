@@ -26,7 +26,7 @@ Read any new draft out loud. If it sounds like:
 ## Identity & perspective
 
 - **First person, always.** "I", "we", "me". Not "the author" or "one might note".
-- **Use "we" when crediting Joggr / a team.** "At Joggr we use react-dnd…", "Borisa and I figured it out…". Solo work is "I".
+- **Use "we" when crediting a team or co-author.** "Borisa and I figured it out…". Solo work is "I".
 - **Third-person Zac is OK for jokes.** The designs page does it deliberately ("Angry Zac smashes the keyboard"). Use sparingly and only when the joke lands.
 - **Name names.** Real people get linked. Tools get linked. Companies get linked.
 - **Acknowledge what you didn't know / got wrong.** Self-deprecation is part of the trust signal.
@@ -88,8 +88,6 @@ When deciding between two phrasings, pick the one that sounds more like one spec
 
 ### After (on voice)
 
-> At [Joggr](https://joggr.ai) we use [react-dnd](https://react-dnd.github.io/react-dnd/) for drag-n-drop functionality. It's a great library, but it has one major downside... it breaks drag-n-drop everywhere else on the page.
->
-> TL;DR? If you want to skip the story and just see the fix, [click here](#-the-fix).
+> [Last post](/gui/blog/posts/rust-ruined-javascript-match) I admitted that Rust's `match` ruined `switch` for me. This one is about the second casualty: `try/catch`. I've written functional JS for a long time, the kind of code that returns values instead of throwing them, but TypeScript has never had a real `Result` so exceptions kept seeping back into my codebases. Rust gave the missing piece a name.
 
-The "after" version is the actual opening of `react-dnd-scoping.mdx`. Notice what it does: names the company with a link, names the library with a link, states the problem in one sentence, has a contraction, has a casual ellipsis, and respects the reader's time with a TL;DR.
+The "after" version is the actual opening of `rust-ruined-javascript-result.mdx`. Notice what it does: ties back to a previous post with a link, names the thing under attack with inline code, starts in the middle without throat-clearing, mixes a short sentence with a longer one, and uses contractions naturally.
