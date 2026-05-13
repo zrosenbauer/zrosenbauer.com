@@ -1,0 +1,181 @@
+---
+title: 'how rust ruined javascript: result'
+description: 'Part two of what Rust took from my TypeScript brain. This time: try/catch. Plus the library I built to plug the hole.'
+authorGithubUsername: 'zrosenbauer'
+readTime: 4
+publishedAt: '2026-05-20'
+tags:
+  - typescript
+  - rust
+  - dx
+---
+
+[Last post](/gui/blog/posts/rust-ruined-javascript-match) I admitted that Rust's `match` ruined `switch` for me. This one is about the second casualty: `try/catch`. I've written functional JS for a long time, the kind of code that returns values instead of throwing them, but TypeScript has never had a real `Result` so exceptions kept seeping back into my codebases. Rust gave the missing piece a name.
+
+So I built it into my own toolkit.
+
+## 📝 the background
+
+TypeScript's error story is "throw whatever you want, catch it as `unknown`, hope you remember to handle it". A function signature looks like this:
+
+```ts
+function readConfig(): Config {
+  // somewhere in here, anything could throw
+}
+```
+
+Nothing on the type tells me this can fail. Nothing tells me what it fails with. The caller has to know, from context or a comment or a stack trace at 3am, that this function reaches out to disk and could throw an `ENOENT`, or a `SyntaxError` on bad JSON, or a `TypeError` from a missing field, or something a dependency three levels down decided to throw without telling anyone.
+
+The TypeScript answer is `try/catch` plus the discipline to remember every layer where it matters:
+
+```ts
+try {
+  const config = readConfig();
+  use(config);
+} catch (thrown) {
+  // `thrown` is `unknown` here, by design, since TS 4.4
+  if (thrown instanceof Error) {
+    log(thrown.message);
+  } else {
+    log(String(thrown));
+  }
+}
+```
+
+That's the "good" version. Narrow on `instanceof`, no `any` smuggled in. It also costs five lines around every fallible call, and the moment a function I called yesterday starts throwing something new, none of my existing call sites learn about it. The compiler shrugs. The runtime breaks.
+
+## 🤯 the discovery
+
+Rust doesn't throw for recoverable errors. A function that can fail says so in its return type:
+
+```rust
+fn read_config() -> Result<Config, ConfigError> {
+    // ...
+}
+
+fn main() -> Result<(), ConfigError> {
+    let config = read_config()?;
+    use_config(config);
+    Ok(())
+}
+```
+
+Three things hit me at once the first time I really sat with it:
+
+1. The failure is in the signature. `Result<Config, ConfigError>` tells me, before I read a single line of the body, that this can fail and what shape the failure has.
+2. The compiler won't let me ignore it. I have to match on it, unwrap it, or propagate it. There's no silent fall-through, no forgotten `try` block, no error vanishing into the void.
+3. `?` is the entire ergonomic story. Propagate the error one character at a time. If you want to handle it, fall out of `?` and `match` on it.
+
+The thing I'd been simulating in TypeScript out of `try/catch` plus `instanceof Error` plus convention is a first-class feature in Rust, enforced by the type system from the function signature down. Not a pattern. Not an idiom. Actual semantics.
+
+> [!TIP]
+> The failure mode in the signature is the feature. The `?` operator is the bonus.
+
+## 🔧 building it myself
+
+My JS has always leaned functional. For years that meant [`ramda`](https://ramdajs.com/), which carried me through a lot of code before it effectively went unmaintained. When [`es-toolkit`](https://es-toolkit.dev/) showed up I moved over, and it's been my default helper library since. Both are great. Neither has a `Result`.
+
+The TypeScript ecosystem has takes on this one piece in isolation. [`neverthrow`](https://github.com/supermacro/neverthrow) is the most popular, and it's good. [`ts-results`](https://github.com/vultix/ts-results) and [`oxide.ts`](https://github.com/traverse1984/oxide.ts) exist. So does [`effect`](https://effect.website/) if you want the whole functional kitchen sink.
+
+I tried them. They all do something I don't want.
+
+`neverthrow` is class-based with a fluent chain. `effect` is its own programming model. `oxide.ts` is closer, but the API surface kept pulling me into things I didn't need. None of them gave me a plain discriminated union I can destructure, narrow with a type guard, and unwrap when I'm ready to deal with it. And none of them live next to the rest of the functional primitives I reach for every day.
+
+So I built one. It lives in a library called [`massaman`](https://www.npmjs.com/package/massaman) ([source on GitHub](https://github.com/zrosenbauer/massaman)), my "perfect-ish" successor to ramda and es-toolkit for the way I actually write JS. Currently shipping under the `rc` tag at `0.0.1-rc.2`, 177 tests, 100% coverage. The whole `Result` module is one file:
+
+```ts
+import { isNil } from 'es-toolkit/predicate';
+import type { Err, Ok, Result } from './types.js';
+
+function coerceError(thrown: unknown): Error {
+  if (thrown instanceof Error) return thrown;
+  if (typeof thrown === 'string') return new Error(thrown);
+  try {
+    const message = JSON.stringify(thrown) ?? String(thrown);
+    return new Error(message, { cause: thrown });
+  } catch {
+    return new Error(String(thrown), { cause: thrown });
+  }
+}
+
+export function ok<T>(value: T): Ok<T> {
+  return { ok: true, value, error: null };
+}
+
+export function err(error: unknown): Err {
+  return { ok: false, value: null, error: coerceError(error) };
+}
+
+export function isOk<T>(result: Result<T>): result is Ok<T> {
+  return result.ok === true;
+}
+
+export function isErr<T>(result: Result<T>): result is Err {
+  return result.ok === false;
+}
+
+export function unwrap<T>(result: Result<T>, message?: string): T {
+  if (result.ok) return result.value;
+  if (!isNil(message)) throw new Error(message, { cause: result.error });
+  throw result.error;
+}
+```
+
+The types are the boring part, but worth showing so the rest reads:
+
+```ts
+export type Ok<T> = { ok: true; value: T; error: null };
+export type Err = { ok: false; value: null; error: Error };
+export type Result<T> = Ok<T> | Err;
+```
+
+A few choices worth calling out, since this is the part I cared about:
+
+- **Plain object, no class.** The result is a discriminated union on `ok: true | false`. You can destructure it, log it, `JSON.stringify` it, send it across a worker boundary. No prototype, no `instanceof`, no `Result.fromPromise` ritual.
+- **`error` is always an `Error`.** If you call `err('boom')` or `err(42)`, `coerceError` wraps it. The original value is preserved on `cause`. The rest of my code never has to write `if (thrown instanceof Error)` again.
+- **Single-arg generic.** Rust's `Result<T, E>` parameterizes both sides. Mine is `Result<T>` because in TypeScript the error side is almost always "an `Error`, somehow", and the `cause` chain plus `Error` subclasses cover the rest. I traded the generic E for a coercion the caller never has to think about.
+- **`unwrap` mirrors Rust.** Call it with no args to rethrow the original error. Call it with a message to throw a new error with the original as `cause`. That's `Result::expect` in Rust, and it covers 90% of the cases where I actually want to bail.
+- **Type guards instead of methods.** `isOk(result)` and `isErr(result)` narrow the union. The arms become regular `if` blocks, not a `.map().mapErr().match()` chain.
+
+A typical call site, with `attempt` wrapping the throwing API at the boundary so I never write `try/catch` in my own code:
+
+```ts
+import { attempt, isErr } from 'massaman';
+
+function readConfig(): Result<Config> {
+  return attempt(() => {
+    const raw = fs.readFileSync('./config.json', 'utf8');
+    return JSON.parse(raw) as Config;
+  });
+}
+
+const result = readConfig();
+if (isErr(result)) {
+  log(result.error.message);
+  return;
+}
+use(result.value);
+```
+
+That's the whole API surface that matters. Five functions and three types. No chain, no class, no framework.
+
+## 🤷 why not one of the existing ones?
+
+I tried all of them. Half are effectively abandoned, the rest don't match how I write TS.
+
+- **`neverthrow`** — the most popular pick, and the one I respect the most. Class-based with a fluent chain. That's a deliberate design choice and if you live in that style it pays for itself. I don't. I write small functions that return discriminated unions and narrow them with `if` and [`ts-pattern`](https://github.com/gvergnaud/ts-pattern), and a `Result` that doesn't match that shape is a `Result` I wrestle with. Cadence has also slowed — last release was February 2025.
+- **`ts-results`** — last published May 2022. Effectively dead.
+- **`oxide.ts`** — last published October 2022. The API is the closest to what I want, but I'm not betting new code on a library that hasn't shipped in over three years.
+- **`effect`** — actively maintained, well thought out, the most ambitious of the bunch. The reason I didn't pick it is that it isn't a `Result` helper, it's a whole programming model. Adopting `effect` means adopting fibers, the `Effect` type, a runtime, and a small ecosystem on top. It's also backed by [Effectful Technologies Inc.](https://www.effectful.co/), which is fine, but it does mean you're writing code in a paradigm that lives or dies with one company. For the kind of JS I write that's a bigger commitment than the work warrants. If you're starting a new service and want to live there, it's genuinely impressive.
+
+None of these are bad. They just don't match the way I want this primitive to feel.
+
+The other reason is that `Result` was never going to live alone. `massaman` is a full functional toolkit picking up where ramda left off, with `Option`, `attempt` / `attemptAsync` for wrapping throwing code at the boundary, `pipe` for chaining, and the same `Result` primitives all in one place. Each piece is one file, one test suite, and a chance to make a decision about what "good API" means in TS for the kind of code I actually write.
+
+## 🎉 the conclusion
+
+The TypeScript I was writing in 2022 had exceptions in it, freely thrown, freely caught, freely forgotten. The TypeScript I'm writing in 2026 has `Result` at every boundary that can fail, and `try/catch` only at the very edge where I'm wrapping someone else's code that doesn't know better. That shift came from Rust, and I don't see it going back.
+
+Part three is on `Option` and what it does to my `null` checks. Part four is probably on `?` and what it would take to get even a watered-down version in TypeScript. I'll keep posting these as the library lands.
+
+If you want to argue with any of this, or yell at me about reinventing the wheel, reach out on [X](https://twitter.com/zrosenbauer) or [me@zrosenbauer.com](mailto:me@zrosenbauer.com).
