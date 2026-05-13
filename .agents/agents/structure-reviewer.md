@@ -18,11 +18,11 @@ You do not edit the post. The parent skill decides what to apply.
 
 ## Inputs
 
-| Field      | Type     | Required | Description                                               |
-| ---------- | -------- | -------- | --------------------------------------------------------- |
-| `path`     | `string` | Yes      | Absolute path to the `.mdx` file under review             |
-| `slug`     | `string` | Yes      | Post slug (used for the output filename)                  |
-| `repoRoot` | `string` | No       | Absolute path to the repo root; default cwd               |
+| Field      | Type     | Required | Description                                   |
+| ---------- | -------- | -------- | --------------------------------------------- |
+| `path`     | `string` | Yes      | Absolute path to the `.mdx` file under review |
+| `slug`     | `string` | Yes      | Post slug (used for the output filename)      |
+| `repoRoot` | `string` | No       | Absolute path to the repo root; default cwd   |
 
 ## Constraints
 
@@ -98,6 +98,7 @@ Write to `<repoRoot>/.scratch/editorialize-<slug>-structure.md`:
 
 ```markdown
 # Structure — <title or slug>
+
 Post: <path>
 Generated: <iso-date>
 Blocking findings: <n> · Style findings: <n>

@@ -16,11 +16,11 @@ You do not edit the post. The parent skill decides what to apply.
 
 ## Inputs
 
-| Field      | Type     | Required | Description                                               |
-| ---------- | -------- | -------- | --------------------------------------------------------- |
-| `path`     | `string` | Yes      | Absolute path to the `.mdx` file under review             |
-| `slug`     | `string` | Yes      | Post slug (used for the output filename)                  |
-| `repoRoot` | `string` | No       | Absolute path to the repo root; default cwd               |
+| Field      | Type     | Required | Description                                   |
+| ---------- | -------- | -------- | --------------------------------------------- |
+| `path`     | `string` | Yes      | Absolute path to the `.mdx` file under review |
+| `slug`     | `string` | Yes      | Post slug (used for the output filename)      |
+| `repoRoot` | `string` | No       | Absolute path to the repo root; default cwd   |
 
 ## Constraints
 
@@ -70,6 +70,7 @@ Write to `<repoRoot>/.scratch/editorialize-<slug>-voice.md`:
 
 ```markdown
 # Voice — <title or slug>
+
 Post: <path>
 Generated: <iso-date>
 Baseline samples: rust-ruined-javascript-result, rust-ruined-javascript-match, react-dnd-scoping
@@ -87,11 +88,13 @@ Drift findings: <n>
 ### <line range> — <drift type, e.g. "voice-flat" or "hedge-heavy" or "generic intro">
 
 **Before:**
+
 > <verbatim from draft>
 
 **Drift:** <what specifically drifts — e.g., "Three sentences of neutral reporting where the surrounding paragraphs assert opinions">
 
 **Suggested rewrite:**
+
 > <a rewrite that matches the sampled voice — opinion-bearing, first-person where appropriate, concrete>
 
 ---

@@ -19,11 +19,11 @@ You do not edit the post. The parent skill decides what to apply.
 
 ## Inputs
 
-| Field      | Type     | Required | Description                                               |
-| ---------- | -------- | -------- | --------------------------------------------------------- |
-| `path`     | `string` | Yes      | Absolute path to the `.mdx` file under review             |
-| `slug`     | `string` | Yes      | Post slug (used for the output filename)                  |
-| `repoRoot` | `string` | No       | Absolute path to the repo root; default cwd               |
+| Field      | Type     | Required | Description                                   |
+| ---------- | -------- | -------- | --------------------------------------------- |
+| `path`     | `string` | Yes      | Absolute path to the `.mdx` file under review |
+| `slug`     | `string` | Yes      | Post slug (used for the output filename)      |
+| `repoRoot` | `string` | No       | Absolute path to the repo root; default cwd   |
 
 ## Constraints
 
@@ -62,7 +62,7 @@ Claims split into two buckets. Pick the right tool per claim type — don't run 
 
 **Bucket A — library / framework / language API claims → Context7 first**
 
-For any claim about how a library, framework, runtime, or language works *today* — including version numbers, API signatures, hook names, config flags, default behaviors, or what's been added/removed:
+For any claim about how a library, framework, runtime, or language works _today_ — including version numbers, API signatures, hook names, config flags, default behaviors, or what's been added/removed:
 
 1. `mcp__context7__resolve-library-id` with the library name (e.g. `react`, `rust`, `typescript`, `next.js`, `node`). Read the candidates it returns and pick the right match.
 2. `mcp__context7__get-library-docs` with a focused `topic` (e.g. `useEffectEvent`, `Result type`, `app router`, `worker threads`). Read the returned docs.
@@ -99,6 +99,7 @@ Write to `<repoRoot>/.scratch/editorialize-<slug>-factcheck.md`:
 
 ```markdown
 # Factcheck — <title or slug>
+
 Post: <path>
 Generated: <iso-date>
 Claims checked: <n>
@@ -142,10 +143,10 @@ Wrong: <n> · Unverifiable: <n>
 
 ## Examples of category-error claims to catch
 
-| Claim in draft                                       | Correct                                                                                     |
-| ---------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| "JavaScript is a classical language"                 | JavaScript is a prototypal, multi-paradigm language. `class` syntax (ES2015) is sugar over prototypes. |
-| "Rust is a functional language"                      | Rust is multi-paradigm with strong functional influences but is not a pure functional language.        |
-| "Node.js is single-threaded"                         | Node's main event loop is single-threaded; libuv uses a thread pool and worker threads exist.          |
-| "TypeScript has a Result type built in"              | It does not. `Result` is a userland pattern.                                                          |
-| "React invented the virtual DOM"                     | React popularized it; the concept predates React.                                                     |
+| Claim in draft                          | Correct                                                                                                |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| "JavaScript is a classical language"    | JavaScript is a prototypal, multi-paradigm language. `class` syntax (ES2015) is sugar over prototypes. |
+| "Rust is a functional language"         | Rust is multi-paradigm with strong functional influences but is not a pure functional language.        |
+| "Node.js is single-threaded"            | Node's main event loop is single-threaded; libuv uses a thread pool and worker threads exist.          |
+| "TypeScript has a Result type built in" | It does not. `Result` is a userland pattern.                                                           |
+| "React invented the virtual DOM"        | React popularized it; the concept predates React.                                                      |

@@ -16,11 +16,11 @@ You do not edit the post. The parent skill decides what to apply.
 
 ## Inputs
 
-| Field      | Type     | Required | Description                                               |
-| ---------- | -------- | -------- | --------------------------------------------------------- |
-| `path`     | `string` | Yes      | Absolute path to the `.mdx` file under review             |
-| `slug`     | `string` | Yes      | Post slug (used for the output filename)                  |
-| `repoRoot` | `string` | No       | Absolute path to the repo root; default cwd               |
+| Field      | Type     | Required | Description                                   |
+| ---------- | -------- | -------- | --------------------------------------------- |
+| `path`     | `string` | Yes      | Absolute path to the `.mdx` file under review |
+| `slug`     | `string` | Yes      | Post slug (used for the output filename)      |
+| `repoRoot` | `string` | No       | Absolute path to the repo root; default cwd   |
 
 ## Constraints
 
@@ -58,6 +58,7 @@ Write to `<repoRoot>/.scratch/editorialize-<slug>-humanizer.md`:
 
 ```markdown
 # Humanizer — <title or slug>
+
 Post: <path>
 Generated: <iso-date>
 Patterns hit: <n> distinct · Total findings: <n>
@@ -67,9 +68,11 @@ Patterns hit: <n> distinct · Total findings: <n>
 ### #<pattern-num> <pattern-name> — <line range>
 
 **Before:**
+
 > <verbatim sentence or paragraph from the post>
 
 **After:**
+
 > <concrete rewrite that preserves meaning and matches Zac's voice — short punchy sentences, opinion-bearing, first-person when natural>
 
 **Why this is a tell:** <one-line from the taxonomy>
