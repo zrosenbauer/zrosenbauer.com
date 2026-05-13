@@ -1,7 +1,8 @@
 import { HeroBanner } from '@components/site/hero-banner';
 import { Section } from '@components/site/section';
-import { allBlogPosts, allProjects } from '@content';
+import { allProjects } from '@content';
 import { IconStarFilled } from '@tabler/icons-react';
+import { publishedBlogPosts } from '@utils/blog/posts';
 import { fetchProjectsWithStars, formatStars } from '@utils/github/projects';
 import Link from 'next/link';
 
@@ -17,7 +18,7 @@ export default async function GuiHome() {
 
   const featuredWithStars = await fetchProjectsWithStars(featuredProjects);
 
-  const recentPosts = [...allBlogPosts]
+  const recentPosts = [...publishedBlogPosts]
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
     .slice(0, 3);
 

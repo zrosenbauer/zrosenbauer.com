@@ -3,11 +3,11 @@ import {
   type Design,
   type Page,
   type Project,
-  allBlogPosts,
   allDesigns,
   allPages,
   allProjects,
 } from '@content';
+import { publishedBlogPosts } from '@utils/blog/posts';
 
 import type { FsDir, FsFile, FsNode } from './types';
 
@@ -129,7 +129,7 @@ const buildTree = (): FsDir => {
   );
   const designsDir = makeDir('designs', `${HOME_PATH}/designs`, 'Visual experiments.');
 
-  const blogFiles = sortedByName(allBlogPosts.map(blogPostToFile));
+  const blogFiles = sortedByName(publishedBlogPosts.map(blogPostToFile));
   for (const f of blogFiles) {
     blogDir.children[f.name] = f;
   }

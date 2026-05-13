@@ -1,6 +1,6 @@
 import { Mdx } from '@components/md/mdx';
 import { Section } from '@components/site/section';
-import { allBlogPosts } from '@content';
+import { publishedBlogPosts } from '@utils/blog/posts';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -13,14 +13,14 @@ interface Props {
 }
 
 export async function generateStaticParams(): Promise<Array<ParamsShape>> {
-  return allBlogPosts.map((p) => ({
+  return publishedBlogPosts.map((p) => ({
     slug: p.slug,
   }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = allBlogPosts.find((p) => p.slug === slug);
+  const post = publishedBlogPosts.find((p) => p.slug === slug);
   if (!post) return {};
   const image = `/og/blog/${post.slug}.png`;
   return {
@@ -48,7 +48,7 @@ const formatDate = (iso: string) =>
 
 export default async function PostPage({ params }: Props) {
   const { slug } = await params;
-  const post = allBlogPosts.find((p) => p.slug === slug);
+  const post = publishedBlogPosts.find((p) => p.slug === slug);
   if (!post) {
     notFound();
   }

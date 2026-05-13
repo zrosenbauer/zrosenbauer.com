@@ -1,7 +1,7 @@
 'use client';
 
 import { Section } from '@components/site/section';
-import { allBlogPosts } from '@content';
+import { publishedBlogPosts } from '@utils/blog/posts';
 import { blogTags } from '@utils/blog/tags';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
@@ -15,8 +15,8 @@ export default function BlogPage() {
   const sortedPosts = useMemo(() => {
     const filtered =
       tagFilters.length === 0
-        ? allBlogPosts
-        : allBlogPosts.filter((p) => p.tags?.some((t) => tagFilters.includes(t)) ?? false);
+        ? publishedBlogPosts
+        : publishedBlogPosts.filter((p) => p.tags?.some((t) => tagFilters.includes(t)) ?? false);
     return [...filtered].sort(
       (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     );

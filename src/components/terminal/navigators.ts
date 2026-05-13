@@ -1,4 +1,5 @@
-import { allBlogPosts, allDesigns, allProjects } from '@content';
+import { allDesigns, allProjects } from '@content';
+import { publishedBlogPosts } from '@utils/blog/posts';
 
 export interface NavigatorItem {
   slug: string;
@@ -28,7 +29,7 @@ export interface Navigator {
 }
 
 const sortedBlog = () =>
-  [...allBlogPosts].sort(
+  [...publishedBlogPosts].sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 
@@ -44,7 +45,7 @@ const normalizeMdImages = (raw: string): string =>
     return `![${alt}](${src})`;
   });
 
-const blogPostBody = (post: (typeof allBlogPosts)[number]): string => {
+const blogPostBody = (post: (typeof publishedBlogPosts)[number]): string => {
   const meta: string[] = [
     new Date(post.publishedAt).toISOString().slice(0, 10),
     `${post.readTime} min read`,

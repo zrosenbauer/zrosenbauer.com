@@ -1,4 +1,5 @@
-import { allBlogPosts, allDesigns, allPages, allProjects } from '@content';
+import { allDesigns, allPages, allProjects } from '@content';
+import { publishedBlogPosts } from '@utils/blog/posts';
 
 const SITE_URL = 'https://zrosenbauer.com';
 
@@ -8,7 +9,7 @@ const link = (path: string): string => `${SITE_URL}${path.startsWith('/') ? path
 const pageHref = (slug: string): string => link(`/gui/${slug}`);
 
 const sortedBlog = () =>
-  [...allBlogPosts].sort(
+  [...publishedBlogPosts].sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 
