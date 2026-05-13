@@ -1,73 +1,38 @@
-# zrosenbauer.com
+<div align="center">
+  <img src="./.github/assets/banner.jpg" alt="zrosenbauer.com" width="100%" />
+  <p><strong>Personal site & blog for Zac Rosenbauer. Statically exported Next.js with a GUI and a TUI over the same MDX content.</strong></p>
 
-Personal website for Zac Rosenbauer, published at [zrosenbauer.com](https://zrosenbauer.com).
+<a href="https://zrosenbauer.com"><img src="https://img.shields.io/badge/live-zrosenbauer.com-181717?logo=githubpages" alt="Live site" /></a>
+<a href="https://github.com/zrosenbauer/zrosenbauer.com/actions/workflows/ci.yml"><img src="https://github.com/zrosenbauer/zrosenbauer.com/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
+<a href="https://github.com/zrosenbauer/zrosenbauer.com/actions/workflows/deploy.yml"><img src="https://github.com/zrosenbauer/zrosenbauer.com/actions/workflows/deploy.yml/badge.svg?branch=main" alt="Deploy" /></a>
+<a href="./LICENSE"><img src="https://img.shields.io/badge/code-MIT-green" alt="Code license: MIT" /></a>
 
-## Overview
+</div>
 
-This repo powers a small personal site with two front ends over the same MDX content:
+## Layout
 
-- `/tui` - a keyboard-driven terminal interface with in-terminal reading views.
-- `/gui` - a graphical web interface for projects, writing, designs, about, and contact pages.
+Two front ends, same MDX content:
 
-The site is statically exported and deployed to GitHub Pages.
+- `/gui` — the graphical web UI
+- `/tui` — a terminal-style alt UI
 
-## Stack
-
-- Next.js App Router
-- React and TypeScript
-- Tailwind CSS
-- Contentlayer for MDX content
-- pnpm for package management
-
-## Project Structure
-
-```text
-content/
-  blog/       Blog posts
-  designs/    Design writeups
-  pages/      Static pages
-  projects/   Project entries
-public/       Static assets
-src/
-  app/        Next.js routes
-  components/ Shared UI, site, blog, MDX, and terminal components
-  utils/      Content and integration helpers
-```
-
-## Getting Started
-
-```bash
-pnpm install
-pnpm dev
-```
-
-Open `http://localhost:3000`.
+Content lives in `content/` (blog posts, projects, designs, pages). Routes in `src/app/`. Tailwind v4, contentlayer, shadcn primitives, oxlint + oxfmt.
 
 ## Scripts
 
 ```bash
-pnpm dev           # Start the local Next.js dev server
-pnpm build         # Generate Contentlayer data and export the site
-pnpm start         # Serve the exported out/ directory
-pnpm preview       # Build, then serve the export
-pnpm check:types   # Generate Contentlayer data, then run TypeScript
-pnpm typecheck     # Alias for check:types
-pnpm lint          # Run oxlint
-pnpm format:check  # Check formatting
-pnpm knip          # Check for unused files/dependencies
+pnpm dev           # local dev server
+pnpm build         # contentlayer + static export to out/
+pnpm preview       # build + serve out/
+pnpm typecheck     # contentlayer + tsc
+pnpm lint          # oxlint
+pnpm format        # oxfmt
+pnpm lint:content  # alex (inclusivity + profanity over MDX)
 ```
-
-## Deployment
-
-Production builds use Next.js static export. The generated site is written to `out/` and can be hosted as static files.
 
 ## License
 
-This repo is dual-licensed:
+- **Code, configuration, tooling** — MIT, see [`LICENSE`](./LICENSE).
+- **Content** (posts, designs, project entries, page copy, prose, imagery in `public/img/`) — All Rights Reserved, see [`content/LICENSE`](./content/LICENSE).
 
-- **Code, configuration, and tooling** — MIT, see [`LICENSE`](./LICENSE).
-- **Content** (blog posts, designs, project entries, page copy, imagery in `public/img/`, and authored prose wherever it appears) — All Rights Reserved, see [`content/LICENSE`](./content/LICENSE).
-
-Third-party logos, screenshots, and embedded material remain the property of their respective owners and are not covered by either license. See `content/LICENSE` for details.
-
-For permission to reuse content beyond fair use, contact me@zrosenbauer.com.
+For permission to reuse content beyond fair use, [me@zrosenbauer.com](mailto:me@zrosenbauer.com).
