@@ -1,0 +1,19 @@
+src/app/gui/projects/page.tsx
+  s_668774b1abae44::t_c9bd945128e4e4 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b398dad6cbf05f28f8652b283b1b0205271c5a12",
+  "prompts": {},
+  "sessions": {
+    "s_668774b1abae44": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef206e7d2ffeXsjkLLrc4X37O7",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Zac Rosenbauer <me@zrosenbauer.com>"
+    }
+  }
+}
