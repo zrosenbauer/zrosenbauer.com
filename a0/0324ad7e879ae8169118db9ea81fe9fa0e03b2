@@ -1,0 +1,25 @@
+package.json
+  s_668774b1abae44::t_6e84b38be70d62 23-24,26-27,29,31-32,36,40,46-51,53-62
+.oxlintrc.json
+  s_668774b1abae44::t_04d90b3c81cecd 46-50
+.gitignore
+  s_668774b1abae44::t_ef8a5471691de2 47-49,54
+knip.json
+  s_668774b1abae44::t_3549c0474304c2 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a00324ad7e879ae8169118db9ea81fe9fa0e03b2",
+  "prompts": {},
+  "sessions": {
+    "s_668774b1abae44": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef206e7d2ffeXsjkLLrc4X37O7",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Zac Rosenbauer <me@zrosenbauer.com>"
+    }
+  }
+}
