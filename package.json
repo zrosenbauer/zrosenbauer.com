@@ -56,7 +56,7 @@
     "lefthook": "^2.1.6",
     "oxfmt": "^0.48.0",
     "oxlint": "^1.63.0",
-    "postcss": "^8.5.14",
+    "postcss": "^8.5.18",
     "satori": "^0.26.0",
     "tailwindcss": "^4.3.0",
     "tsx": "^4.21.0",
