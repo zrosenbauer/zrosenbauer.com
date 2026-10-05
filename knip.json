@@ -8,5 +8,6 @@
     "contentlayer.config.ts"
   ],
   "project": ["src/**/*.{ts,tsx}", "*.{ts,tsx,mjs,js}"],
+  "ignoreBinaries": ["magick"],
   "ignoreDependencies": ["@next/mdx", "@tailwindcss/typography", "tailwindcss", "tw-animate-css"]
 }
