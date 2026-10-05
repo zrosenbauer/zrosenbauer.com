@@ -1,0 +1,38 @@
+content/projects/almanac.mdx
+  s_668774b1abae44::t_705b3654728ebb 2-3,6,9
+src/app/gui/projects/page.tsx
+  s_668774b1abae44::t_705b3654728ebb 7
+content/projects/massaman.mdx
+  s_668774b1abae44::t_705b3654728ebb 6,9
+content/projects/ciderpress.mdx
+  s_668774b1abae44::t_705b3654728ebb 1-9
+content/projects/voltagent.mdx
+  s_668774b1abae44::t_705b3654728ebb 6,9
+content/projects/maltty.mdx
+  s_668774b1abae44::t_705b3654728ebb 1-9
+content/projects/viteval.mdx
+  s_668774b1abae44::t_705b3654728ebb 9
+content/projects/lauf.mdx
+  s_668774b1abae44::t_705b3654728ebb 9
+content/projects/zrosenbauer.mdx
+  s_668774b1abae44::t_705b3654728ebb 9
+  s_668774b1abae44::t_4a6ce5fc96d6b8 6
+content/projects/skills.mdx
+  s_668774b1abae44::t_4a6ce5fc96d6b8 2-3,6,9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0a1492286bd9543b91d3fd989b4db0a0c4c3449f",
+  "prompts": {},
+  "sessions": {
+    "s_668774b1abae44": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef206e7d2ffeXsjkLLrc4X37O7",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Zac Rosenbauer <me@zrosenbauer.com>"
+    }
+  }
+}
