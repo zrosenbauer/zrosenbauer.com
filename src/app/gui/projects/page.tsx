@@ -4,7 +4,7 @@ import { IconStarFilled } from '@tabler/icons-react';
 import { fetchProjectsWithStars, formatStars, type ProjectWithStars } from '@utils/github/projects';
 import Link from 'next/link';
 
-const FEATURED_SLUGS = ['voltagent', 'viteval', 'ciderpress', 'maltty', 'almanac', 'massaman'];
+const FEATURED_SLUGS = ['voltagent', 'viteval', 'ciderpress', 'maltty', 'massaman', 'almanac'];
 
 export default async function ProjectsPage() {
   const enriched = await fetchProjectsWithStars(allProjects);
