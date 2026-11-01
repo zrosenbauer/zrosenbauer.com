@@ -26,7 +26,7 @@
     "geist": "^1.7.2",
     "highlight.js": "^11.12.0",
     "lodash": "^4.18.1",
-    "next": "^16.3.8",
+    "next": "^16.4.1",
     "next-contentlayer2": "^0.5.8",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
